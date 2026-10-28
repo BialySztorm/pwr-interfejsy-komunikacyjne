@@ -13,6 +13,7 @@ import hashlib
 import os
 import re
 import sys
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -24,6 +25,26 @@ GOOGLE_NATIVE_MIME_PREFIX = "application/vnd.google-apps"
 FOLDER_MIME_TYPE = f"{GOOGLE_NATIVE_MIME_PREFIX}.folder"
 
 FOLDER_URL_PATTERN = re.compile(r"/folders/([a-zA-Z0-9_-]+)")
+
+# Google's abuse-detection flags the default "python-requests/x.y" User-Agent on
+# high-volume anonymous traffic, so we send a normal browser-like one instead.
+SESSION = requests.Session()
+SESSION.headers.update(
+    {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+            "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        )
+    }
+)
+
+# Small pause between downloads to avoid tripping rate/abuse limits.
+DOWNLOAD_DELAY_SECONDS = 0.5
+
+# Retry/backoff for transient errors (rate limiting, anti-abuse blocks, server errors).
+RETRYABLE_STATUS_CODES = {403, 429, 500, 502, 503, 504}
+MAX_RETRIES = 5
+BACKOFF_BASE_SECONDS = 2.0
 
 
 class ConfigError(RuntimeError):
@@ -91,6 +112,33 @@ def load_config() -> tuple[str, str]:
     return folder_id, api_key
 
 
+def request_with_retry(method: str, url: str, **kwargs) -> requests.Response:
+    """Perform an HTTP request, retrying with exponential backoff on transient errors.
+
+    Retries on rate limiting, anti-abuse blocks, and server errors (see
+    RETRYABLE_STATUS_CODES). Non-retryable errors (e.g. invalid API key) are
+    returned immediately so the caller's error handling can report them.
+    """
+    last_response: requests.Response | None = None
+
+    for attempt in range(MAX_RETRIES + 1):
+        response = SESSION.request(method, url, **kwargs)
+        if response.status_code not in RETRYABLE_STATUS_CODES:
+            return response
+
+        last_response = response
+        if attempt < MAX_RETRIES:
+            delay = BACKOFF_BASE_SECONDS * (2**attempt)
+            print(
+                f"  Transient error ({response.status_code}), retrying in "
+                f"{delay:.0f}s (attempt {attempt + 1}/{MAX_RETRIES})..."
+            )
+            time.sleep(delay)
+
+    assert last_response is not None
+    return last_response
+
+
 def list_folder_children(folder_id: str, api_key: str) -> list[DriveFile]:
     """List all children of a Drive folder, handling pagination."""
     files: list[DriveFile] = []
@@ -106,7 +154,9 @@ def list_folder_children(folder_id: str, api_key: str) -> list[DriveFile]:
         if page_token:
             params["pageToken"] = page_token
 
-        response = requests.get(f"{DRIVE_API_BASE}/files", params=params, timeout=30)
+        response = request_with_retry(
+            "GET", f"{DRIVE_API_BASE}/files", params=params, timeout=30
+        )
         handle_api_errors(response)
         payload = response.json()
 
@@ -134,7 +184,8 @@ def handle_api_errors(response: requests.Response) -> None:
             "Check that:\n"
             "  - GDRIVE_API_KEY in .env is correct\n"
             "  - the Google Drive API is enabled in your Google Cloud project\n"
-            "See docs/GDRIVE_API_KEY.md for setup steps."
+            "See docs/GDRIVE_API_KEY.md for setup steps.\n"
+            f"Raw response: {response.text}"
         )
     if not response.ok:
         raise DriveApiError(
@@ -152,8 +203,8 @@ def local_md5(path: Path) -> str:
 
 def download_file(file_id: str, api_key: str, destination: Path) -> None:
     params = {"alt": "media", "key": api_key}
-    response = requests.get(
-        f"{DRIVE_API_BASE}/files/{file_id}", params=params, stream=True, timeout=60
+    response = request_with_retry(
+        "GET", f"{DRIVE_API_BASE}/files/{file_id}", params=params, stream=True, timeout=60
     )
     handle_api_errors(response)
 
@@ -161,6 +212,8 @@ def download_file(file_id: str, api_key: str, destination: Path) -> None:
     with destination.open("wb") as handle:
         for chunk in response.iter_content(chunk_size=1024 * 1024):
             handle.write(chunk)
+
+    time.sleep(DOWNLOAD_DELAY_SECONDS)
 
 
 def sync_folder(
