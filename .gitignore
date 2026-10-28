@@ -1,0 +1,23 @@
+# IDE
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Env files (secrets)
+.env
+.env.local
