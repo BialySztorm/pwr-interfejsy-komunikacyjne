@@ -1,0 +1,3 @@
+﻿System,Globalny WER [%],Globalny RTF,Mediana opóźnienia per plik [s],Maks. opóźnienie per plik [s],Czas nagrań [s],Czas przetwarzania [s],Substytucje,Pominięcia,Wstawienia,Słowa referencyjne,WER - Polecenia/pytania (1) [%],WER - Polecenia/pytania (2) [%],WER - Wypowiedź spontaniczna [%],"WER - Nazwy własne, liczby, daty [%]",WER - Trudniejsze warunki akustyczne (szum) [%]
+Whisper (base),62.72,0.0404,0.3043,3.0424,578.06,23.34,399,237,79,1140,84.07,39.66,65.7,63.41,72.28
+Vosk,68.6,0.0837,0.9149,2.1745,578.06,48.37,406,234,142,1140,91.5,50.97,77.45,89.39,85.26

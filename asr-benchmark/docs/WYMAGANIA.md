@@ -12,10 +12,10 @@ z samego repo — takie przypadki są oznaczone wprost.
 |---|---|---|---|
 | ~200 wypowiedzi, ≥25 mówców, tylko PL, transkrypcje zweryfikowane przez człowieka | 🟡 | `data/raw/`, `scripts/sync_drive.py` | Weryfikacja ludzka i kompletność zbioru nie do potwierdzenia z repo; język PL też nie do zweryfikowania bez odsłuchu |
 | Struktura "Imię Nazwisko" + `<indeks>-<N>.wav/.txt` | 🟢 | `data/raw/*` | — |
-| Te same teksty nagrane przez różne osoby (opcjonalnie) | 🟢 | `src/asr_benchmark/bench_takes.py` | Wykryte i obsłużone (6 plików, 2 osoby — Aleksander Stepaniuk / Jakub Borsuk) |
-| Raport podaje liczbę nagrań, słów, mówców | 🔴 | — | Żaden skrypt tego nie liczy/wypisuje zbiorczo |
-| Oba systemy: identyczne pliki, ten sam format | 🔴 | `bench.py: get_audio_info, transcribe_vosk` | Korpus niejednolity: 3 różne sample rate (48k/44,1k/16k), mono+stereo, PCM16/24 mieszane |
-| Ustalony sposób pomiaru czasu | 🟡 | `bench.py: transcribe_whisper/transcribe_vosk` | Konsekwentne, ale brak warm-up (bias GPU) i brak rozróżnienia opóźnienie vs RTF |
+| Te same teksty nagrane przez różne osoby (opcjonalnie) | 🟢 (20 transkrypcji, każda nagrana przez 2 osoby) | `src/asr_benchmark/bench_takes.py`, `results/porownanie_oryginal_wariant-*.csv` | — |
+| Raport podaje liczbę nagrań, słów, mówców | 🟢 | `scripts/preprocess_audio.py`, `data/processed/raport_zbioru.md` | — |
+| Oba systemy: identyczne pliki, ten sam format | 🟢 | `scripts/preprocess_audio.py` → `data/processed/` (16kHz mono), `bench.py`/`bench_takes.py: resolve_audio_path` | — |
+| Ustalony sposób pomiaru czasu | 🟢 | `bench.py`/`bench_takes.py: warmup_whisper_model, warmup_vosk_model` (warm-up przed pomiarem), mediana/maks. opóźnienia per plik w podsumowaniu | — |
 
 ## Kryteria oceny (wagi)
 
@@ -27,7 +27,7 @@ z samego repo — takie przypadki są oznaczone wprost.
 | 4 | Krótkie spontaniczne + dźwięki pozawerbalne | 0.10 | 🟡 | WER kategorii 3 w `podsumowanie_asr-*.csv` | Brak analizy błędów, brak oznaczenia, które referencje zawierają "wow/ojej" itp. |
 | 5 | Odporność na szum (Δ WER cisza vs szum) | 0.10 | 🟡 | WER kategorii 5 liczony | Różnica (Δ) między kategoriami nie jest jawnie obliczana/eksponowana |
 | 6 | Rozpoznanie intencji | 0.15 | 🔴 | — | Zero adnotacji intencji, zero kodu oceniającego czy transkrypcja pozwala wydobyć intencję — **najwyższa waga, zero pokrycia** |
-| 7 | Szybkość: opóźnienie + RTF | 0.10 | 🟡 | `RTF` w CSV | Jest RTF globalny; brak RTF per kategoria, brak odrębnego pomiaru "opóźnienia" w sensie realnym |
+| 7 | Szybkość: opóźnienie + RTF | 0.10 | 🟡 | `RTF` + mediana/maks. opóźnienia per plik w `podsumowanie_asr*-*.csv` | Brak RTF per kategoria; mediana/maks. to pomiar offline-batch, nie pomiar w rzeczywistym przepływie (patrz pkt R) |
 | 8 | Stabilność/kompletność: %, S/D/I, braki | 0.05 | 🟡 | S/D/I w CSV | "Brak transkrypcji" tylko na konsoli, nieagregowane do liczby/procentu w CSV |
 | 9 | Integracja: API, format, sprzęt, koszty, dane | 0.10 | 🔴 | — | Zero notatek/dokumentu porównującego te aspekty (ocena opisowa) |
 

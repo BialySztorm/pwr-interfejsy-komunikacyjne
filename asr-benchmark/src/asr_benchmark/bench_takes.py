@@ -5,14 +5,19 @@ współdzielących jedną transkrypcję.
 Plik bazowy `<index>-<N>.wav` z własnym `<index>-<N>.txt` (w tym samym
 folderze) to kompletna, samodzielna para obsługiwana przez `bench.py` — ten
 skrypt ją ignoruje. Interesują go tylko warianty, które NIE mają własnej
-transkrypcji w swoim folderze, bo powstały na dwa sposoby:
+transkrypcji w swoim folderze — to w KAŻDYM przypadku ta sama transkrypcja
+nagrana przez INNĄ osobę niż właściciel pliku z tekstem (wymóg badania "ten
+sam tekst nagrany przez różną osobę"). Różnica jest tylko w tym, JAK to
+zostało zapisane na Drive, bo nie było ustalonej konwencji nazewnictwa:
   - litera-wariant przyklejona do indeksu i/lub numeru kategorii, np.
-    `272664b-1.wav` albo `272644-1b.wav` — referencją jest `<ten-sam-index>-<N>.txt`
-    tej samej osoby (druga sesja/podejście tego samego mówcy);
-  - ten sam `<index>-<N>` nagrany przez INNĄ osobę (inny folder) — to dokładnie
-    przypadek "ten sam tekst nagrany przez różną osobę" z wymagań badania.
-    Referencja (`<index>-<N>.txt`) jest szukana w CAŁYM korpusie, nie tylko
-    w folderze danego pliku audio.
+    `272664b-1.wav` albo `272644-1b.wav` — druga osoba wrzuciła swoje nagranie
+    do folderu właściciela tekstu, dopisując literę do nazwy (jej tożsamość
+    nie jest znana z samej nazwy pliku);
+  - ten sam `<index>-<N>` nagrany przez inną osobę, ale zapisany w JEJ
+    WŁASNYM folderze pod oryginalnym (czyimś) indeksem, bez żadnej litery —
+    tu tożsamość drugiej osoby jest znana (to właściciel tego folderu).
+  W obu przypadkach referencja (`<index>-<N>.txt`) jest szukana w CAŁYM
+  korpusie, nie tylko w folderze danego pliku audio.
 
 Dla każdej takiej grupy skrypt transkrybuje też plik oryginalny (ten z własną
 transkrypcją), żeby porównać WER wariantu z WER oryginału w tym samym
@@ -22,12 +27,15 @@ oraz podsumowanie w konsoli (średnia różnica WER per system).
 import argparse
 import os
 import re
+import statistics
+import sys
 import time
 import glob
 import json
 import csv
 from pathlib import Path
 
+import numpy as np
 import soundfile as sf
 import torch
 import whisper
@@ -35,13 +43,22 @@ from tqdm import tqdm
 from vosk import Model, KaldiRecognizer
 from jiwer import process_words
 
+# Some filenames from Drive contain invisible Unicode (e.g. zero-width space)
+# that the Windows console's codepage can't encode — make stdout tolerant.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(errors="replace")
+
 # Vosk działa tylko na CPU, Whisper skorzysta z GPU, jeśli jest dostępne.
 WHISPER_DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Konfiguracja ścieżek — zakotwiczone względem katalogu projektu (asr-benchmark/),
 # niezależnie od katalogu roboczego, z którego skrypt jest odpalany.
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-BASE_DIR = str(PROJECT_ROOT / "data" / "raw")
+RAW_DIR = PROJECT_ROOT / "data" / "raw"
+PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
+BASE_DIR = str(RAW_DIR)
 VOSK_MODEL_PATH = str(PROJECT_ROOT / "models" / "vosk-model-small-pl-0.22")
 RESULTS_DIR = PROJECT_ROOT / "results"
 
@@ -79,14 +96,30 @@ def parse_args():
     return parser.parse_args()
 
 
+def warmup_whisper_model(model):
+    """Jedna pusta transkrypcja, żeby zainicjalizować kernele CUDA/alokacje przed
+    pomiarem czasu — bez tego pierwszy plik w benchmarku miałby nieuczciwie
+    wysoki czas przetwarzania (koszt inicjalizacji, nie samego rozpoznawania)."""
+    silence = np.zeros(16000, dtype=np.float32)
+    model.transcribe(silence, language="pl")
+
+
+def warmup_vosk_model(model):
+    rec = KaldiRecognizer(model, 16000)
+    rec.AcceptWaveform(b"\x00\x00" * 1600)
+    rec.FinalResult()
+
+
 def load_models(whisper_model_sizes):
     whisper_models = {}
     for size in whisper_model_sizes:
         print(f"Ładowanie modelu Whisper '{size}' (device={WHISPER_DEVICE})...")
         whisper_models[size] = whisper.load_model(size, device=WHISPER_DEVICE)
+        warmup_whisper_model(whisper_models[size])
 
     print("Ładowanie modelu Vosk (CPU, Vosk nie wspiera GPU)...")
     vosk_model = Model(VOSK_MODEL_PATH)
+    warmup_vosk_model(vosk_model)
 
     return whisper_models, vosk_model
 
@@ -143,6 +176,18 @@ def get_audio_info(file_path):
     data, samplerate = sf.read(file_path)
     duration = len(data) / samplerate
     return duration, samplerate
+
+
+def resolve_audio_path(raw_wav_path):
+    """Zwraca ścieżkę do pliku audio, który faktycznie trafi do ASR.
+
+    Jeśli dla danego nagrania istnieje znormalizowana wersja w data/processed/
+    (ten sam względny folder/nazwa), używamy jej (jednolity format dla obu
+    systemów) — w przeciwym razie wracamy do oryginału z data/raw/.
+    """
+    rel_path = Path(raw_wav_path).relative_to(RAW_DIR)
+    processed_path = PROCESSED_DIR / rel_path
+    return processed_path if processed_path.exists() else Path(raw_wav_path)
 
 
 def transcribe_whisper(model, file_path):
@@ -202,8 +247,9 @@ def build_recording_plan(base_dir):
             missing_ref.append(wav_path)
             continue
 
-        # Litera-wariant = druga sesja tej samej osoby; inny folder niż referencja
-        # = ten sam tekst nagrany przez inną osobę (wymagania badania to dopuszczają).
+        # W obu przypadkach to inna osoba niż właściciel transkrypcji — litera to
+        # nagranie wrzucone do folderu właściciela tekstu (tożsamość nieznana z nazwy),
+        # inny folder to nagranie zapisane we własnym folderze pod czyimś indeksem.
         label_parts = []
         if take != "base":
             label_parts.append(take)
@@ -280,11 +326,12 @@ def main():
         category = CATEGORIES.get(ref_n, "Inne")
         speaker = wav_path_obj.parent.name
 
-        duration, samplerate = get_audio_info(wav_path)
+        audio_path = str(resolve_audio_path(wav_path))
+        duration, samplerate = get_audio_info(audio_path)
 
         # Test Whisper (dla każdego z podanych rozmiarów modelu)
         for size, model in whisper_models.items():
-            hyp_whisper, time_whisper = transcribe_whisper(model, wav_path)
+            hyp_whisper, time_whisper = transcribe_whisper(model, audio_path)
             rtf_whisper = time_whisper / duration
             wer_whisper = process_words(reference_text, hyp_whisper)
 
@@ -308,7 +355,7 @@ def main():
             })
 
         # Test Vosk
-        hyp_vosk, time_vosk = transcribe_vosk(vosk_model, wav_path, samplerate)
+        hyp_vosk, time_vosk = transcribe_vosk(vosk_model, audio_path, samplerate)
         rtf_vosk = time_vosk / duration
         wer_vosk = process_words(reference_text, hyp_vosk)
 
@@ -365,13 +412,22 @@ def main():
         global_wer = (total_s + total_d + total_i) / total_n * 100 if total_n > 0 else 0
         global_rtf = total_proc / total_dur if total_dur > 0 else 0
 
+        # RTF to zagregowany wskaźnik (cały czas / całe nagranie) — opóźnienie to
+        # czas przetwarzania POJEDYNCZEGO pliku, liczone tu jako mediana i maksimum.
+        per_file_times = sorted(row["Czas przetwarzania [s]"] for row in sys_data)
+        median_latency = statistics.median(per_file_times)
+        max_latency = per_file_times[-1]
+
         print(f"Globalny WER: {global_wer:.2f}% (Substytucje: {total_s}, Pominięcia: {total_d}, Wstawienia: {total_i}, Słowa referencyjne: {total_n})")
         print(f"Globalny RTF: {global_rtf:.4f} (Czas nagrań: {total_dur:.2f}s, Czas przetwarzania: {total_proc:.2f}s)")
+        print(f"Opóźnienie per plik: mediana {median_latency:.3f}s, maks {max_latency:.3f}s")
 
         summary_row = {
             "System": system_name,
             "Globalny WER [%]": round(global_wer, 2),
             "Globalny RTF": round(global_rtf, 4),
+            "Mediana opóźnienia per plik [s]": round(median_latency, 4),
+            "Maks. opóźnienie per plik [s]": round(max_latency, 4),
             "Czas nagrań [s]": round(total_dur, 2),
             "Czas przetwarzania [s]": round(total_proc, 2),
             "Substytucje": total_s,

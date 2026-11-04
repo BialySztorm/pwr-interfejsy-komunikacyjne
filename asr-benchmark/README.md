@@ -16,6 +16,7 @@ asr-benchmark/
   docs/GDRIVE_API_KEY.md
   src/asr_benchmark/
   scripts/sync_drive.py
+  scripts/preprocess_audio.py
   tests/
 ```
 
@@ -67,3 +68,19 @@ reports them.
 Options:
 - `--dry-run` — list what would be downloaded without downloading
 - `--dest <path>` — destination directory (default: `data/raw`)
+
+### 4. Normalize audio to a common format (optional, recommended)
+
+`data/raw/` is a mix of whatever each speaker's phone/mic produced (different sample rates,
+mono/stereo, bit depth). To give both ASR systems byte-for-byte identical, uniform input,
+convert everything to 16kHz mono PCM WAV under `data/processed/`:
+
+```powershell
+python scripts\preprocess_audio.py --dry-run   # preview
+python scripts\preprocess_audio.py             # convert (requires ffmpeg on PATH)
+```
+
+`bench.py` and `bench_takes.py` automatically use the `data/processed/` version of a recording
+when it exists, and fall back to `data/raw/` otherwise — transcripts (`.txt`) always come from
+`data/raw/` only. The script also (re)writes `data/processed/raport_zbioru.md` with dataset-wide
+counts (speakers, recordings, reference words, total duration).

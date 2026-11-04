@@ -5,6 +5,7 @@ data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+!data/processed/raport_zbioru.md
 
 models/*
 !models/.gitkeep
