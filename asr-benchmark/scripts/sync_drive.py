@@ -4,6 +4,11 @@ Uses the Google Drive API v3 with an API key only (no OAuth), since the source
 folder is shared as "anyone with the link". Downloads only new or changed files
 (compared by md5Checksum against local MD5), preserves the speaker subfolder
 structure, and never deletes local files that were removed from Drive.
+
+Any downloaded file in a non-WAV audio format (mp3, m4a, flac, ogg, aac, wma)
+is additionally converted to a 16kHz mono PCM WAV placed next to the original
+(the original is kept). Conversion requires the `ffmpeg` binary to be
+installed and available on PATH.
 """
 
 from __future__ import annotations
@@ -12,6 +17,7 @@ import argparse
 import hashlib
 import os
 import re
+import subprocess
 import sys
 import time
 from dataclasses import dataclass, field
@@ -46,6 +52,17 @@ RETRYABLE_STATUS_CODES = {403, 429, 500, 502, 503, 504}
 MAX_RETRIES = 5
 BACKOFF_BASE_SECONDS = 2.0
 
+# Non-WAV audio formats that get auto-converted to WAV after download.
+CONVERTIBLE_AUDIO_EXTENSIONS = {".mp3", ".m4a", ".flac", ".ogg", ".aac", ".wma"}
+
+# Target WAV format for conversion: 16kHz mono PCM (required by Vosk, fine for Whisper).
+WAV_SAMPLE_RATE_HZ = 16000
+WAV_CHANNELS = 1
+
+
+class FfmpegNotFoundError(RuntimeError):
+    """Raised when the ffmpeg binary is not available on PATH."""
+
 
 class ConfigError(RuntimeError):
     """Raised when required configuration (.env) is missing or invalid."""
@@ -72,6 +89,8 @@ class SyncStats:
     wav_count: int = 0
     txt_count: int = 0
     unpaired: list[str] = field(default_factory=list)
+    converted: int = 0
+    conversion_skipped_current: int = 0
 
 
 def extract_folder_id(folder_url: str) -> str:
@@ -216,6 +235,55 @@ def download_file(file_id: str, api_key: str, destination: Path) -> None:
     time.sleep(DOWNLOAD_DELAY_SECONDS)
 
 
+def convert_to_wav(source: Path, destination: Path) -> None:
+    """Convert an audio file to 16kHz mono PCM WAV using ffmpeg. Keeps the source file."""
+    try:
+        result = subprocess.run(
+            [
+                "ffmpeg",
+                "-y",
+                "-i",
+                str(source),
+                "-ar",
+                str(WAV_SAMPLE_RATE_HZ),
+                "-ac",
+                str(WAV_CHANNELS),
+                str(destination),
+            ],
+            capture_output=True,
+            text=True,
+        )
+    except FileNotFoundError as exc:
+        raise FfmpegNotFoundError(
+            "ffmpeg not found on PATH. Install it (e.g. 'winget install ffmpeg' or "
+            "download from https://ffmpeg.org/download.html) to enable audio conversion."
+        ) from exc
+
+    if result.returncode != 0:
+        raise DriveApiError(
+            f"ffmpeg failed converting {source} to {destination}:\n{result.stderr}"
+        )
+
+
+def convert_missing_wavs(dest_dir: Path, stats: SyncStats, dry_run: bool) -> None:
+    """Scan dest_dir for convertible audio files without a matching .wav and convert them."""
+    for ext in sorted(CONVERTIBLE_AUDIO_EXTENSIONS):
+        for source_path in sorted(dest_dir.rglob(f"*{ext}")):
+            wav_path = source_path.with_suffix(".wav")
+            if wav_path.exists():
+                stats.conversion_skipped_current += 1
+                continue
+
+            if dry_run:
+                print(f"Would convert: {source_path} -> {wav_path}")
+                stats.converted += 1
+                continue
+
+            print(f"Converting: {source_path} -> {wav_path}")
+            convert_to_wav(source_path, wav_path)
+            stats.converted += 1
+
+
 def sync_folder(
     folder_id: str,
     api_key: str,
@@ -252,9 +320,10 @@ def sync_folder(
             continue
 
         local_path = dest_dir / child.name
-        if local_path.suffix.lower() == ".wav":
+        suffix = local_path.suffix.lower()
+        if suffix == ".wav":
             stats.wav_count += 1
-        elif local_path.suffix.lower() == ".txt":
+        elif suffix == ".txt":
             stats.txt_count += 1
 
         needs_download = True
@@ -264,16 +333,28 @@ def sync_folder(
 
         if not needs_download:
             stats.skipped_current += 1
-            continue
-
-        if dry_run:
+        elif dry_run:
             print(f"Would download: {local_path}")
             stats.downloaded += 1
-            continue
+        else:
+            print(f"Downloading: {local_path}")
+            download_file(child.id, api_key, local_path)
+            stats.downloaded += 1
 
-        print(f"Downloading: {local_path}")
-        download_file(child.id, api_key, local_path)
-        stats.downloaded += 1
+        if suffix in CONVERTIBLE_AUDIO_EXTENSIONS:
+            wav_path = local_path.with_suffix(".wav")
+            wav_is_stale = wav_path.exists() and needs_download
+            if wav_path.exists() and not wav_is_stale:
+                stats.conversion_skipped_current += 1
+            elif dry_run:
+                print(f"Would convert: {local_path} -> {wav_path}")
+                stats.converted += 1
+            else:
+                if wav_is_stale:
+                    wav_path.unlink()
+                print(f"Converting: {local_path} -> {wav_path}")
+                convert_to_wav(local_path, wav_path)
+                stats.converted += 1
 
 
 def find_unpaired_files(dest_dir: Path) -> list[str]:
@@ -294,6 +375,8 @@ def print_summary(stats: SyncStats, dest_dir: Path) -> None:
     print("\n--- Sync summary ---")
     print(f"Downloaded: {stats.downloaded}")
     print(f"Skipped (already up to date): {stats.skipped_current}")
+    print(f"Converted to WAV: {stats.converted}")
+    print(f"Conversion skipped (already converted): {stats.conversion_skipped_current}")
     print(f"Warnings: {len(stats.warnings)}")
     print(f"Speaker folders: {stats.speaker_folders}")
     print(f"WAV files: {stats.wav_count}")
@@ -321,11 +404,31 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         default=Path("data/raw"),
         help="Destination directory (default: data/raw).",
     )
+    parser.add_argument(
+        "--convert-only",
+        action="store_true",
+        help=(
+            "Skip the Google Drive sync entirely and only convert already-downloaded "
+            "non-WAV audio files under --dest that don't have a matching .wav yet."
+        ),
+    )
     return parser.parse_args(argv)
 
 
 def main(argv: list[str]) -> int:
     args = parse_args(argv)
+
+    args.dest.mkdir(parents=True, exist_ok=True)
+    stats = SyncStats()
+
+    if args.convert_only:
+        try:
+            convert_missing_wavs(args.dest, stats, dry_run=args.dry_run)
+        except (FfmpegNotFoundError, DriveApiError) as exc:
+            print(f"Conversion error: {exc}", file=sys.stderr)
+            return 1
+        print_summary(stats, args.dest)
+        return 0
 
     try:
         folder_id, api_key = load_config()
@@ -333,13 +436,13 @@ def main(argv: list[str]) -> int:
         print(f"Configuration error: {exc}", file=sys.stderr)
         return 1
 
-    args.dest.mkdir(parents=True, exist_ok=True)
-    stats = SyncStats()
-
     try:
         sync_folder(folder_id, api_key, args.dest, stats, dry_run=args.dry_run)
     except DriveApiError as exc:
         print(f"Drive API error: {exc}", file=sys.stderr)
+        return 1
+    except FfmpegNotFoundError as exc:
+        print(f"Conversion error: {exc}", file=sys.stderr)
         return 1
 
     print_summary(stats, args.dest)
