@@ -4,14 +4,18 @@ import time
 import glob
 import json
 import csv
+from pathlib import Path
+
 import soundfile as sf
 import whisper
 from vosk import Model, KaldiRecognizer
 from jiwer import process_words
 
-# Konfiguracja ścieżek
-BASE_DIR = "./Nagrania testowe/"
-VOSK_MODEL_PATH = "./vosk-model-small-pl-0.22/"
+# Konfiguracja ścieżek — zakotwiczone względem katalogu projektu (asr-benchmark/),
+# niezależnie od katalogu roboczego, z którego skrypt jest odpalany.
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+BASE_DIR = str(PROJECT_ROOT / "data" / "raw")
+VOSK_MODEL_PATH = str(PROJECT_ROOT / "models" / "vosk-model-small-pl-0.22")
 
 # Mapowanie kategorii nagrań na podstawie wytycznych
 CATEGORIES = {
