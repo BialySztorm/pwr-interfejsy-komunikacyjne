@@ -10,7 +10,7 @@
 \usepackage{hyperref}
 
 \title{Raport z badania porównawczego systemów rozpoznawania mowy}
-\author{Adam Krzywicki - 272523 Andrzej Manderla - XXXXXX Filip Zmyślony - XXXXXX}
+\author{Adam Krzywicki - 272523 Andrzej Manderla - XXXXXX Filip Zmyślony - 275748}
 \date{\today}
 
 \begin{document}
@@ -116,47 +116,6 @@ w kategorii nagrań z hałasem w tle. W tej grupie WER modelu
 \texttt{large-v3} był niższy o 49,25 punktu procentowego od wyniku
 modelu \texttt{base} i o 30,23 punktu procentowego od wyniku Voska.
 
-\subsection{Ocena wyodrębniania intencji i informacji kluczowych}
-
-Rozpoznawanie intencji oceniono automatyczną heurystyką słów kluczowych
-(\texttt{classify\_intent} w \texttt{bench.py}), bo tematyka nagrań jest zbyt
-zróżnicowana (elektronika, gastronomia, hotel, zdrowie, motoryzacja...), żeby
-zdefiniować jedną listę intencji domenowych. Wypowiedź klasyfikowana jest jako
-jeden z typów aktu mowy: \emph{zamówienie}, \emph{rezerwacja}, \emph{problem},
-\emph{polecenie}, \emph{pytanie} albo \emph{inne}, w tej kolejności priorytetu.
-Intencję referencji i intencję hipotezy porównuje się, a zgodność liczona jest
-jako \% nagrań, dla których obie intencje się zgadzają (kolumna
-\texttt{Zgodność intencji [\%]} w \texttt{podsumowanie\_asr-*.csv}).
-
-To jest heurystyka, nie model NLU ani ręczna adnotacja -- traktować jako
-przybliżony wskaźnik, nie rozstrzygającą ocenę.
-
-\begin{table}[htbp]
-\centering
-\caption{Zgodność intencji i dokładność rozpoznawania informacji kluczowych [\%]}
-\label{tab:intencje}
-\begin{tabular}{lccc}
-\toprule
-\textbf{System} & \textbf{Zgodność intencji} & \textbf{Nazwy własne} & \textbf{Daty/czas/liczby} \\
-\midrule
-Whisper \texttt{base}     & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
-Whisper \texttt{large-v3} & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
-Vosk                     & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-[Miejsce na analizę jakościową: przykłady błędów intencji i rozpoznawania
-nazw/liczb po pełnym przebiegu \texttt{bench.py} -- dane z
-\texttt{podsumowanie\_asr-*.csv}, kolumny \texttt{Zgodność intencji [\%]},
-\texttt{Dokładność nazw własnych [\%]}, \texttt{Dokładność encji
-(liczby/daty/czas) [\%]}.]
-
-Uwaga: Tabela~\ref{tab:intencje} to automatyczna ocena na \emph{całym} zbiorze
-(heurystyka), licząca inaczej niż ręczna ocena 36 nagrań w
-Tabeli~\ref{tab:informacje-kluczowe} (ta druga pozostaje jako niezależna
-weryfikacja na mniejszej, ręcznie sprawdzonej próbce).
-
 \subsection{Poprawność rozpoznawania informacji kluczowych}
 
 Przeprowadzono ręczną ocenę transkrypcji 36 nagrań z kategorii
@@ -187,100 +146,122 @@ kryteriach. Przykładem jego błędu było rozpoznanie zakresu
 ogniskowych obiektywu \emph{18--45 mm} jako \emph{18--35 mm}.
 
 \subsection{Możliwości integracji}
-Oba systemy działają lokalnie i mają gotowe biblioteki w Pythonie, co gwarantuje łatwą integrację oraz brak opłat za korzystanie z API. Dodatkowym bonusem jest pełna prywatność danych. Najważniejsza różnica leży w sprzęcie: Whisper potrzebuje większej mocy obliczeniowej, więc potrzebna jest w miarę mocna karta graficzna, podczas gdy Vosk jest lekki i bez problemu radzi sobie na zwykłym procesorze. Dodatkowo Vosk wspiera natywne przetwarzanie strumieniowe (audio podawane kawałkami w czasie rzeczywistym), podczas gdy Whisper w tym projekcie przetwarza cały plik na raz (batch) -- ma to konsekwencje dla opóźnienia, patrz sekcja~\ref{sec:latency}. Pełne porównanie API, formatu wyników, wymagań sprzętowych i kosztów -- \texttt{docs/INTEGRACJA.md}.
+Oba systemy działają lokalnie i mają gotowe biblioteki w Pythonie, co gwarantuje łatwą integrację oraz brak opłat za korzystanie z API. Dodatkowym bonusem jest pełna prywatność danych. Najważniejsza różnica leży w sprzęcie: Whisper potrzebuje większej mocy obliczeniowej, więc potrzebna jest w miarę mocna karta graficzna, podczas gdy Vosk jest lekki i bez problemu radzi sobie na zwykłym procesorze.
 
-\subsection{Porównanie sparowane per nagranie}
+\section{Przykłady poprawnych transkrypcji i błędów rozpoznawania}
 
-Dodatkowo do porównania na poziomie zagregowanych statystyk, dla każdego
-nagrania policzono różnicę WER między systemami (\texttt{scripts/paired\_comparison.py},
-wynik w \texttt{wyniki\_asr-*\_parowane\_*.csv}) -- to pozwala stwierdzić, na
-ilu konkretnych nagraniach jeden system wypada lepiej od drugiego, a nie tylko
-jaka jest średnia różnica w całej próbce.
+Z przebiegu wybrano dziesięć poprawnych transkrypcji oraz dziesięć przykładów błędów. Przykłady dobrano celowo, aby pokazać różne sytuacje. Ocena poprawnych przykładów uwzględnia równoważne zapisy liczb i jednostek oraz różnice w interpunkcji. Ten przegląd ma charakter jakościowy.
 
-\begin{table}[htbp]
-\centering
-\caption{Porównanie sparowane Whisper vs Vosk (per nagranie)}
-\label{tab:parowane}
-\begin{tabular}{lccc}
-\toprule
-\textbf{Para systemów} & \textbf{Vosk lepszy} & \textbf{Vosk gorszy} & \textbf{Remis} \\
-\midrule
-Whisper \texttt{base} vs Vosk     & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
-Whisper \texttt{large-v3} vs Vosk & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
-\bottomrule
-\end{tabular}
-\end{table}
+\subsection{Poprawne transkrypcje}
 
-[Miejsce na komentarz: średnia/mediana różnicy WER (B - A) i wynik testu
-Wilcoxona (jeśli dostępny scipy), z \texttt{scripts/paired\_comparison.py}.]
+\begin{enumerate}
+    \item Whisper (large-v3)
+    \par\textbf{Referencja.} „Potrzebuję monitora 27 cali do pracy zdalnej, najlepiej z rozdzielczością 4K. Jakie macie modele?”
+    \par\textbf{Wynik ASR.} „Potrzebuję monitora 27 cali do pracy zdalnej, najlepiej z rozdzielczością 4K. Jakie macie modele?”
+    \par\textbf{Ocena.} Zachowane parametry monitora i pytanie o dostępne modele.
 
-\subsection{Pomiar opóźnienia w rzeczywistym przepływie}
-\label{sec:latency}
+    \item Whisper (large-v3)
+    \par\textbf{Referencja.} „Czy dron DJI Mini 4 Pro jest dostępny od ręki, czy trzeba go zamówić?”
+    \par\textbf{Wynik ASR.} „Czy dron DJI Mini 4 Pro jest dostępny od ręki? Czy trzeba go zamówić?”
+    \par\textbf{Ocena.} Zachowana nazwa modelu drona i pytanie o dostępność mimo hałasu.
 
-Globalny RTF (sekcja~3.3) mówi, jak szybko system przetwarza nagranie
-\emph{względem jego długości}, ale nie odpowiada na praktyczne pytanie: ile
-użytkownik czeka \emph{po tym, jak przestanie mówić}, zanim dostanie
-transkrypcję. Zmierzono to na reprezentatywnym podzbiorze (po kilka nagrań z
-każdej kategorii, \texttt{scripts/latency\_pipeline.py}), symulując
-rzeczywisty przepływ: audio "dociera" w czasie rzeczywistym (z opóźnieniem
-odpowiadającym długości nagrania), a mierzone jest tylko opóźnienie
-\emph{ogonowe} -- czas od ostatniego fragmentu audio do gotowej transkrypcji.
+    \item Whisper (large-v3)
+    \par\textbf{Referencja.} „Z zasilaczy biorę coś z zapasem 100 watów, a do tego system Windows 11 Home.”
+    \par\textbf{Wynik ASR.} „Z zasilaczy biorę coś z zapasem 100W, a do tego system Windows 11 Home.”
+    \par\textbf{Ocena.} Zapis 100W odpowiada zapisowi 100 watów.
 
-Vosk przetwarza audio strumieniowo (kawałkami, w miarę jak "nadchodzą"), więc
-jego opóźnienie ogonowe jest małe i niezależne od długości nagrania. Whisper
-w tej konfiguracji nie ma API przyrostowego -- może zacząć transkrybować
-dopiero, gdy całe nagranie jest już dostępne, więc jego opóźnienie ogonowe
-równa się czasowi pojedynczego wywołania \texttt{transcribe()}.
+    \item Whisper (large-v3)
+    \par\textbf{Referencja.} „Wybieram płytę ASRock B650M i zasilacz Corsair RM850x.”
+    \par\textbf{Wynik ASR.} „Wybieram płytę ASRock B650M i zasilacz Corsair RM850X.”
+    \par\textbf{Ocena.} Poprawne nazwy obu podzespołów wraz z oznaczeniami modeli.
 
-\begin{table}[htbp]
-\centering
-\caption{Opóźnienie ogonowe (od końca wypowiedzi do transkrypcji)}
-\label{tab:latency}
-\begin{tabular}{lcc}
-\toprule
-\textbf{System} & \textbf{Mediana [s]} & \textbf{Maksimum [s]} \\
-\midrule
-Whisper \texttt{base}     & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
-Whisper \texttt{large-v3} & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
-Vosk                     & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
-\bottomrule
-\end{tabular}
-\end{table}
+    \item Whisper (large-v3)
+    \par\textbf{Referencja.} „Poproszę o dostarczenie tego zamówienia do pokoju 305, oj nie jednak do pokoju 310.”
+    \par\textbf{Wynik ASR.} „Poproszę o dostarczenie tego zamówienia do pokoju 305. Oj, nie, jednak do pokoju 310.”
+    \par\textbf{Ocena.} Zachowana autokorekta i ostateczny numer pokoju 310.
 
-[Dane z \texttt{results/latency\_pipeline.csv} po pełnym przebiegu
-\texttt{scripts/latency\_pipeline.py}.]
+    \item Whisper (large-v3)
+    \par\textbf{Referencja.} „Czy ten kabel USB-C pasuje do MacBooka Air i czy obsługuje szybkie ładowanie?”
+    \par\textbf{Wynik ASR.} „Czy ten kabel USB-C pasuje do MacBooka Air i czy obsługuje szybkie ładowanie?”
+    \par\textbf{Ocena.} Zachowane oba pytania, o zgodność kabla i szybkie ładowanie.
 
-\subsection{Ocena końcowa (synteza ważona)}
+    \item Whisper (large-v3)
+    \par\textbf{Referencja.} „Chcę zwrócić bilet na pociąg TLK numer sto dwadzieścia trzy, z Kędzierzyna-Koźla do Rzeszowa Głównego, dwudziestego ósmego października, godzina dwudziesta trzecia piętnaście, z przesiadką w Katowicach, i zapytać o opłatę manipulacyjną”
+    \par\textbf{Wynik ASR.} „Chcę zwrócić bilet na pociąg TLK nr 123 z Kędzierzyna Koźla do Rzeszowa Głównego 28 października, godzina 23.15 z przesiadką w Katowicach i zapytać o opłatę manipulacyjną.”
+    \par\textbf{Ocena.} Poprawnie rozpoznano trasę, numer pociągu, datę i godzinę.
 
-Wyniki wszystkich 9 kryteriów przeskalowano do wspólnej skali 0--100 (wyżej =
-lepiej) i połączono w jedną ocenę ważoną wagami z wytycznych badania
-(\texttt{scripts/compute\_final\_score.py}, metodologia przeskalowania opisana
-w docstringu skryptu):
+    \item Whisper (large-v3)
+    \par\textbf{Referencja.} „Mam w lodówce jajka, ser żółty, szpinak i trochę śmietany. Co mogę z tego ugotować na obiad? Pokaż mi przepisy, które nie wymagają więcej niż pół godziny i nie potrzebują piekarnika.”
+    \par\textbf{Wynik ASR.} „Mam w lodówce jajka, ser żółty, szpinak i trochę śmietany. Co mogę z tego ugotować na obiad? Pokaż mi przepisy, które nie wymagają więcej niż pół godziny i nie potrzebują piekarnika.”
+    \par\textbf{Ocena.} Zachowane składniki oraz ograniczenia czasu i użycia piekarnika.
 
-\begin{itemize}
-    \item WER, WER podzbioru spontaniczne+pozawerbalne: $100 - WER$,
-    \item Nazwy własne, daty/czas/liczby, intencja, kompletność: wartość \% już 0--100,
-    \item Odporność na szum: $100 - \Delta WER_{szum}$,
-    \item Szybkość (RTF): $100 \times (1 - RTF)$, $RTF{=}1$ (czas rzeczywisty) $\to 0$,
-    \item Integracja: ocena opisowa (0--100) na podstawie \texttt{docs/INTEGRACJA.md}, podawana ręcznie -- nie da się jej wyliczyć automatycznie.
-\end{itemize}
+    \item Whisper (large-v3)
+    \par\textbf{Referencja.} „Chcę procesor... i5-13400F, a kartę... RTX 3060... to znaczy 3070.”
+    \par\textbf{Wynik ASR.} „Chcę procesor i5-13400F, a kartę RTX 3060, to znaczy 3070.”
+    \par\textbf{Ocena.} Zachowana autokorekta modelu karty graficznej z RTX 3060 na RTX 3070.
 
-\begin{table}[htbp]
-\centering
-\caption{Ocena końcowa (ważona synteza 9 kryteriów, skala 0--100)}
-\label{tab:ocena-koncowa}
-\begin{tabular}{lc}
-\toprule
-\textbf{System} & \textbf{Ocena końcowa} \\
-\midrule
-Whisper \texttt{base}     & [UZUPEŁNIĆ] \\
-Whisper \texttt{large-v3} & [UZUPEŁNIĆ] \\
-Vosk                     & [UZUPEŁNIĆ] \\
-\bottomrule
-\end{tabular}
-\end{table}
+    \item Whisper (base)
+    \par\textbf{Referencja.} „Od kilku tygodni bardzo źle śpię. Budzę się w nocy i rano jestem zupełnie bez sił.”
+    \par\textbf{Wynik ASR.} „Od kilku tygodni bardzo źle śpię, budzę się w nocy i rano jestem zupełnie bez sił.”
+    \par\textbf{Ocena.} Zmiana interpunkcji zachowuje treść opisu.
 
-[Pełna tabela z rozbiciem na poszczególne kryteria: \texttt{results/podsumowanie\_asr-*\_ocena\_koncowa.csv}.]
+\end{enumerate}
+
+\subsection{Błędne transkrypcje}
+
+\begin{enumerate}
+    \item \textbf{Zmiana działania}. Vosk
+    \par\textbf{Referencja.} „Chciałbym zarezerwować saunę na godzinę 20:00 i poproszę na 2 godziny tę rezerwację.”
+    \par\textbf{Wynik ASR.} „chciałbym zrezygnować z sauny na godzinie dwadzieścia zero zero i poproszę na dwie godziny temu rezerwacji”
+    \par\textbf{Ocena.} Rezerwacja sauny zmienia się w rezygnację z sauny.
+
+    \item \textbf{Utrata ograniczenia budżetu}. Vosk
+    \par\textbf{Referencja.} „Jaki telefon z dobrym aparatem polecicie do 2500 złotych?”
+    \par\textbf{Wynik ASR.} „jaki telefon z dobrym aparatem polecicie to dwa tysiące pięćset złotych”
+    \par\textbf{Ocena.} Zapis „to” zamiast „do” zaciera informację, że 2500 zł to górna granica.
+
+    \item \textbf{Zmiana zakresu liczbowego}. Whisper (large-v3)
+    \par\textbf{Referencja.} „Zamówienie numer 31 05 87 na Canona EOS R50 z obiektywem 18-45 mm opłaciłem 2 października, 3899 zł, a status dalej pokazuje, że jest w realizacji”
+    \par\textbf{Wynik ASR.} „Zamówienie numer 3105-87 na Canon EOS R5-0 z obiektywem 18-35 mm opłaciłem 2 października 3899 zł, ale status dalej pokazuje, że jest w realizacji.”
+    \par\textbf{Ocena.} Zakres ogniskowych 18--45 mm zmienia się na 18--35 mm.
+
+    \item \textbf{Błędna data}. Whisper (base)
+    \par\textbf{Referencja.} „Czy dwudziestego października dwa tysiące dwudziestego szóstego roku, we Wrocławiu porywy wiatru nie przekraczały dziesięciu metrów na sekundę?”
+    \par\textbf{Wynik ASR.} „320 października, 126 roku, by wracłał, po rewy wiatrów nie przekraczało, 10 metrów na sekundę.”
+    \par\textbf{Ocena.} Dzień i rok zostają rozpoznane jako 320 października i 126 rok.
+
+    \item \textbf{Błędna nazwa produktu}. Whisper (base)
+    \par\textbf{Referencja.} „Czy ten kabel USB-C pasuje do MacBooka Air i czy obsługuje szybkie ładowanie?”
+    \par\textbf{Wynik ASR.} „Czy ten kabel USB-C pasuje do magbuk AR i przyopsuguje szybkie ładowanie?”
+    \par\textbf{Ocena.} MacBook Air zmienia się w „magbuk AR”.
+
+    \item \textbf{Utrata miejsca odjazdu}. Whisper (base)
+    \par\textbf{Referencja.} „Znajdź mi najbliższy pociąg z Wrocławia Głównego do Poznania Głównego”
+    \par\textbf{Wynik ASR.} „Znajdź mi najbliższy pociąg zwrot słowo ja głównego do poznania głównego.”
+    \par\textbf{Ocena.} Z transkrypcji nie da się odczytać, że pociąg ma odjechać z Wrocławia Głównego.
+
+    \item \textbf{Błędny identyfikator miejsca}. Whisper (base)
+    \par\textbf{Referencja.} „Poproszę o dostarczenie tego zamówienia do pokoju 305, oj nie jednak do pokoju 310.”
+    \par\textbf{Wynik ASR.} „Poproszę o dostarczenie tego zamówienia do pokoju 35. Uy, nie, jednak do pokoju 30.”
+    \par\textbf{Ocena.} Docelowy numer pokoju po autokorekcie zmienia się z 310 na 30.
+
+    \item \textbf{Błąd po autokorekcie}. Whisper (base)
+    \par\textbf{Referencja.} „Chcę procesor... i5-13400F, a kartę... RTX 3060... to znaczy 3070.”
+    \par\textbf{Wynik ASR.} „Chce procesor i pięć trzynaście czterysta F, a kartę RTX 3060. To znaczy 3710.”
+    \par\textbf{Ocena.} Ostateczny model karty graficznej zmienia się z RTX 3070 na RTX 3710.
+
+    \item \textbf{Błędny skrót techniczny}. Vosk
+    \par\textbf{Referencja.} „Chciałbym zamówić wymianę opon z letnich na zimowe, rozmiar dwieście piętnaście na sześćdziesiąt pięć na szesnaście, z wyważeniem, przechowaniem w waszym magazynie i sprawdzeniem ciśnienia w czujnikach TPMS.”
+    \par\textbf{Wynik ASR.} „chciałbym zamówić wymianę opon z letnich na zimowe rozmiar dwieście piętnaście na sześćdziesiąt pięć na szesnaście z wyważeniem przechowanie waszym magazynie i sprawdzanie ciśnienia w czujnikach p p s”
+    \par\textbf{Ocena.} Skrót TPMS zmienia się w „p p s”. Prośba o sprawdzenie ciśnienia pozostaje czytelna.
+
+    \item \textbf{Brak transkrypcji}. Whisper (large-v3)
+    \par\textbf{Referencja.} „Ja poproszę dwie cole średnie. Bez lodu. Do tego zestaw skrzydełek na ostro. Hmm, ciastko z kremem też brzmi dobrze. Czy mogę tutaj zamówić lody?”
+    \par\textbf{Wynik ASR.} \emph{Pusty wynik.}
+    \par\textbf{Ocena.} Pusty wynik uniemożliwia ustalenie treści zamówienia.
+
+\end{enumerate}
+
 
 \section{Podsumowanie i wnioski końcowe}
 

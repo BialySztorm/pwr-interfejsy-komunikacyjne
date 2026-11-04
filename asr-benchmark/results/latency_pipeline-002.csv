@@ -1,0 +1,31 @@
+﻿Plik,Kategoria,Czas nagrania [s],Opóźnienie Whisper (base) [s],Opóźnienie Whisper (large-v3) [s],Opóźnienie Vosk [s]
+272523-1.wav,Polecenia/pytania (1),6.55,1.067,1.316,0.0151
+272644-1.wav,Polecenia/pytania (1),11.35,0.4002,1.0335,0.0123
+294692-1.wav,Polecenia/pytania (1),8.79,0.3297,1.2087,0.0118
+272678-1.wav,Polecenia/pytania (1),7.42,0.3968,1.111,0.0071
+275748-1.wav,Polecenia/pytania (1),8.78,0.2862,0.8775,0.0122
+272326-1.wav,Polecenia/pytania (1),9.71,0.3526,1.093,0.0169
+272523-2.wav,Polecenia/pytania (2),5.83,0.4131,1.0276,0.0118
+272644-2.wav,Polecenia/pytania (2),7.44,0.3906,1.0542,0.0068
+294692-2.wav,Polecenia/pytania (2),7.45,0.3973,1.3162,0.0072
+272678-2.wav,Polecenia/pytania (2),8.12,0.3213,1.0357,0.0076
+275748-2.wav,Polecenia/pytania (2),7.92,0.3492,1.0128,0.013
+272326-2.wav,Polecenia/pytania (2),13.15,0.5284,1.5885,0.0056
+272523-3.wav,Wypowiedź spontaniczna,12.49,0.4624,1.2587,0.007
+272644-3.wav,Wypowiedź spontaniczna,9.84,0.4527,1.0705,0.0114
+294692-3.wav,Wypowiedź spontaniczna,12.39,0.4885,1.8251,0.0167
+272678-3.wav,Wypowiedź spontaniczna,9.88,0.4503,1.207,0.0104
+275748-3.wav,Wypowiedź spontaniczna,13.82,0.3543,1.107,0.0155
+272326-3.wav,Wypowiedź spontaniczna,19.45,0.6649,2.2771,0.0075
+272523-4.wav,"Nazwy własne, liczby, daty",19.99,0.6394,1.7722,0.0095
+272644-4.wav,"Nazwy własne, liczby, daty",7.78,0.3554,1.1116,0.0169
+294692-4.wav,"Nazwy własne, liczby, daty",19.22,0.6045,1.9861,0.008
+272678-4.wav,"Nazwy własne, liczby, daty",8.5,0.4311,1.0839,0.0176
+275748-4.wav,"Nazwy własne, liczby, daty",15.7,0.532,1.7985,0.0094
+272326-4.wav,"Nazwy własne, liczby, daty",21.07,0.5223,1.8205,0.0108
+272523-5.wav,Trudniejsze warunki akustyczne (szum),5.37,0.3201,0.9703,0.0271
+272644-5.wav,Trudniejsze warunki akustyczne (szum),8.69,1.5597,0.897,0.0201
+294692-5.wav,Trudniejsze warunki akustyczne (szum),7.94,0.4492,1.1997,0.0109
+272678-5.wav,Trudniejsze warunki akustyczne (szum),9.16,0.4134,1.2318,0.0115
+275748-5.wav,Trudniejsze warunki akustyczne (szum),9.82,0.3989,1.0818,0.0062
+272326-5.wav,Trudniejsze warunki akustyczne (szum),9.09,2.2288,1.5678,0.0164

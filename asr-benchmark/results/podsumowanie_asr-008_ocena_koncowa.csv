@@ -1,0 +1,4 @@
+﻿System,WER korpusowy,Nazwy własne,Daty/czas/liczby,Spontaniczne + pozawerbalne,Odporność na szum,Intencja,Szybkość (RTF),Stabilność/kompletność,Integracja,Ocena końcowa [0-100]
+Whisper (base),58.24,40.15,60.09,67.0,73.66,74.6,95.34,87.5,60.0,67.74
+Whisper (large-v3),84.3,76.95,79.36,84.57,93.63,93.65,86.82,87.5,55.0,83.28
+Vosk,66.47,46.47,72.94,72.06,80.71,72.49,92.52,87.5,85.0,74.51

@@ -1,0 +1,6 @@
+﻿Plik,Kategoria,Czas nagrania [s],Opóźnienie Whisper (base) [s],Opóźnienie Vosk [s]
+272523-1.wav,Polecenia/pytania (1),6.55,0.9208,0.0114
+272523-2.wav,Polecenia/pytania (2),5.83,0.3447,0.0112
+272523-3.wav,Wypowiedź spontaniczna,12.49,0.5133,0.0062
+272523-4.wav,"Nazwy własne, liczby, daty",19.99,0.6462,0.0096
+272523-5.wav,Trudniejsze warunki akustyczne (szum),5.37,0.3677,0.0161

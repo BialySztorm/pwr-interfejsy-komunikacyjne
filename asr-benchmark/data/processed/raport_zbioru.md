@@ -1,6 +1,6 @@
 # Raport zbioru danych (data/raw/)
 
-Wygenerowano: 2026-11-04 18:17 UTC (przez scripts/preprocess_audio.py)
+Wygenerowano: 2026-11-04 20:04 UTC (przez scripts/preprocess_audio.py)
 
 - Liczba mówców: 38
 - Liczba nagrań (.wav): 216

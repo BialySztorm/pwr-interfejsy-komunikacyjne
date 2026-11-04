@@ -111,12 +111,27 @@ def measure_whisper_tail_latency(model, audio_path, duration_s):
     return tail_latency, result["text"].strip()
 
 
+def next_run_number(results_dir):
+    import re as _re
+    pattern = _re.compile(r"^latency_pipeline-(\d{3})\.csv$")
+    existing = [
+        int(match.group(1))
+        for path in results_dir.glob("latency_pipeline-*.csv")
+        if (match := pattern.match(path.name))
+    ]
+    return max(existing, default=0) + 1
+
+
 def parse_args(argv):
     parser = argparse.ArgumentParser(
         description="Pomiar opóźnienia (od końca wypowiedzi do transkrypcji) w symulowanym rzeczywistym przepływie."
     )
     parser.add_argument(
-        "--whisper-model", default="base", help="Rozmiar modelu Whisper (domyślnie: base)."
+        "--whisper-model",
+        nargs="+",
+        choices=whisper.available_models(),
+        default=["base"],
+        help="Jeden lub więcej rozmiarów modeli Whisper do zmierzenia w jednym przebiegu (domyślnie: base).",
     )
     parser.add_argument(
         "--n-per-category", type=int, default=4,
@@ -137,8 +152,12 @@ def main(argv):
         return 1
 
     print(f"Podzbiór reprezentatywny: {len(subset)} nagrań ({args.n_per_category} per kategoria).")
-    print(f"Ładowanie modelu Whisper '{args.whisper_model}' (device={WHISPER_DEVICE})...")
-    whisper_model = whisper.load_model(args.whisper_model, device=WHISPER_DEVICE)
+
+    whisper_system_names = {size: f"Whisper ({size})" for size in args.whisper_model}
+    whisper_models = {}
+    for size in args.whisper_model:
+        print(f"Ładowanie modelu Whisper '{size}' (device={WHISPER_DEVICE})...")
+        whisper_models[size] = whisper.load_model(size, device=WHISPER_DEVICE)
     print("Ładowanie modelu Vosk...")
     vosk_model = Model(VOSK_MODEL_PATH)
 
@@ -151,34 +170,27 @@ def main(argv):
         info = sf.info(audio_path)
         duration = info.frames / info.samplerate
 
-        whisper_latency, _ = measure_whisper_tail_latency(whisper_model, audio_path, duration)
-        vosk_latency, _ = measure_vosk_tail_latency(
-            vosk_model, audio_path, args.chunk_ms / 1000
-        )
+        latencies = {}
+        for size, model in whisper_models.items():
+            latencies[whisper_system_names[size]], _ = measure_whisper_tail_latency(
+                model, audio_path, duration
+            )
+        latencies["Vosk"], _ = measure_vosk_tail_latency(vosk_model, audio_path, args.chunk_ms / 1000)
 
         print(
             f"{filename} ({category}, {duration:.1f}s): "
-            f"Whisper tail={whisper_latency:.3f}s, Vosk tail={vosk_latency:.3f}s"
+            + ", ".join(f"{name}={value:.3f}s" for name, value in latencies.items())
         )
-        rows.append({
-            "Plik": filename,
-            "Kategoria": category,
-            "Czas nagrania [s]": round(duration, 2),
-            "Opóźnienie Whisper [s]": round(whisper_latency, 4),
-            "Opóźnienie Vosk [s]": round(vosk_latency, 4),
-        })
+        row = {"Plik": filename, "Kategoria": category, "Czas nagrania [s]": round(duration, 2)}
+        for name, value in latencies.items():
+            row[f"Opóźnienie {name} [s]"] = round(value, 4)
+        rows.append(row)
 
-    whisper_latencies = [r["Opóźnienie Whisper [s]"] for r in rows]
-    vosk_latencies = [r["Opóźnienie Vosk [s]"] for r in rows]
+    system_names = list(whisper_system_names.values()) + ["Vosk"]
     print("\n=== PODSUMOWANIE (opóźnienie od końca wypowiedzi do transkrypcji) ===")
-    print(
-        f"Whisper: mediana={statistics.median(whisper_latencies):.3f}s, "
-        f"maks={max(whisper_latencies):.3f}s"
-    )
-    print(
-        f"Vosk:    mediana={statistics.median(vosk_latencies):.3f}s, "
-        f"maks={max(vosk_latencies):.3f}s"
-    )
+    for name in system_names:
+        values = [row[f"Opóźnienie {name} [s]"] for row in rows]
+        print(f"{name}: mediana={statistics.median(values):.3f}s, maks={max(values):.3f}s")
     print(
         "Vosk zaczyna przetwarzać audio, zanim użytkownik skończy mówić (streaming) — "
         "jego opóźnienie 'ogonowe' jest więc niezależne od długości nagrania, w przeciwieństwie do Whispera."
@@ -187,7 +199,8 @@ def main(argv):
     import csv
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = RESULTS_DIR / "latency_pipeline.csv"
+    run_suffix = f"{next_run_number(RESULTS_DIR):03d}"
+    out_path = RESULTS_DIR / f"latency_pipeline-{run_suffix}.csv"
     with open(out_path, "w", newline="", encoding="utf-8-sig") as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
         writer.writeheader()
