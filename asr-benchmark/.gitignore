@@ -9,6 +9,10 @@ data/processed/*
 models/*
 !models/.gitkeep
 
+results/wyniki_asr-*.csv
+results/wyniki_asr_takes-*.csv
+results/porownanie_oryginal_wariant-*.csv
+
 __pycache__/
 *.pyc
 .pytest_cache/

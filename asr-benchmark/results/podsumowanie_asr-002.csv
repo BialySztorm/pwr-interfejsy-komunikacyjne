@@ -1,0 +1,4 @@
+﻿System,Globalny WER [%],Globalny RTF,Czas nagrań [s],Czas przetwarzania [s],Substytucje,Pominięcia,Wstawienia,Słowa referencyjne,WER - Polecenia/pytania (1) [%],WER - Polecenia/pytania (2) [%],WER - Wypowiedź spontaniczna [%],"WER - Nazwy własne, liczby, daty [%]",WER - Trudniejsze warunki akustyczne (szum) [%]
+Whisper (base),49.16,0.048,2422.56,116.24,1631,331,175,4347,39.19,36.32,50.8,52.12,65.41
+Whisper (large-v3),23.97,0.1479,2422.56,358.29,756,246,40,4347,13.43,15.85,30.84,26.96,24.54
+Vosk,49.02,0.0798,2422.56,193.34,1557,246,328,4347,35.05,38.35,55.31,57.5,59.8
