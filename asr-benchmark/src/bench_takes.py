@@ -55,7 +55,7 @@ WHISPER_DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Konfiguracja ścieżek — zakotwiczone względem katalogu projektu (asr-benchmark/),
 # niezależnie od katalogu roboczego, z którego skrypt jest odpalany.
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 RAW_DIR = PROJECT_ROOT / "data" / "raw"
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 BASE_DIR = str(RAW_DIR)

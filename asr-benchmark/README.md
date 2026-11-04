@@ -15,8 +15,8 @@ asr-benchmark/
   docs/WYMAGANIA.md       # requirement-by-requirement status vs the research brief
   docs/INTEGRACJA.md      # descriptive integration comparison (criterion 9)
   docs/main.tex           # the written report
-  src/asr_benchmark/bench.py        # main Whisper vs Vosk benchmark
-  src/asr_benchmark/bench_takes.py  # same-text-different-speaker / retake comparison
+  src/bench.py        # main Whisper vs Vosk benchmark
+  src/bench_takes.py  # same-text-different-speaker / retake comparison
   scripts/sync_drive.py
   scripts/preprocess_audio.py
   scripts/paired_comparison.py      # per-recording WER diff between two systems
@@ -93,7 +93,7 @@ counts (speakers, recordings, reference words, total duration).
 ### 5. Run the main benchmark
 
 ```powershell
-python src\asr_benchmark\bench.py --whisper-model base large-v3
+python src\bench.py --whisper-model base large-v3
 ```
 
 Run all Whisper sizes you want compared in **one** invocation (one `--whisper-model` with
@@ -109,7 +109,7 @@ Produces (in `results/`, `NNN` = run number):
 ### 6. (optional) Same-text-different-speaker / retake comparison
 
 ```powershell
-python src\asr_benchmark\bench_takes.py --whisper-model base large-v3
+python src\bench_takes.py --whisper-model base large-v3
 ```
 
 Compares recordings where the same reference text was read by a different speaker, or re-read
@@ -147,3 +147,16 @@ do I wait after I stop talking" latency. This feeds audio in real time to a repr
 subset (a few recordings per category) and measures tail latency after the last chunk arrives —
 Vosk streams natively (small, length-independent tail latency), Whisper only starts once the
 whole recording has "arrived" (tail latency ≈ full `transcribe()` call).
+
+## Status and results
+
+- [`docs/WYMAGANIA.md`](docs/WYMAGANIA.md) — requirement-by-requirement status against the
+  research brief (🟢/🟡/🔴), including known caveats (heuristics used for intent/named-entity
+  detection, the latency measurement being a simulation, etc.).
+- [`docs/main.tex`](docs/main.tex) — the written report, filled in with results from a full
+  benchmark run (`base` + `large-v3` + Vosk): global/per-category WER and RTF, intent and
+  key-information accuracy, paired per-recording comparison, real-pipeline latency, and the
+  weighted final score. A presentation slide deck is not done yet.
+- [`docs/INTEGRACJA.md`](docs/INTEGRACJA.md) — descriptive integration comparison (API, output
+  format, hardware, cost, data privacy) backing criterion 9, which can't be computed
+  automatically.

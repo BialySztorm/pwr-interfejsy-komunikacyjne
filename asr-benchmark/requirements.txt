@@ -6,3 +6,4 @@ jiwer
 soundfile
 torch
 tqdm
+scipy

@@ -10,21 +10,21 @@ candidate technologies before they are combined into a working interface.
 
 | Stage | Topic | Status | Directory |
 |---|---|---|---|
-| 1 | ASR/STT comparison (Whisper vs Vosk) | In progress | [`asr-benchmark/`](asr-benchmark/) |
+| 1 | ASR/STT comparison (Whisper vs Vosk) | Done | [`asr-benchmark/`](asr-benchmark/) |
 | 2 | TTS comparison | Planned | TBD |
 | 3 | Sentiment recognition comparison | Planned | TBD |
 | 4 | Conversational interface design & implementation | Planned | TBD |
 
-## Current stage: ASR benchmark
+## Stage 1: ASR benchmark (done)
 
 Full details, setup, and usage are in [`asr-benchmark/README.md`](asr-benchmark/README.md).
 Summary:
 
-- **Systems compared:** Whisper (via `faster-whisper`) vs Vosk (`vosk-model-small-pl-0.22`).
+- **Systems compared:** Whisper (`openai-whisper`, run locally) vs Vosk (`vosk-model-small-pl-0.22`).
   Vosk was chosen over CMU Sphinx because Sphinx has no Polish acoustic/language model.
-- **Shared test set (cohort-wide):** ~40 people × 5 recordings ≈ 200 utterances, from at least
-  25 speakers, in Polish, hosted in a public Google Drive folder (link kept only in `.env`,
-  never in the repo).
+- **Shared test set (cohort-wide):** 38 speakers, 216 recordings (190 complete recording/transcript
+  pairs, ~46 minutes total), in Polish, hosted in a public Google Drive folder (link kept only in
+  `.env`, never in the repo).
 - **Dataset convention:** one folder per speaker named `"Firstname Lastname"`, with paired
   `<student_id>-<N>.wav` / `<student_id>-<N>.txt` files, `N = 1..5`:
 
