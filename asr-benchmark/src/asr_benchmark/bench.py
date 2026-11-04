@@ -9,6 +9,7 @@ import glob
 import json
 import csv
 import unicodedata
+from collections import Counter
 from pathlib import Path
 
 import numpy as np
@@ -60,6 +61,62 @@ NON_VERBAL_SOUNDS = {
 def has_non_verbal_sound(text):
     words = set(re.findall(r"[a-ząćęłńóśźż]+", text.lower()))
     return bool(words & NON_VERBAL_SOUNDS)
+
+
+# Heurystyczna klasyfikacja intencji (kryterium 6) — nie model NLU, tylko reguła
+# słów kluczowych po typie aktu mowy (zamówienie/rezerwacja/problem/polecenie/pytanie),
+# bo tematy nagrań są zbyt zróżnicowane (elektronika, gastronomia, hotel, zdrowie...)
+# na jedną listę intencji "domenowych". Sprawdzane w tej kolejności (najbardziej
+# specyficzne reguły pierwsze), a jeśli nic nie trafi — "inne".
+INTENT_ORDER_KEYWORDS = (
+    "poproszę", "poprosze", "zamawiam", "zamówię", "zamowie", "zamówienie", "zamowienie",
+    "zamówiłem", "zamowilem", "chciałbym kupić", "chcialbym kupic", "chciałbym zamówić",
+    "chcialbym zamowic", "wybieram", "biorę", "biore", "wezmę", "wezme", "kupuję", "kupuje",
+    "chcę kupić", "chce kupic", "chcę zamówić", "chce zamowic", "dodaj do mojej listy",
+    "szukam", "potrzebuję", "potrzebuje", "zamów ", "zamow ",
+)
+INTENT_BOOKING_KEYWORDS = (
+    "zarezerwować", "zarezerwowac", "rezerwacja", "zarezerwuj", "umówić się", "umowic sie",
+    "umówienie", "chciałbym umówić", "chcialbym umowic", "chciałbym zarezerwować",
+    "chcialbym zarezerwowac",
+)
+INTENT_COMPLAINT_KEYWORDS = (
+    "nie działa", "nie dziala", "zepsut", "problem", "usterka", "awaria", "reklamacja",
+    "zgłaszam", "zglaszam", "zgłoszenie", "zgloszenie", "przestała działać", "przestal dzialac",
+)
+INTENT_COMMAND_VERBS = (
+    "ustaw", "puść", "pusc", "zagraj", "znajdź", "znajdz", "dodaj", "sprawdź", "sprawdz",
+    "przeczytaj", "stwórz", "stworz", "przelicz", "zapisz", "pokaż", "pokaz", "porównaj",
+    "porownaj", "zmień", "zmien", "wyślij", "wyslij", "włącz", "wlacz", "wyłącz", "wylacz",
+    "odtwórz", "odtworz", "wygeneruj", "przenieś", "przenies", "wstaw", "usuń", "usun",
+    "przełóż", "przeloz",
+)
+INTENT_QUESTION_WORDS = (
+    "czy ", "jaki", "jaka", "jakie", "ile ", "kiedy", "gdzie", "która", "ktora",
+    "który", "ktory", "dlaczego", "co ",
+)
+
+
+def classify_intent(text):
+    """Klasyfikuje typ intencji wypowiedzi na podstawie słów kluczowych (heurystyka).
+
+    Zwraca jedną z: zamowienie, rezerwacja, problem, polecenie, pytanie, inne.
+    """
+    lowered = text.lower()
+    if any(keyword in lowered for keyword in INTENT_ORDER_KEYWORDS):
+        return "zamowienie"
+    if any(keyword in lowered for keyword in INTENT_BOOKING_KEYWORDS):
+        return "rezerwacja"
+    if any(keyword in lowered for keyword in INTENT_COMPLAINT_KEYWORDS):
+        return "problem"
+    words = re.findall(r"\w+", lowered)
+    if words and words[0] in INTENT_COMMAND_VERBS:
+        return "polecenie"
+    if any(re.search(rf"\b{re.escape(verb)}\b", lowered) for verb in INTENT_COMMAND_VERBS):
+        return "polecenie"
+    if "?" in lowered or any(lowered.lstrip().startswith(w) for w in INTENT_QUESTION_WORDS):
+        return "pytanie"
+    return "inne"
 
 
 NUMBER_WORDS = {
@@ -250,6 +307,37 @@ def normalize_for_wer(text):
     return " ".join(normalized)
 
 
+def extract_entities(normalized_text):
+    """Wyciąga "encje" (liczby, zegar, daty) z już znormalizowanego tekstu
+    (po normalize_for_wer, czyli liczby/zegar/daty są już cyfrowe).
+
+    Data to dwa sąsiadujące tokeny <dzień> <miesiąc> — traktowane jako jedna
+    encja. Każda inna samodzielna liczba/zegar/kwota to encja jednotokenowa.
+    """
+    tokens = normalized_text.split()
+    entities = []
+    index = 0
+    while index < len(tokens):
+        token = tokens[index]
+        if NUMBER_TOKEN.fullmatch(token):
+            if index + 1 < len(tokens) and tokens[index + 1] in MONTHS:
+                entities.append(f"{token} {tokens[index + 1]}")
+                index += 2
+                continue
+            entities.append(token)
+        index += 1
+    return entities
+
+
+def count_matched_entities(reference_entities, hypothesis_entities):
+    """Ile encji z referencji da się odnaleźć w hipotezie (jako multiset,
+    żeby powtórzona liczba w referencji nie była "opłacana" wielokrotnie
+    przez jedno jej wystąpienie w hipotezie)."""
+    ref_counts = Counter(reference_entities)
+    hyp_counts = Counter(hypothesis_entities)
+    return sum(min(count, hyp_counts[entity]) for entity, count in ref_counts.items())
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description="Benchmark Whisper vs Vosk na polskich nagraniach.")
     parser.add_argument(
@@ -368,6 +456,8 @@ def main():
         file_idx = filename.split('-')[-1].replace('.wav', '')
         category = CATEGORIES.get(file_idx, "Inne")
         non_verbal = category == SPONTANEOUS_CATEGORY and has_non_verbal_sound(reference_text)
+        reference_entities = extract_entities(normalized_reference)
+        reference_intent = classify_intent(reference_text)
 
         audio_path = resolve_audio_path(wav_path)
         duration, samplerate = get_audio_info(audio_path)
@@ -378,12 +468,20 @@ def main():
             rtf_whisper = time_whisper / duration
             normalized_whisper = normalize_for_wer(hyp_whisper)
             wer_whisper = process_words(normalized_reference, normalized_whisper)
+            hypothesis_entities_whisper = extract_entities(normalized_whisper)
+            matched_entities_whisper = count_matched_entities(reference_entities, hypothesis_entities_whisper)
+            hypothesis_intent_whisper = classify_intent(hyp_whisper)
 
             csv_data.append({
                 "Plik": filename,
                 "System": whisper_system_names[size],
                 "Kategoria": category,
                 "Dźwięk pozawerbalny": non_verbal,
+                "Encje (liczby/daty/czas) łącznie": len(reference_entities),
+                "Encje poprawnie rozpoznane": matched_entities_whisper,
+                "Intencja referencji": reference_intent,
+                "Intencja systemu": hypothesis_intent_whisper,
+                "Intencja zgodna": reference_intent == hypothesis_intent_whisper,
                 "Czas nagrania [s]": duration,
                 "Czas przetwarzania [s]": time_whisper,
                 "RTF": rtf_whisper,
@@ -403,12 +501,20 @@ def main():
         rtf_vosk = time_vosk / duration
         normalized_vosk = normalize_for_wer(hyp_vosk)
         wer_vosk = process_words(normalized_reference, normalized_vosk)
-        
+        hypothesis_entities_vosk = extract_entities(normalized_vosk)
+        matched_entities_vosk = count_matched_entities(reference_entities, hypothesis_entities_vosk)
+        hypothesis_intent_vosk = classify_intent(hyp_vosk)
+
         csv_data.append({
             "Plik": filename,
             "System": "Vosk",
             "Kategoria": category,
             "Dźwięk pozawerbalny": non_verbal,
+            "Encje (liczby/daty/czas) łącznie": len(reference_entities),
+            "Encje poprawnie rozpoznane": matched_entities_vosk,
+            "Intencja referencji": reference_intent,
+            "Intencja systemu": hypothesis_intent_vosk,
+            "Intencja zgodna": reference_intent == hypothesis_intent_vosk,
             "Czas nagrania [s]": duration,
             "Czas przetwarzania [s]": time_vosk,
             "RTF": rtf_vosk,
@@ -512,6 +618,23 @@ def main():
         else:
             summary_row["WER - spontaniczne z dźwiękiem pozawerbalnym [%]"] = "Brak danych"
             summary_row["N - spontaniczne z dźwiękiem pozawerbalnym"] = 0
+
+        # Daty/czas/liczby: ile encji z referencji da się odnaleźć w hipotezie
+        # (we wszystkich kategoriach, bo liczby/daty mogą pojawić się nie tylko w kat. 4).
+        total_entities = sum(row["Encje (liczby/daty/czas) łącznie"] for row in sys_data)
+        matched_entities = sum(row["Encje poprawnie rozpoznane"] for row in sys_data)
+        entity_accuracy = matched_entities / total_entities * 100 if total_entities > 0 else 0
+        print(f"Dokładność encji (liczby/daty/czas): {matched_entities}/{total_entities} ({entity_accuracy:.2f}%)")
+        summary_row["Encje poprawnie rozpoznane / wszystkie"] = f"{matched_entities}/{total_entities}"
+        summary_row["Dokładność encji (liczby/daty/czas) [%]"] = round(entity_accuracy, 2)
+
+        # Rozpoznanie intencji: heurystyka słów kluczowych (zamowienie/rezerwacja/
+        # problem/polecenie/pytanie/inne) — czy transkrypcja daje tę samą intencję co referencja.
+        intent_matches = sum(1 for row in sys_data if row["Intencja zgodna"])
+        intent_accuracy = intent_matches / len(sys_data) * 100 if sys_data else 0
+        print(f"Zgodność intencji (heurystyka): {intent_matches}/{len(sys_data)} ({intent_accuracy:.2f}%)")
+        summary_row["Intencja zgodna / wszystkie"] = f"{intent_matches}/{len(sys_data)}"
+        summary_row["Zgodność intencji [%]"] = round(intent_accuracy, 2)
 
         # Stabilność/kompletność: ile nagrań w ogóle miało transkrypcję do oceny.
         total_wav_found = len(wav_files)
