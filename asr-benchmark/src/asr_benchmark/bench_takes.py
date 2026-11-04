@@ -2,16 +2,17 @@
 """Benchmark Whisper vs Vosk dla nagrań, które mają po kilka wariantów (takes)
 współdzielących jedną transkrypcję.
 
-Plik bazowy `<index>-<N>.wav` z własnym `<index>-<N>.txt` to kompletna,
-samodzielna para obsługiwana przez `bench.py` — ten skrypt ją ignoruje.
-Interesują go tylko warianty tej samej kategorii `N` w danym folderze mówcy,
-które NIE mają własnej transkrypcji, bo powstały na dwa sposoby:
+Plik bazowy `<index>-<N>.wav` z własnym `<index>-<N>.txt` (w tym samym
+folderze) to kompletna, samodzielna para obsługiwana przez `bench.py` — ten
+skrypt ją ignoruje. Interesują go tylko warianty, które NIE mają własnej
+transkrypcji w swoim folderze, bo powstały na dwa sposoby:
   - litera-wariant przyklejona do indeksu i/lub numeru kategorii, np.
-    `272664b-1.wav` albo `272644-1b.wav` — referencją jest `<ten-sam-index>-<N>.txt`;
-  - inny numer indeksu w tym samym folderze, ale ta sama liczba po myślniku,
-    np. `272646-1.wav` w folderze, gdzie transkrypcja to `272644-1.txt` —
-    pliki `-N` w jednym folderze mówcy współdzielą transkrypcję niezależnie
-    od indeksu, więc referencję szuka się w całym folderze po samym `N`.
+    `272664b-1.wav` albo `272644-1b.wav` — referencją jest `<ten-sam-index>-<N>.txt`
+    tej samej osoby (druga sesja/podejście tego samego mówcy);
+  - ten sam `<index>-<N>` nagrany przez INNĄ osobę (inny folder) — to dokładnie
+    przypadek "ten sam tekst nagrany przez różną osobę" z wymagań badania.
+    Referencja (`<index>-<N>.txt`) jest szukana w CAŁYM korpusie, nie tylko
+    w folderze danego pliku audio.
 
 Dla każdej takiej grupy skrypt transkrybuje też plik oryginalny (ten z własną
 transkrypcją), żeby porównać WER wariantu z WER oryginału w tym samym
@@ -116,31 +117,26 @@ def parse_txt_name(stem):
     return match.group("index"), match.group("n")
 
 
-def find_group_reference(folder, n, own_index):
-    """Znajduje transkrypcję dla numeru kategorii `n` w danym folderze mówcy.
+def build_global_txt_index(base_dir):
+    """Mapuje (index, n) -> ścieżka .txt, przeszukując CAŁY korpus (wszystkie foldery).
 
-    Transkrypcje są czyste (bez liter wariantu), więc wariant może mieć inny
-    `index` niż jego referencja (np. druga sesja nagrań pod innym numerem
-    indeksu w tym samym folderze) — szukamy wśród WSZYSTKICH .txt w folderze
-    po samym `n`, nie tylko po własnym indeksie pliku audio.
+    Transkrypcje są czyste (bez liter wariantu) i jednoznaczne per (index, n) —
+    dzięki temu plik audio z innego folderu niż jego własna transkrypcja
+    (bo nagrała go inna osoba) i tak trafia na właściwy tekst.
     """
-    candidates = []
-    for txt_path in folder.glob("*.txt"):
+    txt_index = {}
+    for txt_path in Path(base_dir).glob("*/*.txt"):
         parsed = parse_txt_name(txt_path.stem)
-        if parsed and parsed[1] == n:
-            candidates.append((parsed[0], txt_path))
-
-    if not candidates:
-        return None, None
-    for txt_index, txt_path in candidates:
-        if txt_index == own_index:
-            return txt_index, txt_path
-    if len(candidates) > 1:
-        tqdm.write(
-            f"Niejednoznaczna referencja dla -{n} w {folder} "
-            f"(kandydaci: {[c[0] for c in candidates]}), wybieram {candidates[0][0]}."
-        )
-    return candidates[0]
+        if parsed is None:
+            continue
+        if parsed in txt_index:
+            tqdm.write(
+                f"Niejednoznaczna transkrypcja dla {parsed[0]}-{parsed[1]}: "
+                f"{txt_index[parsed]} oraz {txt_path}, zostaje pierwsza."
+            )
+            continue
+        txt_index[parsed] = txt_path
+    return txt_index
 
 
 def get_audio_info(file_path):
@@ -182,6 +178,7 @@ def build_recording_plan(base_dir):
     {reference_txt_path: {"original": Path|None, "variants": [(Path, etykieta)]}}.
     """
     wav_files = sorted(glob.glob(os.path.join(base_dir, "*", "*.wav")))
+    global_txt_index = build_global_txt_index(base_dir)
     groups = {}
     unknown_names = []
     missing_ref = []
@@ -200,12 +197,20 @@ def build_recording_plan(base_dir):
             group["original"] = wav_path_obj
             continue
 
-        ref_index, reference_path = find_group_reference(wav_path_obj.parent, n, index)
+        reference_path = global_txt_index.get((index, n))
         if reference_path is None:
             missing_ref.append(wav_path)
             continue
 
-        variant_label = take if take != "base" else f"index:{index}"
+        # Litera-wariant = druga sesja tej samej osoby; inny folder niż referencja
+        # = ten sam tekst nagrany przez inną osobę (wymagania badania to dopuszczają).
+        label_parts = []
+        if take != "base":
+            label_parts.append(take)
+        if reference_path.parent != wav_path_obj.parent:
+            label_parts.append(f"inna_osoba:{wav_path_obj.parent.name}")
+        variant_label = "+".join(label_parts) if label_parts else "base"
+
         group = groups.setdefault(reference_path, {"original": None, "variants": []})
         group["variants"].append((wav_path_obj, variant_label))
 
