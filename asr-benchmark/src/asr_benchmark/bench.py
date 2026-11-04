@@ -1,5 +1,6 @@
 #!/bin/env python3
 import os
+import re
 import time
 import glob
 import json
@@ -21,6 +22,7 @@ WHISPER_DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 BASE_DIR = str(PROJECT_ROOT / "data" / "raw")
 VOSK_MODEL_PATH = str(PROJECT_ROOT / "models" / "vosk-model-small-pl-0.22")
+RESULTS_DIR = PROJECT_ROOT / "results"
 
 # Mapowanie kategorii nagrań na podstawie wytycznych
 CATEGORIES = {
@@ -65,6 +67,16 @@ def transcribe_vosk(model, file_path, samplerate):
     processing_time = time.time() - start_time
     
     return res.get("text", "").strip().lower(), processing_time
+
+def next_run_number(results_dir):
+    """Find the next free 3-digit run number based on existing wyniki_asr-NNN.csv files."""
+    pattern = re.compile(r"^wyniki_asr-(\d{3})\.csv$")
+    existing = [
+        int(match.group(1))
+        for path in results_dir.glob("wyniki_asr-*.csv")
+        if (match := pattern.match(path.name))
+    ]
+    return max(existing, default=0) + 1
 
 def main():
     whisper_model, vosk_model = load_models()
@@ -138,7 +150,9 @@ def main():
         })
 
     # Zapis szczegółowych wyników do pliku CSV
-    csv_filename = "wyniki_asr.csv"
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    run_suffix = f"{next_run_number(RESULTS_DIR):03d}"
+    csv_filename = RESULTS_DIR / f"wyniki_asr-{run_suffix}.csv"
     if csv_data:
         keys = csv_data[0].keys()
         with open(csv_filename, 'w', newline='', encoding='utf-8-sig') as output_file:
@@ -193,7 +207,7 @@ def main():
         summary_data.append(summary_row)
 
     # Zapis zagregowanego podsumowania do pliku CSV
-    summary_filename = "podsumowanie_asr.csv"
+    summary_filename = RESULTS_DIR / f"podsumowanie_asr-{run_suffix}.csv"
     if summary_data:
         summary_keys = summary_data[0].keys()
         with open(summary_filename, 'w', newline='', encoding='utf-8-sig') as sum_file:
