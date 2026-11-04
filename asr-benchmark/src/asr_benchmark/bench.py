@@ -7,9 +7,14 @@ import csv
 from pathlib import Path
 
 import soundfile as sf
+import torch
 import whisper
+from tqdm import tqdm
 from vosk import Model, KaldiRecognizer
 from jiwer import process_words
+
+# Vosk działa tylko na CPU, Whisper skorzysta z GPU, jeśli jest dostępne.
+WHISPER_DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 # Konfiguracja ścieżek — zakotwiczone względem katalogu projektu (asr-benchmark/),
 # niezależnie od katalogu roboczego, z którego skrypt jest odpalany.
@@ -27,10 +32,10 @@ CATEGORIES = {
 }
 
 def load_models():
-    print("Ładowanie modelu Whisper...")
-    whisper_model = whisper.load_model("base")
-    
-    print("Ładowanie modelu Vosk...")
+    print(f"Ładowanie modelu Whisper (device={WHISPER_DEVICE})...")
+    whisper_model = whisper.load_model("base", device=WHISPER_DEVICE)
+
+    print("Ładowanie modelu Vosk (CPU, Vosk nie wspiera GPU)...")
     vosk_model = Model(VOSK_MODEL_PATH)
     
     return whisper_model, vosk_model
@@ -68,11 +73,13 @@ def main():
     summary_data = [] # Lista na wyniki zagregowane
     
     wav_files = glob.glob(os.path.join(BASE_DIR, "*", "*.wav"))
-    
-    for wav_path in wav_files:
+
+    progress = tqdm(wav_files, desc="Transkrypcja", unit="plik")
+    for wav_path in progress:
+        progress.set_postfix_str(os.path.basename(wav_path))
         txt_path = wav_path.replace(".wav", ".txt")
         if not os.path.exists(txt_path):
-            print(f"Brak transkrypcji dla {wav_path}, pomijanie.")
+            tqdm.write(f"Brak transkrypcji dla {wav_path}, pomijanie.")
             continue
             
         with open(txt_path, 'r', encoding='utf-8') as f:

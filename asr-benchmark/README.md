@@ -29,6 +29,17 @@ py -3.15 -m venv .venv
 pip install -r requirements.txt
 ```
 
+By default this installs a CPU-only `torch` (pulled in by `openai-whisper`). If you have an NVIDIA
+GPU and want Whisper to run on it, install a CUDA build of `torch` matching your driver afterwards,
+e.g.:
+
+```powershell
+pip install --index-url https://download.pytorch.org/whl/cu134 torch --upgrade
+```
+
+`bench.py` auto-detects CUDA at runtime and falls back to CPU if it's not available. Vosk always
+runs on CPU regardless (it has no GPU support).
+
 ### 2. Configure `.env`
 
 Copy `.env.example` to `.env` and fill in the two values:

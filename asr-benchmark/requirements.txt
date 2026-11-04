@@ -4,3 +4,5 @@ openai-whisper
 vosk
 jiwer
 soundfile
+torch
+tqdm
