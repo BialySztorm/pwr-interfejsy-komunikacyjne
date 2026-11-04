@@ -63,6 +63,36 @@ def has_non_verbal_sound(text):
     return bool(words & NON_VERBAL_SOUNDS)
 
 
+# Heurystyczna detekcja nazw własnych (kryterium 2) — w polskim tekście wielka
+# litera w środku zdania praktycznie zawsze oznacza nazwę własną/markę/model
+# (zwykłe słowa nie są tak pisane), więc traktujemy takie słowa jako encje.
+# Słowo na początku zdania jest wielką literą z samej reguły interpunkcyjnej,
+# więc je ignorujemy.
+UPPER_POLISH_LETTERS = set("AĄBCĆDEĘFGHIJKLŁMNŃOÓPQRSŚTUVWXYZŹŻ")
+STRIP_PUNCTUATION = ",:;!?.\"'()„”«»"
+
+
+def extract_named_entities(text):
+    entities = []
+    sentences = re.split(r"(?<=[.!?])\s+", text.strip())
+    for sentence in sentences:
+        words = sentence.split()
+        for index, word in enumerate(words):
+            if index == 0:
+                continue
+            stripped = word.strip(STRIP_PUNCTUATION)
+            if stripped and stripped[0] in UPPER_POLISH_LETTERS:
+                entities.append(stripped)
+    return entities
+
+
+def count_matched_named_entities(reference_entities, hypothesis_text):
+    hypothesis_words = {
+        word.strip(STRIP_PUNCTUATION).lower() for word in hypothesis_text.split()
+    }
+    return sum(1 for entity in reference_entities if entity.lower() in hypothesis_words)
+
+
 # Heurystyczna klasyfikacja intencji (kryterium 6) — nie model NLU, tylko reguła
 # słów kluczowych po typie aktu mowy (zamówienie/rezerwacja/problem/polecenie/pytanie),
 # bo tematy nagrań są zbyt zróżnicowane (elektronika, gastronomia, hotel, zdrowie...)
@@ -458,6 +488,7 @@ def main():
         non_verbal = category == SPONTANEOUS_CATEGORY and has_non_verbal_sound(reference_text)
         reference_entities = extract_entities(normalized_reference)
         reference_intent = classify_intent(reference_text)
+        reference_named_entities = extract_named_entities(reference_text)
 
         audio_path = resolve_audio_path(wav_path)
         duration, samplerate = get_audio_info(audio_path)
@@ -471,12 +502,15 @@ def main():
             hypothesis_entities_whisper = extract_entities(normalized_whisper)
             matched_entities_whisper = count_matched_entities(reference_entities, hypothesis_entities_whisper)
             hypothesis_intent_whisper = classify_intent(hyp_whisper)
+            matched_named_entities_whisper = count_matched_named_entities(reference_named_entities, hyp_whisper)
 
             csv_data.append({
                 "Plik": filename,
                 "System": whisper_system_names[size],
                 "Kategoria": category,
                 "Dźwięk pozawerbalny": non_verbal,
+                "Nazwy własne łącznie": len(reference_named_entities),
+                "Nazwy własne poprawnie rozpoznane": matched_named_entities_whisper,
                 "Encje (liczby/daty/czas) łącznie": len(reference_entities),
                 "Encje poprawnie rozpoznane": matched_entities_whisper,
                 "Intencja referencji": reference_intent,
@@ -504,12 +538,15 @@ def main():
         hypothesis_entities_vosk = extract_entities(normalized_vosk)
         matched_entities_vosk = count_matched_entities(reference_entities, hypothesis_entities_vosk)
         hypothesis_intent_vosk = classify_intent(hyp_vosk)
+        matched_named_entities_vosk = count_matched_named_entities(reference_named_entities, hyp_vosk)
 
         csv_data.append({
             "Plik": filename,
             "System": "Vosk",
             "Kategoria": category,
             "Dźwięk pozawerbalny": non_verbal,
+            "Nazwy własne łącznie": len(reference_named_entities),
+            "Nazwy własne poprawnie rozpoznane": matched_named_entities_vosk,
             "Encje (liczby/daty/czas) łącznie": len(reference_entities),
             "Encje poprawnie rozpoznane": matched_entities_vosk,
             "Intencja referencji": reference_intent,
@@ -618,6 +655,17 @@ def main():
         else:
             summary_row["WER - spontaniczne z dźwiękiem pozawerbalnym [%]"] = "Brak danych"
             summary_row["N - spontaniczne z dźwiękiem pozawerbalnym"] = 0
+
+        # Nazwy własne: ile wielkoliterowych (środek zdania) słów z referencji
+        # da się odnaleźć w hipotezie (jako całe słowo, bez względu na wielkość liter).
+        total_named_entities = sum(row["Nazwy własne łącznie"] for row in sys_data)
+        matched_named_entities = sum(row["Nazwy własne poprawnie rozpoznane"] for row in sys_data)
+        named_entity_accuracy = (
+            matched_named_entities / total_named_entities * 100 if total_named_entities > 0 else 0
+        )
+        print(f"Dokładność nazw własnych: {matched_named_entities}/{total_named_entities} ({named_entity_accuracy:.2f}%)")
+        summary_row["Nazwy własne poprawnie rozpoznane / wszystkie"] = f"{matched_named_entities}/{total_named_entities}"
+        summary_row["Dokładność nazw własnych [%]"] = round(named_entity_accuracy, 2)
 
         # Daty/czas/liczby: ile encji z referencji da się odnaleźć w hipotezie
         # (we wszystkich kategoriach, bo liczby/daty mogą pojawić się nie tylko w kat. 4).

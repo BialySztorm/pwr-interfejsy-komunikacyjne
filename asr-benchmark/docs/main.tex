@@ -1,0 +1,176 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage[polish, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{polish}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Raport z badania porównawczego systemów rozpoznawania mowy}
+\author{Adam Krzywicki - 272523 Andrzej Manderla - XXXXXX Filip Zmyślony - XXXXXX}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Wstęp i cel badania}
+Celem niniejszego badania jest ocena przydatności dwóch wybranych systemów rozpoznawania mowy -- Whisper AI oraz Vosk -- do obsługi projektowanego interfejsu konwersacyjnego. 
+
+Systemy zostały ocenione pod kątem jakości rozpoznawania mowy, poprawności transkrypcji oraz możliwości technicznych ich integracji z docelowym rozwiązaniem.
+
+\section{Metodologia i zbiór testowy}
+\subsection{Zbiór danych}
+Badanie przeprowadzono na wspólnym zbiorze testowym, składającym się z 200 wypowiedzi pochodzących od 40 różnych mówców. Zbiór został podzielony na następujące kategorie tematyczne:
+\begin{itemize}
+    \item Polecenia i pytania typowe dla interfejsu,
+    \item Wypowiedzi spontaniczne,
+    \item Wypowiedzi zawierające nazwy własne, liczby, daty i terminy specjalistyczne,
+    \item Wypowiedzi w trudniejszych warunkach akustycznych.
+\end{itemize}
+Dla każdego nagrania przygotowano transkrypcję referencyjną.
+
+\subsection{Kryteria oceny i metryki}
+Zgodnie z przyjętą metodyką, systemy oceniono na podstawie następujących wskaźników:
+
+\textbf{1. Poprawność transkrypcji (WER -- Word Error Rate):}
+Wskaźnik błędu słów obliczono ze wzoru:
+\begin{equation}
+WER = \frac{S + D + I}{N} \times 100\%
+\end{equation}
+gdzie: $S$ -- liczba substytucji, $D$ -- liczba pominięć, $I$ -- liczba wstawień, $N$ -- całkowita liczba słów w transkrypcji referencyjnej.
+
+\textbf{2. Poprawność rozpoznawania ważnych informacji:}
+Dla nazw własnych, dat, liczb oraz określania intencji zastosowano wskaźnik:
+\begin{equation}
+AI = \frac{N_{\text{poprawne}}}{N_{\text{wszystkie}}} \times 100\%
+\end{equation}
+
+\textbf{3. Szybkość działania (RTF -- Real-Time Factor):}
+Stosunek czasu przetwarzania do czasu trwania nagrania:
+\begin{equation}
+RTF = \frac{T_p}{T_n}
+\end{equation}
+gdzie: $T_p$ -- czas przetwarzania nagrania przez system ASR, $T_n$ -- czas trwania nagrania dźwiękowego.
+
+\section{Wyniki badań}
+
+\subsection{Ogólna jakość transkrypcji i szybkość działania}
+
+Tabela \ref{tab:ogolne} przedstawia wyniki dla 189 nagrań. Łączny czas nagrań wyniósł 2422,56~s,
+a transkrypcje referencyjne zawierały 4313 słów.
+
+\begin{table}[htbp]
+\centering
+\caption{Globalne wyniki WER i RTF dla badanych konfiguracji}
+\label{tab:ogolne}
+\begin{tabular}{lrrrrrr}
+\toprule
+\textbf{Konfiguracja} & \textbf{WER [\%]} & \textbf{S} & \textbf{D} &
+\textbf{I} & \textbf{RTF} & \textbf{Czas [s]} \\
+\midrule
+Whisper \texttt{base}     & 42,50 & 1338 & 292 & 203 & 0,0503 & 121,81 \\
+Whisper \texttt{large-v3} & 15,70 &  420 & 205 &  52 & 0,1415 & 342,68 \\
+Vosk                     & 33,57 &  935 & 265 & 248 & 0,0792 & 191,75 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Whisper \texttt{large-v3} osiągnął najniższy WER. W porównaniu
+z wariantem \texttt{base} obniżył go o 26,80 punktu procentowego,
+a przetworzenie zbioru zajęło około 2,8 raza więcej czasu.
+Wszystkie konfiguracje uzyskały globalny RTF poniżej~1.
+
+\subsection{Wyniki w poszczególnych kategoriach}
+
+Tabela \ref{tab:kategorie} przedstawia średni WER w poszczególnych
+kategoriach wypowiedzi. Dla każdej kategorii obliczono
+średnią arytmetyczną wartości WER poszczególnych nagrań.
+
+\begin{table}[htbp]
+\centering
+\caption{Średni WER według kategorii wypowiedzi [\%]}
+\label{tab:kategorie}
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Kategoria wypowiedzi} &
+\textbf{Whisper \texttt{base}} &
+\textbf{Whisper \texttt{large-v3}} &
+\textbf{Vosk} \\
+\midrule
+Polecenia i pytania (1)         & 33,43 & \textbf{6,53}  & 20,06 \\
+Polecenia i pytania (2)         & 30,65 & \textbf{10,52} & 25,83 \\
+Wypowiedzi spontaniczne         & 37,05 & \textbf{16,42} & 32,94 \\
+Nazwy własne, liczby i daty     & 45,31 & \textbf{16,47} & 39,89 \\
+Hałas w tle                     & 68,10 & \textbf{18,85} & 49,08 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Whisper \texttt{large-v3} osiągnął najniższy średni WER we wszystkich
+kategoriach. Największa różnica między konfiguracjami wystąpiła
+w kategorii nagrań z hałasem w tle. W tej grupie WER modelu
+\texttt{large-v3} był niższy o 49,25 punktu procentowego od wyniku
+modelu \texttt{base} i o 30,23 punktu procentowego od wyniku Voska.
+
+\subsection{Ocena wyodrębniania intencji i informacji kluczowych}
+[Miejsce na opis skuteczności rozpoznawania intencji (AI) i analizę jakościową błędów dla specyficznych terminów].
+
+\subsection{Poprawność rozpoznawania informacji kluczowych}
+
+Przeprowadzono ręczną ocenę transkrypcji 36 nagrań z kategorii
+\emph{Nazwy własne, liczby, daty}. W referencjach oznaczono
+60 wystąpień nazw własnych i 99 wystąpień dat, określeń czasu lub liczb.
+Wielowyrazową nazwę oceniano jako całość. Równoważne zapisy tej samej
+wartości, np.\ \emph{24 października} i \emph{dwudziestego czwartego
+października}, uznawano za poprawne.
+
+\begin{table}[htbp]
+\centering
+\caption{Poprawność rozpoznawania informacji kluczowych}
+\label{tab:informacje-kluczowe}
+\begin{tabular}{lcc}
+\toprule
+\textbf{System} & \textbf{Nazwy własne} &
+\textbf{Daty, czas i liczby} \\
+\midrule
+Whisper \texttt{base}     & 20/60 (33,33\%) & 69/99 (69,70\%) \\
+Whisper \texttt{large-v3} & 47/60 (78,33\%) & 98/99 (98,99\%) \\
+Vosk                     & 31/60 (51,67\%) & 81/99 (81,82\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Whisper \texttt{large-v3} uzyskał najwyższą poprawność w obu
+kryteriach. Przykładem jego błędu było rozpoznanie zakresu
+ogniskowych obiektywu \emph{18--45 mm} jako \emph{18--35 mm}.
+
+\subsection{Możliwości integracji}
+Oba systemy działają lokalnie i mają gotowe biblioteki w Pythonie, co gwarantuje łatwą integrację oraz brak opłat za korzystanie z API. Dodatkowym bonusem jest pełna prywatność danych. Najważniejsza różnica leży w sprzęcie: Whisper potrzebuje większej mocy obliczeniowej, więc potrzebna jest w miarę mocna karta graficzna, podczas gdy Vosk jest lekki i bez problemu radzi sobie na zwykłym procesorze.
+
+\section{Podsumowanie i wnioski końcowe}
+
+Na podstawie przeprowadzonych pomiarów i analiz sformułowano następujące wnioski:
+
+\begin{enumerate}
+    \item \textbf{Rozpoznawanie wypowiedzi charakterystycznych dla interfejsu:} \\
+    Zdecydowanie najdokładniejszym systemem jest Whisper w konfiguracji large-v3. Osiągnął on błąd na poziomie zaledwie 6,53\% -- 10,52\% w kategoriach typowych poleceń i pytań, co pozwala na niezawodne dekodowanie intencji użytkownika. Vosk z wynikiem 20\%--25\% również stanowi akceptowalne rozwiązanie, choć częściej może prowadzić do nieporozumień.
+    
+    \item \textbf{Różnice w kategoriach i warunkach akustycznych:} \\
+    Najbardziej drastyczne różnice zauważono w nagraniach z hałasem w tle oraz przy nazwach własnych. Whisper large-v3 wykazał niezwykłą odporność na szum (WER na poziomie 18,85\%), podczas gdy Vosk (49,08\%) i Whisper base (68,10\%) ulegały znacznej degradacji. 
+    
+    \item \textbf{Relacja jakości do czasu przetwarzania:} \\
+    Zwiększenie dokładności transkrypcji w modelu large-v3 kosztuje -- system przetwarzał dane około 2,8 raza dłużej niż bazowa wersja Whispera. Mimo to, wskaźnik RTF na poziomie 0,1415 oznacza, że wygenerowanie tekstu następuje wielokrotnie szybciej niż trwa sama wypowiedź. Takie opóźnienie jest w pełni akceptowalne i niezauważalne dla użytkownika końcowego projektowanego interfejsu.
+    
+    \item \textbf{Rekomendacja wdrożeniowa:} \\
+    Ostateczny wybór zależy od dostępnej architektury sprzętowej:
+    \begin{itemize}
+        \item Jeśli dysponujemy serwerem obliczeniowym wyposażonym w odpowiednio silną kartę graficzną, bezwzględnie rekomenduje się wdrożenie systemu Whisper large-v3. Gwarantuje on najwyższą skuteczność.
+        \item Jeśli zależy nam na zminimalizowaniu kosztów sprzętowych i planujemy uruchamiać interfejs bezpośrednio na urządzeniach wbudowanych bez dostępu do GPU, rekomendowanym wyborem jest Vosk. Choć jest mniej precyzyjny, jego działanie na samym procesorze przy jednoczesnym braku kosztów chmurowych i zachowaniu całkowitej prywatności stanowi świetny kompromis dla mniej wymagających zastosowań.
+    \end{itemize}
+\end{enumerate}
+
+\end{document}

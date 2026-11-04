@@ -21,15 +21,15 @@ z samego repo — takie przypadki są oznaczone wprost.
 
 | # | Kryterium | Waga | Status | Gdzie w repo | Czego brakuje |
 |---|---|---|---|---|---|
-| 1 | WER korpusowy + per kategoria | 0.25 | 🟡 | `bench.py: main()`, `results/podsumowanie_asr-*.csv` | Liczby są, ale normalizacja tekstu (dodana przez kolegę) wymaga weryfikacji, czy faktycznie usuwa przewagę formatu zapisu liczb/dat |
-| 2 | Nazwy własne: poprawne/wszystkie | 0.05 | 🔴 | — | Tylko WER całej kategorii 4 jako proxy, zero metryki na poziomie encji |
+| 1 | WER korpusowy + per kategoria | 0.25 | 🟢 | `bench.py: main()`, `results/podsumowanie_asr-*.csv` | Zweryfikowane: normalizacja poprawnie zamienia liczby słowne na cyfry (np. "sześćset pięćdziesiąt"→"650"); wysoki WER w kat. 4 to realne błędy rozpoznania marek/modeli, nie artefakt formatu |
+| 2 | Nazwy własne: poprawne/wszystkie | 0.05 | 🟢 | `bench.py: extract_named_entities`, `Dokładność nazw własnych [%]` w `podsumowanie_asr-*.csv` | Heurystyka: wielka litera w środku zdania = nazwa własna/marka (nie prawdziwy NER) |
 | 3 | Daty/czas/liczby: poprawne/wszystkie | 0.10 | 🟢 | `bench.py: extract_entities, count_matched_entities`, `Dokładność encji (liczby/daty/czas) [%]` w `podsumowanie_asr-*.csv` | — |
 | 4 | Krótkie spontaniczne + dźwięki pozawerbalne | 0.10 | 🟡 | `bench.py: has_non_verbal_sound`, WER podzbioru w `podsumowanie_asr-*.csv` | Heurystyka słownikowa (ojej/hmm/aha/yyy...), nie pełna analiza błędów |
 | 5 | Odporność na szum (Δ WER cisza vs szum) | 0.10 | 🟢 | `Δ WER szum vs pozostałe kategorie [p.p.]` w `podsumowanie_asr-*.csv` | — |
 | 6 | Rozpoznanie intencji | 0.15 | 🟡 | `bench.py: classify_intent`, `Zgodność intencji [%]` w `podsumowanie_asr-*.csv` | To heurystyka słów kluczowych (zamowienie/rezerwacja/problem/polecenie/pytanie/inne), nie prawdziwy model NLU czy ręczna adnotacja — do opisania jako taka w metodologii |
 | 7 | Szybkość: opóźnienie + RTF | 0.10 | 🟡 | `RTF` per kategoria + mediana/maks. opóźnienia w `podsumowanie_asr-*.csv` | To pomiar offline-batch, nie pomiar w rzeczywistym przepływie (patrz pkt R) |
 | 8 | Stabilność/kompletność: %, S/D/I, braki | 0.05 | 🟢 | `Kompletność [%]`, `Nagrania bez transkrypcji` w `podsumowanie_asr-*.csv` | — |
-| 9 | Integracja: API, format, sprzęt, koszty, dane | 0.10 | 🔴 | — | Zero notatek/dokumentu porównującego te aspekty (ocena opisowa) |
+| 9 | Integracja: API, format, sprzęt, koszty, dane | 0.10 | 🟢 | `docs/INTEGRACJA.md` | — |
 
 ## Analiza i synteza
 
