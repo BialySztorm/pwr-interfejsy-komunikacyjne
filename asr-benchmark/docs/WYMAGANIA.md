@@ -24,11 +24,11 @@ z samego repo — takie przypadki są oznaczone wprost.
 | 1 | WER korpusowy + per kategoria | 0.25 | 🟡 | `bench.py: main()`, `results/podsumowanie_asr-*.csv` | Liczby są, ale normalizacja tekstu (dodana przez kolegę) wymaga weryfikacji, czy faktycznie usuwa przewagę formatu zapisu liczb/dat |
 | 2 | Nazwy własne: poprawne/wszystkie | 0.05 | 🔴 | — | Tylko WER całej kategorii 4 jako proxy, zero metryki na poziomie encji |
 | 3 | Daty/czas/liczby: poprawne/wszystkie | 0.10 | 🔴 | — | Jak wyżej — brak dedykowanej metryki na poziomie encji |
-| 4 | Krótkie spontaniczne + dźwięki pozawerbalne | 0.10 | 🟡 | WER kategorii 3 w `podsumowanie_asr-*.csv` | Brak analizy błędów, brak oznaczenia, które referencje zawierają "wow/ojej" itp. |
-| 5 | Odporność na szum (Δ WER cisza vs szum) | 0.10 | 🟡 | WER kategorii 5 liczony | Różnica (Δ) między kategoriami nie jest jawnie obliczana/eksponowana |
+| 4 | Krótkie spontaniczne + dźwięki pozawerbalne | 0.10 | 🟡 | `bench.py: has_non_verbal_sound`, WER podzbioru w `podsumowanie_asr-*.csv` | Heurystyka słownikowa (ojej/hmm/aha/yyy...), nie pełna analiza błędów |
+| 5 | Odporność na szum (Δ WER cisza vs szum) | 0.10 | 🟢 | `Δ WER szum vs pozostałe kategorie [p.p.]` w `podsumowanie_asr-*.csv` | — |
 | 6 | Rozpoznanie intencji | 0.15 | 🔴 | — | Zero adnotacji intencji, zero kodu oceniającego czy transkrypcja pozwala wydobyć intencję — **najwyższa waga, zero pokrycia** |
-| 7 | Szybkość: opóźnienie + RTF | 0.10 | 🟡 | `RTF` + mediana/maks. opóźnienia per plik w `podsumowanie_asr*-*.csv` | Brak RTF per kategoria; mediana/maks. to pomiar offline-batch, nie pomiar w rzeczywistym przepływie (patrz pkt R) |
-| 8 | Stabilność/kompletność: %, S/D/I, braki | 0.05 | 🟡 | S/D/I w CSV | "Brak transkrypcji" tylko na konsoli, nieagregowane do liczby/procentu w CSV |
+| 7 | Szybkość: opóźnienie + RTF | 0.10 | 🟡 | `RTF` per kategoria + mediana/maks. opóźnienia w `podsumowanie_asr-*.csv` | To pomiar offline-batch, nie pomiar w rzeczywistym przepływie (patrz pkt R) |
+| 8 | Stabilność/kompletność: %, S/D/I, braki | 0.05 | 🟢 | `Kompletność [%]`, `Nagrania bez transkrypcji` w `podsumowanie_asr-*.csv` | — |
 | 9 | Integracja: API, format, sprzęt, koszty, dane | 0.10 | 🔴 | — | Zero notatek/dokumentu porównującego te aspekty (ocena opisowa) |
 
 ## Analiza i synteza

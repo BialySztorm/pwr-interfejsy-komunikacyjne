@@ -46,6 +46,20 @@ CATEGORIES = {
     "4": "Nazwy własne, liczby, daty",
     "5": "Trudniejsze warunki akustyczne (szum)"
 }
+NOISE_CATEGORY = CATEGORIES["5"]
+SPONTANEOUS_CATEGORY = CATEGORIES["3"]
+
+# Prosta heurystyka: słowa/wykrzyknienia pozawerbalne, których obecność w referencji
+# oznacza, że nagranie ma charakter "spontaniczny z dźwiękiem pozawerbalnym".
+NON_VERBAL_SOUNDS = {
+    "ojej", "oj", "ojoj", "hmm", "hm", "aha", "eee", "yyy", "ech",
+    "uhm", "no", "ups", "ojejku", "oho",
+}
+
+
+def has_non_verbal_sound(text):
+    words = set(re.findall(r"[a-ząćęłńóśźż]+", text.lower()))
+    return bool(words & NON_VERBAL_SOUNDS)
 
 
 NUMBER_WORDS = {
@@ -329,8 +343,9 @@ def main():
 
     csv_data = [] # Lista na wyniki szczegółowe
     summary_data = [] # Lista na wyniki zagregowane
-    
+
     wav_files = glob.glob(os.path.join(BASE_DIR, "*", "*.wav"))
+    missing_transcript_count = 0
 
     progress = tqdm(wav_files, desc="Transkrypcja", unit="plik")
     for wav_path in progress:
@@ -338,20 +353,22 @@ def main():
         txt_path = wav_path.replace(".wav", ".txt")
         if not os.path.exists(txt_path):
             tqdm.write(f"Brak transkrypcji dla {wav_path}, pomijanie.")
+            missing_transcript_count += 1
             continue
-            
+
         with open(txt_path, 'r', encoding='utf-8-sig') as f:
             reference_text = f.read().strip()
-            
+
         normalized_reference = normalize_for_wer(reference_text)
         ref_words_count = len(normalized_reference.split())
         if ref_words_count == 0:
             continue
-            
+
         filename = os.path.basename(wav_path)
         file_idx = filename.split('-')[-1].replace('.wav', '')
         category = CATEGORIES.get(file_idx, "Inne")
-        
+        non_verbal = category == SPONTANEOUS_CATEGORY and has_non_verbal_sound(reference_text)
+
         audio_path = resolve_audio_path(wav_path)
         duration, samplerate = get_audio_info(audio_path)
 
@@ -366,6 +383,7 @@ def main():
                 "Plik": filename,
                 "System": whisper_system_names[size],
                 "Kategoria": category,
+                "Dźwięk pozawerbalny": non_verbal,
                 "Czas nagrania [s]": duration,
                 "Czas przetwarzania [s]": time_whisper,
                 "RTF": rtf_whisper,
@@ -390,6 +408,7 @@ def main():
             "Plik": filename,
             "System": "Vosk",
             "Kategoria": category,
+            "Dźwięk pozawerbalny": non_verbal,
             "Czas nagrania [s]": duration,
             "Czas przetwarzania [s]": time_vosk,
             "RTF": rtf_vosk,
@@ -459,16 +478,51 @@ def main():
             "Słowa referencyjne": total_n
         }
         
-        print("Średni WER w kategoriach:")
+        print("Średni WER i RTF w kategoriach:")
+        category_wer = {}
         for cat in CATEGORIES.values():
-            cat_data = [row["WER [%]"] for row in sys_data if row["Kategoria"] == cat]
-            if cat_data:
-                avg_wer = sum(cat_data) / len(cat_data)
-                print(f" - {cat}: {avg_wer:.2f}%")
+            cat_rows = [row for row in sys_data if row["Kategoria"] == cat]
+            if cat_rows:
+                avg_wer = sum(row["WER [%]"] for row in cat_rows) / len(cat_rows)
+                avg_rtf = sum(row["RTF"] for row in cat_rows) / len(cat_rows)
+                category_wer[cat] = avg_wer
+                print(f" - {cat}: WER {avg_wer:.2f}%, RTF {avg_rtf:.4f}")
                 summary_row[f"WER - {cat} [%]"] = round(avg_wer, 2)
+                summary_row[f"RTF - {cat}"] = round(avg_rtf, 4)
             else:
                 summary_row[f"WER - {cat} [%]"] = "Brak danych"
-                
+                summary_row[f"RTF - {cat}"] = "Brak danych"
+
+        # Odporność na szum: różnica WER między kategorią "szum" a resztą kategorii.
+        other_cats_wer = [w for cat, w in category_wer.items() if cat != NOISE_CATEGORY]
+        if NOISE_CATEGORY in category_wer and other_cats_wer:
+            noise_delta = category_wer[NOISE_CATEGORY] - sum(other_cats_wer) / len(other_cats_wer)
+            print(f"Δ WER szum vs pozostałe kategorie: {noise_delta:+.2f} p.p.")
+            summary_row["Δ WER szum vs pozostałe kategorie [p.p.]"] = round(noise_delta, 2)
+        else:
+            summary_row["Δ WER szum vs pozostałe kategorie [p.p.]"] = "Brak danych"
+
+        # Podzbiór: spontaniczne wypowiedzi z dźwiękiem pozawerbalnym (ojej/hmm/aha...).
+        non_verbal_rows = [row for row in sys_data if row["Dźwięk pozawerbalny"]]
+        if non_verbal_rows:
+            non_verbal_wer = sum(row["WER [%]"] for row in non_verbal_rows) / len(non_verbal_rows)
+            print(f"WER (spontaniczne z dźwiękiem pozawerbalnym, n={len(non_verbal_rows)}): {non_verbal_wer:.2f}%")
+            summary_row["WER - spontaniczne z dźwiękiem pozawerbalnym [%]"] = round(non_verbal_wer, 2)
+            summary_row["N - spontaniczne z dźwiękiem pozawerbalnym"] = len(non_verbal_rows)
+        else:
+            summary_row["WER - spontaniczne z dźwiękiem pozawerbalnym [%]"] = "Brak danych"
+            summary_row["N - spontaniczne z dźwiękiem pozawerbalnym"] = 0
+
+        # Stabilność/kompletność: ile nagrań w ogóle miało transkrypcję do oceny.
+        total_wav_found = len(wav_files)
+        scored_count = len({row["Plik"] for row in sys_data})
+        completeness_pct = scored_count / total_wav_found * 100 if total_wav_found else 0
+        print(f"Kompletność: {scored_count}/{total_wav_found} nagrań ocenione ({completeness_pct:.1f}%), "
+              f"{missing_transcript_count} bez transkrypcji")
+        summary_row["Nagrania ocenione"] = scored_count
+        summary_row["Nagrania bez transkrypcji"] = missing_transcript_count
+        summary_row["Kompletność [%]"] = round(completeness_pct, 1)
+
         summary_data.append(summary_row)
 
     # Zapis zagregowanego podsumowania do pliku CSV
