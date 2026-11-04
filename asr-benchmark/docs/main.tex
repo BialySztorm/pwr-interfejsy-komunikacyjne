@@ -117,7 +117,45 @@ w kategorii nagrań z hałasem w tle. W tej grupie WER modelu
 modelu \texttt{base} i o 30,23 punktu procentowego od wyniku Voska.
 
 \subsection{Ocena wyodrębniania intencji i informacji kluczowych}
-[Miejsce na opis skuteczności rozpoznawania intencji (AI) i analizę jakościową błędów dla specyficznych terminów].
+
+Rozpoznawanie intencji oceniono automatyczną heurystyką słów kluczowych
+(\texttt{classify\_intent} w \texttt{bench.py}), bo tematyka nagrań jest zbyt
+zróżnicowana (elektronika, gastronomia, hotel, zdrowie, motoryzacja...), żeby
+zdefiniować jedną listę intencji domenowych. Wypowiedź klasyfikowana jest jako
+jeden z typów aktu mowy: \emph{zamówienie}, \emph{rezerwacja}, \emph{problem},
+\emph{polecenie}, \emph{pytanie} albo \emph{inne}, w tej kolejności priorytetu.
+Intencję referencji i intencję hipotezy porównuje się, a zgodność liczona jest
+jako \% nagrań, dla których obie intencje się zgadzają (kolumna
+\texttt{Zgodność intencji [\%]} w \texttt{podsumowanie\_asr-*.csv}).
+
+To jest heurystyka, nie model NLU ani ręczna adnotacja -- traktować jako
+przybliżony wskaźnik, nie rozstrzygającą ocenę.
+
+\begin{table}[htbp]
+\centering
+\caption{Zgodność intencji i dokładność rozpoznawania informacji kluczowych [\%]}
+\label{tab:intencje}
+\begin{tabular}{lccc}
+\toprule
+\textbf{System} & \textbf{Zgodność intencji} & \textbf{Nazwy własne} & \textbf{Daty/czas/liczby} \\
+\midrule
+Whisper \texttt{base}     & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
+Whisper \texttt{large-v3} & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
+Vosk                     & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+[Miejsce na analizę jakościową: przykłady błędów intencji i rozpoznawania
+nazw/liczb po pełnym przebiegu \texttt{bench.py} -- dane z
+\texttt{podsumowanie\_asr-*.csv}, kolumny \texttt{Zgodność intencji [\%]},
+\texttt{Dokładność nazw własnych [\%]}, \texttt{Dokładność encji
+(liczby/daty/czas) [\%]}.]
+
+Uwaga: Tabela~\ref{tab:intencje} to automatyczna ocena na \emph{całym} zbiorze
+(heurystyka), licząca inaczej niż ręczna ocena 36 nagrań w
+Tabeli~\ref{tab:informacje-kluczowe} (ta druga pozostaje jako niezależna
+weryfikacja na mniejszej, ręcznie sprawdzonej próbce).
 
 \subsection{Poprawność rozpoznawania informacji kluczowych}
 
@@ -149,7 +187,100 @@ kryteriach. Przykładem jego błędu było rozpoznanie zakresu
 ogniskowych obiektywu \emph{18--45 mm} jako \emph{18--35 mm}.
 
 \subsection{Możliwości integracji}
-Oba systemy działają lokalnie i mają gotowe biblioteki w Pythonie, co gwarantuje łatwą integrację oraz brak opłat za korzystanie z API. Dodatkowym bonusem jest pełna prywatność danych. Najważniejsza różnica leży w sprzęcie: Whisper potrzebuje większej mocy obliczeniowej, więc potrzebna jest w miarę mocna karta graficzna, podczas gdy Vosk jest lekki i bez problemu radzi sobie na zwykłym procesorze.
+Oba systemy działają lokalnie i mają gotowe biblioteki w Pythonie, co gwarantuje łatwą integrację oraz brak opłat za korzystanie z API. Dodatkowym bonusem jest pełna prywatność danych. Najważniejsza różnica leży w sprzęcie: Whisper potrzebuje większej mocy obliczeniowej, więc potrzebna jest w miarę mocna karta graficzna, podczas gdy Vosk jest lekki i bez problemu radzi sobie na zwykłym procesorze. Dodatkowo Vosk wspiera natywne przetwarzanie strumieniowe (audio podawane kawałkami w czasie rzeczywistym), podczas gdy Whisper w tym projekcie przetwarza cały plik na raz (batch) -- ma to konsekwencje dla opóźnienia, patrz sekcja~\ref{sec:latency}. Pełne porównanie API, formatu wyników, wymagań sprzętowych i kosztów -- \texttt{docs/INTEGRACJA.md}.
+
+\subsection{Porównanie sparowane per nagranie}
+
+Dodatkowo do porównania na poziomie zagregowanych statystyk, dla każdego
+nagrania policzono różnicę WER między systemami (\texttt{scripts/paired\_comparison.py},
+wynik w \texttt{wyniki\_asr-*\_parowane\_*.csv}) -- to pozwala stwierdzić, na
+ilu konkretnych nagraniach jeden system wypada lepiej od drugiego, a nie tylko
+jaka jest średnia różnica w całej próbce.
+
+\begin{table}[htbp]
+\centering
+\caption{Porównanie sparowane Whisper vs Vosk (per nagranie)}
+\label{tab:parowane}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Para systemów} & \textbf{Vosk lepszy} & \textbf{Vosk gorszy} & \textbf{Remis} \\
+\midrule
+Whisper \texttt{base} vs Vosk     & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
+Whisper \texttt{large-v3} vs Vosk & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+[Miejsce na komentarz: średnia/mediana różnicy WER (B - A) i wynik testu
+Wilcoxona (jeśli dostępny scipy), z \texttt{scripts/paired\_comparison.py}.]
+
+\subsection{Pomiar opóźnienia w rzeczywistym przepływie}
+\label{sec:latency}
+
+Globalny RTF (sekcja~3.3) mówi, jak szybko system przetwarza nagranie
+\emph{względem jego długości}, ale nie odpowiada na praktyczne pytanie: ile
+użytkownik czeka \emph{po tym, jak przestanie mówić}, zanim dostanie
+transkrypcję. Zmierzono to na reprezentatywnym podzbiorze (po kilka nagrań z
+każdej kategorii, \texttt{scripts/latency\_pipeline.py}), symulując
+rzeczywisty przepływ: audio "dociera" w czasie rzeczywistym (z opóźnieniem
+odpowiadającym długości nagrania), a mierzone jest tylko opóźnienie
+\emph{ogonowe} -- czas od ostatniego fragmentu audio do gotowej transkrypcji.
+
+Vosk przetwarza audio strumieniowo (kawałkami, w miarę jak "nadchodzą"), więc
+jego opóźnienie ogonowe jest małe i niezależne od długości nagrania. Whisper
+w tej konfiguracji nie ma API przyrostowego -- może zacząć transkrybować
+dopiero, gdy całe nagranie jest już dostępne, więc jego opóźnienie ogonowe
+równa się czasowi pojedynczego wywołania \texttt{transcribe()}.
+
+\begin{table}[htbp]
+\centering
+\caption{Opóźnienie ogonowe (od końca wypowiedzi do transkrypcji)}
+\label{tab:latency}
+\begin{tabular}{lcc}
+\toprule
+\textbf{System} & \textbf{Mediana [s]} & \textbf{Maksimum [s]} \\
+\midrule
+Whisper \texttt{base}     & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
+Whisper \texttt{large-v3} & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
+Vosk                     & [UZUPEŁNIĆ] & [UZUPEŁNIĆ] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+[Dane z \texttt{results/latency\_pipeline.csv} po pełnym przebiegu
+\texttt{scripts/latency\_pipeline.py}.]
+
+\subsection{Ocena końcowa (synteza ważona)}
+
+Wyniki wszystkich 9 kryteriów przeskalowano do wspólnej skali 0--100 (wyżej =
+lepiej) i połączono w jedną ocenę ważoną wagami z wytycznych badania
+(\texttt{scripts/compute\_final\_score.py}, metodologia przeskalowania opisana
+w docstringu skryptu):
+
+\begin{itemize}
+    \item WER, WER podzbioru spontaniczne+pozawerbalne: $100 - WER$,
+    \item Nazwy własne, daty/czas/liczby, intencja, kompletność: wartość \% już 0--100,
+    \item Odporność na szum: $100 - \Delta WER_{szum}$,
+    \item Szybkość (RTF): $100 \times (1 - RTF)$, $RTF{=}1$ (czas rzeczywisty) $\to 0$,
+    \item Integracja: ocena opisowa (0--100) na podstawie \texttt{docs/INTEGRACJA.md}, podawana ręcznie -- nie da się jej wyliczyć automatycznie.
+\end{itemize}
+
+\begin{table}[htbp]
+\centering
+\caption{Ocena końcowa (ważona synteza 9 kryteriów, skala 0--100)}
+\label{tab:ocena-koncowa}
+\begin{tabular}{lc}
+\toprule
+\textbf{System} & \textbf{Ocena końcowa} \\
+\midrule
+Whisper \texttt{base}     & [UZUPEŁNIĆ] \\
+Whisper \texttt{large-v3} & [UZUPEŁNIĆ] \\
+Vosk                     & [UZUPEŁNIĆ] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+[Pełna tabela z rozbiciem na poszczególne kryteria: \texttt{results/podsumowanie\_asr-*\_ocena\_koncowa.csv}.]
 
 \section{Podsumowanie i wnioski końcowe}
 

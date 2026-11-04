@@ -35,11 +35,11 @@ z samego repo — takie przypadki są oznaczone wprost.
 
 | Wymóg | Status | Gdzie w repo | Czego brakuje |
 |---|---|---|---|
-| Ocena końcowa ważona + opisane przeskalowanie do wspólnej skali | 🔴 | — | Brak kodu łączącego 9 kryteriów, brak opisanej metody przeskalowania |
-| Porównanie sparowane per nagranie (Whisper vs Vosk) | 🔴 | — | `bench_takes.py` ma analogiczny mechanizm, ale dla "wariant vs oryginał **tego samego systemu**" — inna oś, nie Whisper-vs-Vosk per plik |
-| Pomiar czasu w rzeczywistym przepływie (reprezentatywny podzbiór) | 🔴 | — | Benchmark jest czysto offline/batch na plikach |
-| Wnioski (4 pytania z wymagań) | 🔴 | — | Nie napisane; częściowo odpowiadalne z obecnych danych (1–3), pytanie 4 wymaga sekcji integracyjnej |
-| Raport + prezentacja | 🔴 | — | Nie znaleziono żadnego pliku raportu/prezentacji w repo |
+| Ocena końcowa ważona + opisane przeskalowanie do wspólnej skali | 🟢 | `scripts/compute_final_score.py`, `docs/main.tex` (sekcja "Ocena końcowa") | — |
+| Porównanie sparowane per nagranie (Whisper vs Vosk) | 🟢 | `scripts/paired_comparison.py`, `docs/main.tex` (sekcja "Porównanie sparowane") | — |
+| Pomiar czasu w rzeczywistym przepływie (reprezentatywny podzbiór) | 🟡 | `scripts/latency_pipeline.py`, `docs/main.tex` (sekcja "Pomiar opóźnienia") | To symulacja (audio "dociera" w czasie realnym z plików), nie pomiar z żywego mikrofonu |
+| Wnioski (4 pytania z wymagań) | 🟡 | `docs/main.tex: Podsumowanie i wnioski końcowe` | Struktura i 4 punkty gotowe, ale z liczbami ze starszego przebiegu — do przeliczenia po pełnym benchmarku |
+| Raport + prezentacja | 🟡 | `docs/main.tex` | Raport w toku (brakuje ostatecznych liczb z pełnego benchmarku); prezentacji nadal nie ma |
 
 ## Rzeczy, które nie są kodem, ale są potrzebne
 
