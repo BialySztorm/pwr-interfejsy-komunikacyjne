@@ -1,4 +1,5 @@
 #!/bin/env python3
+import argparse
 import os
 import re
 import time
@@ -33,14 +34,27 @@ CATEGORIES = {
     "5": "Trudniejsze warunki akustyczne (szum)"
 }
 
-def load_models():
-    print(f"Ładowanie modelu Whisper (device={WHISPER_DEVICE})...")
-    whisper_model = whisper.load_model("base", device=WHISPER_DEVICE)
+def parse_args():
+    parser = argparse.ArgumentParser(description="Benchmark Whisper vs Vosk na polskich nagraniach.")
+    parser.add_argument(
+        "--whisper-model",
+        nargs="+",
+        choices=whisper.available_models(),
+        default=["base"],
+        help="Jeden lub więcej rozmiarów modeli Whisper do przetestowania w jednym przebiegu (domyślnie: base).",
+    )
+    return parser.parse_args()
+
+def load_models(whisper_model_sizes):
+    whisper_models = {}
+    for size in whisper_model_sizes:
+        print(f"Ładowanie modelu Whisper '{size}' (device={WHISPER_DEVICE})...")
+        whisper_models[size] = whisper.load_model(size, device=WHISPER_DEVICE)
 
     print("Ładowanie modelu Vosk (CPU, Vosk nie wspiera GPU)...")
     vosk_model = Model(VOSK_MODEL_PATH)
-    
-    return whisper_model, vosk_model
+
+    return whisper_models, vosk_model
 
 def get_audio_info(file_path):
     data, samplerate = sf.read(file_path)
@@ -79,8 +93,10 @@ def next_run_number(results_dir):
     return max(existing, default=0) + 1
 
 def main():
-    whisper_model, vosk_model = load_models()
-    
+    args = parse_args()
+    whisper_system_names = {size: f"Whisper ({size})" for size in args.whisper_model}
+    whisper_models, vosk_model = load_models(args.whisper_model)
+
     csv_data = [] # Lista na wyniki szczegółowe
     summary_data = [] # Lista na wyniki zagregowane
     
@@ -106,28 +122,29 @@ def main():
         category = CATEGORIES.get(file_idx, "Inne")
         
         duration, samplerate = get_audio_info(wav_path)
-        
-        # Test Whisper
-        hyp_whisper, time_whisper = transcribe_whisper(whisper_model, wav_path)
-        rtf_whisper = time_whisper / duration
-        wer_whisper = process_words(reference_text, hyp_whisper)
-        
-        csv_data.append({
-            "Plik": filename,
-            "System": "Whisper",
-            "Kategoria": category,
-            "Czas nagrania [s]": duration,
-            "Czas przetwarzania [s]": time_whisper,
-            "RTF": rtf_whisper,
-            "WER [%]": wer_whisper.wer * 100,
-            "S (Zamiany)": wer_whisper.substitutions,
-            "D (Pominięcia)": wer_whisper.deletions,
-            "I (Wstawienia)": wer_whisper.insertions,
-            "N (Słowa)": ref_words_count,
-            "Transkrypcja systemu": hyp_whisper,
-            "Transkrypcja referencyjna": reference_text
-        })
-        
+
+        # Test Whisper (dla każdego z podanych rozmiarów modelu)
+        for size, model in whisper_models.items():
+            hyp_whisper, time_whisper = transcribe_whisper(model, wav_path)
+            rtf_whisper = time_whisper / duration
+            wer_whisper = process_words(reference_text, hyp_whisper)
+
+            csv_data.append({
+                "Plik": filename,
+                "System": whisper_system_names[size],
+                "Kategoria": category,
+                "Czas nagrania [s]": duration,
+                "Czas przetwarzania [s]": time_whisper,
+                "RTF": rtf_whisper,
+                "WER [%]": wer_whisper.wer * 100,
+                "S (Zamiany)": wer_whisper.substitutions,
+                "D (Pominięcia)": wer_whisper.deletions,
+                "I (Wstawienia)": wer_whisper.insertions,
+                "N (Słowa)": ref_words_count,
+                "Transkrypcja systemu": hyp_whisper,
+                "Transkrypcja referencyjna": reference_text
+            })
+
         # Test Vosk
         hyp_vosk, time_vosk = transcribe_vosk(vosk_model, wav_path, samplerate)
         rtf_vosk = time_vosk / duration
@@ -162,7 +179,7 @@ def main():
         print(f"\n✅ Zapisano szczegółowe wyniki do pliku: {csv_filename}")
 
     # Agregacja, raportowanie w konsoli i tworzenie danych do podsumowania
-    for system_name in ["Whisper", "Vosk"]:
+    for system_name in list(whisper_system_names.values()) + ["Vosk"]:
         sys_data = [row for row in csv_data if row["System"] == system_name]
         if not sys_data:
             continue
