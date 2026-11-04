@@ -24,7 +24,7 @@ Systemy zostały ocenione pod kątem jakości rozpoznawania mowy, poprawności t
 
 \section{Metodologia i zbiór testowy}
 \subsection{Zbiór danych}
-Badanie przeprowadzono na wspólnym zbiorze testowym, składającym się z 200 wypowiedzi pochodzących od 40 różnych mówców. Zbiór został podzielony na następujące kategorie tematyczne:
+Badanie przeprowadzono na wspólnym zbiorze testowym, składającym się z 216 nagrań pochodzących od 38 różnych mówców (190 kompletnych par nagranie/transkrypcja, 4374 słowa w referencjach, łącznie ok.~46 minut nagrań). Zbiór został podzielony na następujące kategorie tematyczne:
 \begin{itemize}
     \item Polecenia i pytania typowe dla interfejsu,
     \item Wypowiedzi spontaniczne,
@@ -72,15 +72,15 @@ a transkrypcje referencyjne zawierały 4313 słów.
 \textbf{Konfiguracja} & \textbf{WER [\%]} & \textbf{S} & \textbf{D} &
 \textbf{I} & \textbf{RTF} & \textbf{Czas [s]} \\
 \midrule
-Whisper \texttt{base}     & 42,50 & 1338 & 292 & 203 & 0,0503 & 121,81 \\
-Whisper \texttt{large-v3} & 15,70 &  420 & 205 &  52 & 0,1415 & 342,68 \\
-Vosk                     & 33,57 &  935 & 265 & 248 & 0,0792 & 191,75 \\
+Whisper \texttt{base}     & 41,76 & 1290 & 350 & 161 & 0,0466 & 112,99 \\
+Whisper \texttt{large-v3} & 15,70 &  429 & 196 &  52 & 0,1318 & 319,23 \\
+Vosk                     & 33,53 &  935 & 264 & 247 & 0,0748 & 181,12 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 Whisper \texttt{large-v3} osiągnął najniższy WER. W porównaniu
-z wariantem \texttt{base} obniżył go o 26,80 punktu procentowego,
+z wariantem \texttt{base} obniżył go o 26,06 punktu procentowego,
 a przetworzenie zbioru zajęło około 2,8 raza więcej czasu.
 Wszystkie konfiguracje uzyskały globalny RTF poniżej~1.
 
@@ -101,11 +101,11 @@ kategoriach wypowiedzi. Dla każdej kategorii obliczono
 \textbf{Whisper \texttt{large-v3}} &
 \textbf{Vosk} \\
 \midrule
-Polecenia i pytania (1)         & 33,43 & \textbf{6,53}  & 20,06 \\
-Polecenia i pytania (2)         & 30,65 & \textbf{10,52} & 25,83 \\
-Wypowiedzi spontaniczne         & 37,05 & \textbf{16,42} & 32,94 \\
-Nazwy własne, liczby i daty     & 45,31 & \textbf{16,47} & 39,89 \\
-Hałas w tle                     & 68,10 & \textbf{18,85} & 49,08 \\
+Polecenia i pytania (1)         & 33,43 & \textbf{6,53}  & 20,32 \\
+Polecenia i pytania (2)         & 30,65 & \textbf{10,52} & 25,62 \\
+Wypowiedzi spontaniczne         & 37,05 & \textbf{16,42} & 33,27 \\
+Nazwy własne, liczby i daty     & 45,31 & \textbf{16,47} & 39,65 \\
+Hałas w tle                     & 62,95 & \textbf{18,85} & 49,01 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -113,8 +113,8 @@ Hałas w tle                     & 68,10 & \textbf{18,85} & 49,08 \\
 Whisper \texttt{large-v3} osiągnął najniższy średni WER we wszystkich
 kategoriach. Największa różnica między konfiguracjami wystąpiła
 w kategorii nagrań z hałasem w tle. W tej grupie WER modelu
-\texttt{large-v3} był niższy o 49,25 punktu procentowego od wyniku
-modelu \texttt{base} i o 30,23 punktu procentowego od wyniku Voska.
+\texttt{large-v3} był niższy o 44,10 punktu procentowego od wyniku
+modelu \texttt{base} i o 30,16 punktu procentowego od wyniku Voska.
 
 \subsection{Poprawność rozpoznawania informacji kluczowych}
 
@@ -146,7 +146,126 @@ kryteriach. Przykładem jego błędu było rozpoznanie zakresu
 ogniskowych obiektywu \emph{18--45 mm} jako \emph{18--35 mm}.
 
 \subsection{Możliwości integracji}
-Oba systemy działają lokalnie i mają gotowe biblioteki w Pythonie, co gwarantuje łatwą integrację oraz brak opłat za korzystanie z API. Dodatkowym bonusem jest pełna prywatność danych. Najważniejsza różnica leży w sprzęcie: Whisper potrzebuje większej mocy obliczeniowej, więc potrzebna jest w miarę mocna karta graficzna, podczas gdy Vosk jest lekki i bez problemu radzi sobie na zwykłym procesorze.
+Oba systemy działają lokalnie i mają gotowe biblioteki w Pythonie, co gwarantuje łatwą integrację oraz brak opłat za korzystanie z API. Dodatkowym bonusem jest pełna prywatność danych. Najważniejsza różnica leży w sprzęcie: Whisper potrzebuje większej mocy obliczeniowej, więc potrzebna jest w miarę mocna karta graficzna, podczas gdy Vosk jest lekki i bez problemu radzi sobie na zwykłym procesorze. Dodatkowo Vosk wspiera natywne przetwarzanie strumieniowe (audio podawane kawałkami w czasie rzeczywistym), podczas gdy Whisper w tym projekcie przetwarza cały plik na raz -- konsekwencje tej różnicy dla opóźnienia opisano w sekcji~\ref{sec:latency}. Pełne porównanie API, formatu wyników, wymagań sprzętowych i kosztów -- \texttt{docs/INTEGRACJA.md}.
+
+\subsection{Rozpoznawanie intencji i informacji kluczowych}
+
+Intencję wypowiedzi (np.\ zamówienie, rezerwacja, zgłoszenie problemu,
+polecenie, pytanie) oceniono automatyczną heurystyką słów kluczowych, bo
+tematyka nagrań jest zbyt zróżnicowana na jedną listę intencji domenowych.
+Zgodność liczona jest jako \% nagrań, dla których intencja wykryta w
+transkrypcji zgadza się z intencją referencji -- to heurystyka, nie model
+NLU, więc wynik traktować jako przybliżony wskaźnik.
+
+\begin{table}[htbp]
+\centering
+\caption{Zgodność intencji i automatyczna dokładność informacji kluczowych na całym zbiorze [\%]}
+\label{tab:intencje}
+\begin{tabular}{lccc}
+\toprule
+\textbf{System} & \textbf{Zgodność intencji} & \textbf{Nazwy własne} & \textbf{Daty/czas/liczby} \\
+\midrule
+Whisper \texttt{base}     & 74,60 & 40,15 & 60,09 \\
+Whisper \texttt{large-v3} & \textbf{93,65} & \textbf{76,95} & \textbf{79,36} \\
+Vosk                     & 72,49 & 46,47 & 72,94 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Whisper \texttt{large-v3} jest wyraźnie najlepszy w rozpoznawaniu intencji i
+informacji kluczowych na całym zbiorze. Vosk wypada nieco lepiej od Whispera
+\texttt{base} w dokładności nazw własnych i liczb/dat, mimo wyższego
+globalnego WER -- jego błędy koncentrują się mniej na samych encjach, co jest
+zgodne z Tabelą~\ref{tab:informacje-kluczowe}.
+
+\subsection{Porównanie sparowane per nagranie}
+
+Dla każdego nagrania policzono różnicę WER między Whisperem a Voskiem (ten
+sam plik, ten sam reference), żeby sprawdzić nie tylko średnią różnicę, ale
+na ilu konkretnych nagraniach dany system wypada lepiej.
+
+\begin{table}[htbp]
+\centering
+\caption{Porównanie sparowane per nagranie (189 wspólnych nagrań)}
+\label{tab:parowane}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Para} & \textbf{Vosk lepszy} & \textbf{Vosk gorszy} & \textbf{Remis} & \textbf{Śr.\ różnica [p.p.]} \\
+\midrule
+Whisper \texttt{base} vs Vosk     & 122 & 45  & 22 & $-8{,}32$ \\
+Whisper \texttt{large-v3} vs Vosk & 19  & 148 & 22 & $+19{,}79$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Vosk jest lepszy na większości nagrań w porównaniu z Whisperem
+\texttt{base} (122 z 189), ale wyraźnie gorszy w porównaniu z
+\texttt{large-v3} (lepszy tylko na 19 nagraniach). Różnica jest statystycznie
+istotna w obu przypadkach (test Wilcoxona, $p < 0{,}0001$).
+
+\subsection{Pomiar opóźnienia w rzeczywistym przepływie}
+\label{sec:latency}
+
+Globalny RTF (Tabela~\ref{tab:ogolne}) mówi, jak szybko system przetwarza
+nagranie względem jego długości, ale nie odpowiada na pytanie: ile
+użytkownik czeka \emph{po tym, jak przestanie mówić}. Zmierzono to na
+reprezentatywnym podzbiorze (6 nagrań z każdej kategorii, 30 łącznie),
+symulując rzeczywisty przepływ -- audio "dociera" w czasie rzeczywistym, a
+mierzone jest tylko opóźnienie \emph{ogonowe} po ostatnim fragmencie audio.
+
+\begin{table}[htbp]
+\centering
+\caption{Opóźnienie ogonowe (od końca wypowiedzi do transkrypcji)}
+\label{tab:latency}
+\begin{tabular}{lcc}
+\toprule
+\textbf{System} & \textbf{Mediana [s]} & \textbf{Maksimum [s]} \\
+\midrule
+Whisper \texttt{base}     & 0,422 & 2,229 \\
+Whisper \texttt{large-v3} & 1,156 & 2,277 \\
+Vosk                     & \textbf{0,011} & \textbf{0,027} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Vosk przetwarza audio strumieniowo, więc jego opóźnienie ogonowe jest
+pomijalne i niezależne od długości nagrania. Whisper (w tej konfiguracji,
+bez API przyrostowego) może zacząć transkrybować dopiero po zakończeniu
+nagrania -- jego opóźnienie ogonowe jest o ok.~2--3 rzędy wielkości większe
+niż Voska, a dla \texttt{large-v3} rośnie dodatkowo przez dłuższy czas
+samego wywołania modelu.
+
+\subsection{Ocena końcowa (synteza ważona)}
+
+Wyniki wszystkich 9 kryteriów przeskalowano do wspólnej skali 0--100 (wyżej
+= lepiej) i połączono w jedną ocenę ważoną wagami z wytycznych badania
+(metodologia przeskalowania: WER i WER podzbioru spontaniczne+pozawerbalne
+jako $100-WER$; nazwy własne, daty/czas/liczby, intencja i kompletność jako
+wartość~\% bez zmian; odporność na szum jako $100-\Delta WER_{szum}$;
+szybkość jako $100 \times (1-RTF)$; integracja jako ręczna ocena opisowa
+0--100 na podstawie \texttt{docs/INTEGRACJA.md}, bo nie da się jej policzyć
+automatycznie).
+
+\begin{table}[htbp]
+\centering
+\caption{Ocena końcowa (ważona synteza 9 kryteriów, skala 0--100)}
+\label{tab:ocena-koncowa}
+\begin{tabular}{lc}
+\toprule
+\textbf{System} & \textbf{Ocena końcowa} \\
+\midrule
+Whisper \texttt{base}     & 67,74 \\
+Whisper \texttt{large-v3} & \textbf{83,28} \\
+Vosk                     & 74,51 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Mimo najwyższych kosztów integracyjnych i czasowych, Whisper
+\texttt{large-v3} uzyskuje najwyższą ocenę końcową -- przewaga w jakości
+transkrypcji, intencji i odporności na szum przeważa koszt wyższego RTF i
+opóźnienia. Vosk wypada lepiej niż Whisper \texttt{base} głównie dzięki
+niższym kosztom integracji i sprzętu oraz niższemu opóźnieniu.
 
 \section{Przykłady poprawnych transkrypcji i błędów rozpoznawania}
 
@@ -272,16 +391,16 @@ Na podstawie przeprowadzonych pomiarów i analiz sformułowano następujące wni
     Zdecydowanie najdokładniejszym systemem jest Whisper w konfiguracji large-v3. Osiągnął on błąd na poziomie zaledwie 6,53\% -- 10,52\% w kategoriach typowych poleceń i pytań, co pozwala na niezawodne dekodowanie intencji użytkownika. Vosk z wynikiem 20\%--25\% również stanowi akceptowalne rozwiązanie, choć częściej może prowadzić do nieporozumień.
     
     \item \textbf{Różnice w kategoriach i warunkach akustycznych:} \\
-    Najbardziej drastyczne różnice zauważono w nagraniach z hałasem w tle oraz przy nazwach własnych. Whisper large-v3 wykazał niezwykłą odporność na szum (WER na poziomie 18,85\%), podczas gdy Vosk (49,08\%) i Whisper base (68,10\%) ulegały znacznej degradacji. 
-    
+    Najbardziej drastyczne różnice zauważono w nagraniach z hałasem w tle oraz przy nazwach własnych. Whisper large-v3 wykazał niezwykłą odporność na szum (WER na poziomie 18,85\%), podczas gdy Vosk (49,01\%) i Whisper base (62,95\%) ulegały znacznej degradacji.
+
     \item \textbf{Relacja jakości do czasu przetwarzania:} \\
-    Zwiększenie dokładności transkrypcji w modelu large-v3 kosztuje -- system przetwarzał dane około 2,8 raza dłużej niż bazowa wersja Whispera. Mimo to, wskaźnik RTF na poziomie 0,1415 oznacza, że wygenerowanie tekstu następuje wielokrotnie szybciej niż trwa sama wypowiedź. Takie opóźnienie jest w pełni akceptowalne i niezauważalne dla użytkownika końcowego projektowanego interfejsu.
-    
+    Zwiększenie dokładności transkrypcji w modelu large-v3 kosztuje -- system przetwarzał dane około 2,8 raza dłużej niż bazowa wersja Whispera. Mimo to, wskaźnik RTF na poziomie 0,1318 oznacza, że wygenerowanie tekstu następuje wielokrotnie szybciej niż trwa sama wypowiedź. Pomiar opóźnienia w symulowanym rzeczywistym przepływie (Tabela~\ref{tab:latency}) pokazuje jednak, że ta relacja ma praktyczne znaczenie: opóźnienie ogonowe Whispera (0,4--1,2~s mediana) jest o 1--2 rzędy wielkości większe niż Voska (0,011~s), bo Vosk przetwarza audio strumieniowo, a Whisper w tej konfiguracji czeka na koniec nagrania. Dla krótkich komend to wciąż niezauważalne, ale różnica rośnie z długością wypowiedzi i rozmiarem modelu.
+
     \item \textbf{Rekomendacja wdrożeniowa:} \\
-    Ostateczny wybór zależy od dostępnej architektury sprzętowej:
+    Ważona synteza wszystkich 9 kryteriów (Tabela~\ref{tab:ocena-koncowa}) daje Whisperowi \texttt{large-v3} najwyższą ocenę końcową (83,28/100), przed Voskiem (74,51) i Whisperem \texttt{base} (67,74) -- przewaga w jakości i odporności na szum przeważa koszt wyższego RTF, opóźnienia i integracji. Ostateczny wybór wciąż zależy od dostępnej architektury sprzętowej:
     \begin{itemize}
         \item Jeśli dysponujemy serwerem obliczeniowym wyposażonym w odpowiednio silną kartę graficzną, bezwzględnie rekomenduje się wdrożenie systemu Whisper large-v3. Gwarantuje on najwyższą skuteczność.
-        \item Jeśli zależy nam na zminimalizowaniu kosztów sprzętowych i planujemy uruchamiać interfejs bezpośrednio na urządzeniach wbudowanych bez dostępu do GPU, rekomendowanym wyborem jest Vosk. Choć jest mniej precyzyjny, jego działanie na samym procesorze przy jednoczesnym braku kosztów chmurowych i zachowaniu całkowitej prywatności stanowi świetny kompromis dla mniej wymagających zastosowań.
+        \item Jeśli zależy nam na zminimalizowaniu kosztów sprzętowych i planujemy uruchamiać interfejs bezpośrednio na urządzeniach wbudowanych bez dostępu do GPU, rekomendowanym wyborem jest Vosk. Choć jest mniej precyzyjny, jego działanie na samym procesorze przy jednoczesnym braku kosztów chmurowych, niskim opóźnieniu i zachowaniu całkowitej prywatności stanowi świetny kompromis dla mniej wymagających zastosowań.
     \end{itemize}
 \end{enumerate}
 
