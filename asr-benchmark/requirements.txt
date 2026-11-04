@@ -1,2 +1,6 @@
 requests
 python-dotenv
+openai-whisper
+vosk
+jiwer
+soundfile
