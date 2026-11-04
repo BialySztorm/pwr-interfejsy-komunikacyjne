@@ -1,0 +1,53 @@
+﻿Mówca,Grupa,System,Wariant,WER oryginału [%],WER wariantu [%],Różnica WER (wariant - oryginał) [p.p.],RTF oryginału,RTF wariantu
+Aleksander Stepaniuk,272644-1,Vosk,b,66.67,75.0,8.33,0.0825,0.1294
+Jakub Borsuk,272644-1,Vosk,inna_osoba:Jakub Borsuk,66.67,350.0,283.33,0.0825,0.0814
+Aleksander Stepaniuk,272644-1,Whisper (base),b,50.0,50.0,0.0,0.0246,0.0384
+Jakub Borsuk,272644-1,Whisper (base),inna_osoba:Jakub Borsuk,50.0,358.33,308.33,0.0246,0.0643
+Aleksander Stepaniuk,272644-2,Vosk,b,46.67,46.67,0.0,0.0797,0.0864
+Aleksander Stepaniuk,272644-2,Whisper (base),b,20.0,13.33,-6.67,0.0358,0.0384
+Aleksander Stepaniuk,272644-3,Vosk,b,69.23,61.54,-7.69,0.0713,0.0644
+Aleksander Stepaniuk,272644-3,Whisper (base),b,53.85,53.85,0.0,0.031,0.0189
+Aleksander Stepaniuk,272644-4,Vosk,b,150.0,175.0,25.0,0.0816,0.0725
+Aleksander Stepaniuk,272644-4,Whisper (base),b,100.0,25.0,-75.0,0.0325,0.0256
+Aleksander Stepaniuk,272644-5,Vosk,b,71.43,128.57,57.14,0.1116,0.0763
+Aleksander Stepaniuk,272644-5,Whisper (base),b,85.71,71.43,-14.29,0.3502,0.0272
+Jakub Borsuk,272646-1,Vosk,b,18.6,18.6,0.0,0.0828,0.0775
+Aleksander Stepaniuk,272646-1,Vosk,inna_osoba:Aleksander Stepaniuk,18.6,97.67,79.07,0.0828,0.0943
+Jakub Borsuk,272646-1,Whisper (base),b,39.53,34.88,-4.65,0.0464,0.0431
+Aleksander Stepaniuk,272646-1,Whisper (base),inna_osoba:Aleksander Stepaniuk,39.53,97.67,58.14,0.0464,0.0338
+Jakub Borsuk,272646-2,Vosk,b,25.53,19.15,-6.38,0.0874,0.079
+Aleksander Stepaniuk,272646-2,Vosk,inna_osoba:Aleksander Stepaniuk,25.53,95.74,70.21,0.0874,0.1022
+Jakub Borsuk,272646-2,Whisper (base),b,25.53,12.77,-12.77,0.0494,0.041
+Aleksander Stepaniuk,272646-2,Whisper (base),inna_osoba:Aleksander Stepaniuk,25.53,93.62,68.09,0.0494,0.0373
+Jakub Borsuk,272646-3,Vosk,b,51.85,55.56,3.7,0.0669,0.0637
+Aleksander Stepaniuk,272646-3,Vosk,inna_osoba:Aleksander Stepaniuk,51.85,98.15,46.3,0.0669,0.0725
+Jakub Borsuk,272646-3,Whisper (base),b,46.3,29.63,-16.67,0.0304,0.0303
+Aleksander Stepaniuk,272646-3,Whisper (base),inna_osoba:Aleksander Stepaniuk,46.3,100.0,53.7,0.0304,0.0177
+Jakub Borsuk,272646-4,Vosk,b,50.0,50.0,0.0,0.0614,0.0762
+Aleksander Stepaniuk,272646-4,Vosk,inna_osoba:Aleksander Stepaniuk,50.0,96.15,46.15,0.0614,0.0694
+Jakub Borsuk,272646-4,Whisper (base),b,53.85,32.69,-21.15,0.0412,0.0474
+Aleksander Stepaniuk,272646-4,Whisper (base),inna_osoba:Aleksander Stepaniuk,53.85,98.08,44.23,0.0412,0.0274
+Jakub Borsuk,272646-5,Vosk,b,79.17,75.0,-4.17,0.1137,0.1
+Aleksander Stepaniuk,272646-5,Vosk,inna_osoba:Aleksander Stepaniuk,79.17,100.0,20.83,0.1137,0.0733
+Jakub Borsuk,272646-5,Whisper (base),b,75.0,97.92,22.92,0.0522,0.0399
+Aleksander Stepaniuk,272646-5,Whisper (base),inna_osoba:Aleksander Stepaniuk,75.0,100.0,25.0,0.0522,0.0233
+Jan Maciuk,272664-1,Vosk,b,16.67,33.33,16.67,0.168,0.1143
+Jan Maciuk,272664-1,Whisper (base),b,66.67,66.67,0.0,0.0664,0.069
+Jan Maciuk,272664-2,Vosk,b,66.67,33.33,-33.33,0.1198,0.1065
+Jan Maciuk,272664-2,Whisper (base),b,80.0,20.0,-60.0,0.0501,0.0523
+Jan Maciuk,272664-3,Vosk,b,57.69,23.08,-34.62,0.0945,0.0658
+Jan Maciuk,272664-3,Whisper (base),b,57.69,50.0,-7.69,0.0397,0.0442
+Jan Maciuk,272664-4,Vosk,b,27.78,22.22,-5.56,0.0938,0.086
+Jan Maciuk,272664-4,Whisper (base),b,83.33,44.44,-38.89,0.0428,0.0376
+Jan Maciuk,272664-5,Vosk,b,75.0,20.0,-55.0,0.1919,0.0998
+Jan Maciuk,272664-5,Whisper (base),b,65.0,10.0,-55.0,0.0605,0.0394
+Mieszko Szczekla,272688-1,Vosk,b,123.08,115.38,-7.69,0.0665,0.0864
+Mieszko Szczekla,272688-1,Whisper (base),b,38.46,38.46,0.0,0.018,0.0246
+Mieszko Szczekla,272688-2,Vosk,b,50.0,75.0,25.0,0.0744,0.1304
+Mieszko Szczekla,272688-2,Whisper (base),b,33.33,58.33,25.0,0.0227,0.048
+Mieszko Szczekla,272688-3,Vosk,b,150.0,130.0,-20.0,0.0544,0.1072
+Mieszko Szczekla,272688-3,Whisper (base),b,100.0,100.0,0.0,0.013,0.0324
+Mieszko Szczekla,272688-4,Vosk,b,125.0,108.33,-16.67,0.0665,0.1278
+Mieszko Szczekla,272688-4,Whisper (base),b,83.33,50.0,-33.33,0.0159,0.0232
+Mieszko Szczekla,272688-5,Vosk,b,81.82,136.36,54.55,0.0823,0.088
+Mieszko Szczekla,272688-5,Whisper (base),b,36.36,109.09,72.73,0.0281,0.0291

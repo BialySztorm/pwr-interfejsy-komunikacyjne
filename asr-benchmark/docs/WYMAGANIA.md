@@ -10,7 +10,7 @@ z samego repo — takie przypadki są oznaczone wprost.
 
 | Wymóg | Status | Gdzie w repo | Czego brakuje |
 |---|---|---|---|
-| ~200 wypowiedzi, ≥25 mówców, tylko PL, transkrypcje zweryfikowane przez człowieka | 🟡 | `data/raw/`, `scripts/sync_drive.py` | Weryfikacja ludzka i kompletność zbioru nie do potwierdzenia z repo; język PL też nie do zweryfikowania bez odsłuchu |
+| ~200 wypowiedzi, ≥25 mówców, tylko PL, transkrypcje zweryfikowane przez człowieka | 🟡 | `data/raw/`, `scripts/sync_drive.py` | Ufamy studentom nagrywającym że zweryfikowali poprawność |
 | Struktura "Imię Nazwisko" + `<indeks>-<N>.wav/.txt` | 🟢 | `data/raw/*` | — |
 | Te same teksty nagrane przez różne osoby (opcjonalnie) | 🟢 (20 transkrypcji, każda nagrana przez 2 osoby) | `src/asr_benchmark/bench_takes.py`, `results/porownanie_oryginal_wariant-*.csv` | — |
 | Raport podaje liczbę nagrań, słów, mówców | 🟢 | `scripts/preprocess_audio.py`, `data/processed/raport_zbioru.md` | — |

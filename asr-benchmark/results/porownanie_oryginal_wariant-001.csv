@@ -1,0 +1,53 @@
+﻿Mówca,Grupa,System,Wariant,WER oryginału [%],WER wariantu [%],Różnica WER (wariant - oryginał) [p.p.],RTF oryginału,RTF wariantu
+Aleksander Stepaniuk,272644-1,Vosk,b,66.67,75.0,8.33,0.0674,0.0755
+Aleksander Stepaniuk,272644-1,Vosk,index:272646,66.67,83.33,16.67,0.0674,0.076
+Aleksander Stepaniuk,272644-1,Whisper (base),b,50.0,50.0,0.0,0.0244,0.0842
+Aleksander Stepaniuk,272644-1,Whisper (base),index:272646,50.0,50.0,0.0,0.0244,0.0326
+Aleksander Stepaniuk,272644-2,Vosk,b,46.67,46.67,0.0,0.0832,0.0853
+Aleksander Stepaniuk,272644-2,Vosk,index:272646,46.67,46.67,0.0,0.0832,0.0818
+Aleksander Stepaniuk,272644-2,Whisper (base),b,20.0,13.33,-6.67,0.0351,0.04
+Aleksander Stepaniuk,272644-2,Whisper (base),index:272646,20.0,13.33,-6.67,0.0351,0.0438
+Aleksander Stepaniuk,272644-3,Vosk,b,69.23,61.54,-7.69,0.0645,0.0577
+Aleksander Stepaniuk,272644-3,Vosk,index:272646,69.23,61.54,-7.69,0.0645,0.0582
+Aleksander Stepaniuk,272644-3,Whisper (base),b,53.85,53.85,0.0,0.0375,0.0193
+Aleksander Stepaniuk,272644-3,Whisper (base),index:272646,53.85,53.85,0.0,0.0375,0.0188
+Aleksander Stepaniuk,272644-4,Vosk,b,150.0,175.0,25.0,0.0749,0.0649
+Aleksander Stepaniuk,272644-4,Vosk,index:272646,150.0,175.0,25.0,0.0749,0.0673
+Aleksander Stepaniuk,272644-4,Whisper (base),b,100.0,25.0,-75.0,0.034,0.0261
+Aleksander Stepaniuk,272644-4,Whisper (base),index:272646,100.0,25.0,-75.0,0.034,0.0266
+Aleksander Stepaniuk,272644-5,Vosk,b,71.43,128.57,57.14,0.0906,0.0731
+Aleksander Stepaniuk,272644-5,Vosk,index:272646,71.43,128.57,57.14,0.0906,0.0727
+Aleksander Stepaniuk,272644-5,Whisper (base),b,85.71,71.43,-14.29,0.1616,0.0267
+Aleksander Stepaniuk,272644-5,Whisper (base),index:272646,85.71,71.43,-14.29,0.1616,0.0282
+Jakub Borsuk,272646-1,Vosk,b,18.6,18.6,0.0,0.0707,0.0644
+Jakub Borsuk,272646-1,Vosk,index:272644,18.6,18.6,0.0,0.0707,0.0631
+Jakub Borsuk,272646-1,Whisper (base),b,39.53,34.88,-4.65,0.0436,0.0414
+Jakub Borsuk,272646-1,Whisper (base),index:272644,39.53,34.88,-4.65,0.0436,0.0403
+Jakub Borsuk,272646-2,Vosk,b,25.53,17.02,-8.51,0.0795,0.0666
+Jakub Borsuk,272646-2,Whisper (base),b,25.53,12.77,-12.77,0.0482,0.0394
+Jakub Borsuk,272646-3,Vosk,b,51.85,55.56,3.7,0.0559,0.0546
+Jakub Borsuk,272646-3,Whisper (base),b,46.3,29.63,-16.67,0.0305,0.0301
+Jakub Borsuk,272646-4,Vosk,b,50.0,50.0,0.0,0.0593,0.0657
+Jakub Borsuk,272646-4,Whisper (base),b,53.85,32.69,-21.15,0.0365,0.0429
+Jakub Borsuk,272646-5,Vosk,b,79.17,75.0,-4.17,0.1369,0.1211
+Jakub Borsuk,272646-5,Whisper (base),b,75.0,97.92,22.92,0.0602,0.0446
+Jan Maciuk,272664-1,Vosk,b,16.67,33.33,16.67,0.155,0.1291
+Jan Maciuk,272664-1,Whisper (base),b,66.67,66.67,0.0,0.0642,0.0632
+Jan Maciuk,272664-2,Vosk,b,66.67,33.33,-33.33,0.1234,0.0878
+Jan Maciuk,272664-2,Whisper (base),b,80.0,20.0,-60.0,0.0606,0.0455
+Jan Maciuk,272664-3,Vosk,b,57.69,23.08,-34.62,0.0928,0.0682
+Jan Maciuk,272664-3,Whisper (base),b,57.69,50.0,-7.69,0.0419,0.0465
+Jan Maciuk,272664-4,Vosk,b,27.78,22.22,-5.56,0.0912,0.0921
+Jan Maciuk,272664-4,Whisper (base),b,83.33,44.44,-38.89,0.0449,0.0372
+Jan Maciuk,272664-5,Vosk,b,75.0,20.0,-55.0,0.171,0.0844
+Jan Maciuk,272664-5,Whisper (base),b,65.0,10.0,-55.0,0.0609,0.0504
+Mieszko Szczekla,272688-1,Vosk,b,123.08,115.38,-7.69,0.0587,0.0704
+Mieszko Szczekla,272688-1,Whisper (base),b,38.46,38.46,0.0,0.0184,0.0272
+Mieszko Szczekla,272688-2,Vosk,b,50.0,75.0,25.0,0.0636,0.1046
+Mieszko Szczekla,272688-2,Whisper (base),b,33.33,58.33,25.0,0.0234,0.0464
+Mieszko Szczekla,272688-3,Vosk,b,150.0,130.0,-20.0,0.0442,0.0879
+Mieszko Szczekla,272688-3,Whisper (base),b,100.0,100.0,0.0,0.0139,0.0332
+Mieszko Szczekla,272688-4,Vosk,b,125.0,108.33,-16.67,0.0561,0.099
+Mieszko Szczekla,272688-4,Whisper (base),b,83.33,50.0,-33.33,0.0171,0.0353
+Mieszko Szczekla,272688-5,Vosk,b,81.82,136.36,54.55,0.069,0.0744
+Mieszko Szczekla,272688-5,Whisper (base),b,36.36,109.09,72.73,0.0289,0.0221
