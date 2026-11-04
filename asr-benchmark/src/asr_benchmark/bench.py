@@ -6,6 +6,7 @@ import time
 import glob
 import json
 import csv
+import unicodedata
 from pathlib import Path
 
 import soundfile as sf
@@ -33,6 +34,195 @@ CATEGORIES = {
     "4": "Nazwy własne, liczby, daty",
     "5": "Trudniejsze warunki akustyczne (szum)"
 }
+
+
+NUMBER_WORDS = {
+    "zero": 0, "jeden": 1, "jedna": 1, "jedno": 1, "dwa": 2, "dwie": 2,
+    "trzy": 3, "cztery": 4, "pięć": 5, "sześć": 6, "siedem": 7,
+    "osiem": 8, "dziewięć": 9, "dziesięć": 10, "jedenaście": 11,
+    "dwanaście": 12, "trzynaście": 13, "czternaście": 14, "piętnaście": 15,
+    "szesnaście": 16, "siedemnaście": 17, "osiemnaście": 18, "dziewiętnaście": 19,
+    "dwadzieścia": 20, "trzydzieści": 30, "czterdzieści": 40,
+    "pięćdziesiąt": 50, "sześćdziesiąt": 60, "siedemdziesiąt": 70,
+    "osiemdziesiąt": 80, "dziewięćdziesiąt": 90,
+    "sto": 100, "dwieście": 200, "trzysta": 300, "czterysta": 400,
+    "pięćset": 500, "sześćset": 600, "siedemset": 700,
+    "osiemset": 800, "dziewięćset": 900,
+}
+NUMBER_SCALES = {
+    "tysiąc": 10**3, "tysiące": 10**3, "tysięcy": 10**3,
+    "milion": 10**6, "miliony": 10**6, "milionów": 10**6,
+    "miliard": 10**9, "miliardy": 10**9, "miliardów": 10**9,
+}
+UNIT_WORDS = {
+    "gigabajt": "gb", "gigabajta": "gb", "gigabajty": "gb", "gigabajtów": "gb",
+    "terabajt": "tb", "terabajta": "tb", "terabajty": "tb", "terabajtów": "tb",
+    "wat": "w", "wata": "w", "waty": "w", "watów": "w",
+    "milimetr": "mm", "milimetra": "mm", "milimetry": "mm", "milimetrów": "mm",
+    "herc": "hz", "herca": "hz", "herce": "hz", "herców": "hz",
+    "złoty": "zł", "złotego": "zł", "złote": "zł", "złotych": "zł",
+    "procenta": "procent", "procenty": "procent", "procentów": "procent",
+}
+ATTACHED_UNIT = re.compile(r"(?<!\w)(-?\d+(?:[,.]\d+)?)(gb|tb|mm|hz|w|zł)\b")
+NUMBER_TOKEN = re.compile(r"-?\d+(?:[:,.]\d+)*")
+
+MONTHS = (
+    "stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca",
+    "lipca", "sierpnia", "września", "października", "listopada", "grudnia",
+)
+DAY_ORDINALS = {
+    1: ("pierwszy", "pierwszego", "pierwszym"),
+    2: ("drugi", "drugiego", "drugim"),
+    3: ("trzeci", "trzeciego", "trzecim"),
+}
+DAY_ORDINALS.update({
+    day: (stem + "y", stem + "ego", stem + "ym")
+    for day, stem in enumerate((
+        "czwart", "piąt", "szóst", "siódm", "ósm", "dziewiąt", "dziesiąt",
+        "jedenast", "dwunast", "trzynast", "czternast", "piętnast",
+        "szesnast", "siedemnast", "osiemnast", "dziewiętnast", "dwudziest",
+    ), start=4)
+})
+DAY_ORDINALS[30] = ("trzydziesty", "trzydziestego", "trzydziestym")
+for tens, last_unit in ((20, 9), (30, 1)):
+    for unit in range(1, last_unit + 1):
+        DAY_ORDINALS[tens + unit] = tuple(
+            f"{prefix} {suffix}"
+            for prefix, suffix in zip(DAY_ORDINALS[tens], DAY_ORDINALS[unit])
+        )
+
+DATE_DAYS = {form: str(day) for day, forms in DAY_ORDINALS.items() for form in forms}
+DATE_DAYS.update({f"{day:02d}": str(day) for day in range(1, 10)})
+DATE_DAYS.update({str(day): str(day) for day in range(1, 32)})
+DATE_DAY_PATTERN = "|".join(form.replace(" ", r"\s+") for form in DATE_DAYS)
+DATE_PATTERN = re.compile(rf"(?<![\w.,:+-])({DATE_DAY_PATTERN})(?:\.)?\s+({'|'.join(MONTHS)})\b")
+
+HOUR_WORDS = {"godzina", "godzinę", "godzinie", "godziny"}
+FEMININE_ORDINALS = {
+    "drugi": ("druga", "drugiej", "drugą"),
+    "trzeci": ("trzecia", "trzeciej", "trzecią"),
+}
+HOUR_ORDINALS = {}
+for hour in range(1, 24):
+    words = DAY_ORDINALS[hour][0].split()
+    forms = [FEMININE_ORDINALS.get(word, (word[:-1] + "a", word[:-1] + "ej", word[:-1] + "ą"))
+             for word in words]
+    HOUR_ORDINALS.update({tuple(parts): hour for parts in zip(*forms)})
+NUMERIC_CLOCK = re.compile(r"([01]?\d|2[0-3])([:.])([0-5]\d)")
+ORDER_NUMBER = re.compile(r"\b((?:numer|nr\.?)\s+zamówienia\s+)(\d+(?:[ \t]+\d+)+)(?![\w.,:]\d|\w)")
+
+
+def normalize_date(match):
+    day, month = match.groups()
+    return f"{DATE_DAYS[' '.join(day.split())]} {month}"
+
+
+def read_cardinal(tokens, start):
+    """Read a Polish cardinal with descending scales and hundreds/tens/units."""
+    total = group = 0
+    next_limit = 1000
+    previous_scale = float("inf")
+    end = start
+
+    for index in range(start, len(tokens)):
+        token = tokens[index]
+        if token in NUMBER_SCALES:
+            scale = NUMBER_SCALES[token]
+            if scale >= previous_scale:
+                break
+            total += (group or 1) * scale
+            previous_scale = scale
+            group = 0
+            next_limit = 1000
+        elif token in NUMBER_WORDS:
+            value = NUMBER_WORDS[token]
+            if value == 0:
+                if end == start:
+                    return 0, start + 1
+                break
+            if value >= next_limit:
+                break
+            group += value
+            next_limit = 100 if value >= 100 else 10 if value >= 20 else 0
+        else:
+            break
+        end += 1
+
+    return total + group, end
+
+
+def read_clock(tokens, start, explicit_hour):
+    if start >= len(tokens):
+        return None, start
+
+    token = tokens[start]
+    numeric_clock = NUMERIC_CLOCK.fullmatch(token)
+    if numeric_clock and (explicit_hour or numeric_clock[2] == ":"):
+        return f"{int(numeric_clock[1]):02d}:{numeric_clock[3]}", start + 1
+
+    for size in (2, 1):
+        end = start + size
+        if end > len(tokens):
+            continue
+        hour = HOUR_ORDINALS.get(tuple(tokens[start:end]))
+        if hour is not None:
+            break
+    else:
+        if not explicit_hour:
+            return None, start
+        hour, end = read_cardinal(tokens, start)
+        if token.isdecimal() and len(token) <= 2:
+            hour, end = int(token), start + 1
+        if end == start or hour > 23:
+            return None, start
+
+    minute, minute_end = read_cardinal(tokens, end)
+    if tokens[end:end + 2] == ["zero", "zero"]:
+        minute_end = end + 2
+    elif end < len(tokens) and tokens[end].isdecimal() and len(tokens[end]) == 2:
+        minute, minute_end = int(tokens[end]), end + 1
+    if minute > 59 or (not explicit_hour and minute_end == end):
+        return None, start
+    return f"{hour:02d}:{minute:02d}", minute_end
+
+
+def normalize_for_wer(text):
+    text = unicodedata.normalize("NFC", text).lower()
+    text = DATE_PATTERN.sub(normalize_date, text)
+    text = ATTACHED_UNIT.sub(r"\1 \2", text)
+    text = re.sub(r"\bram-u\b", "ramu", text)
+    text = ORDER_NUMBER.sub(lambda match: match[1] + "".join(match[2].split()), text)
+    # Keep numeric separators and use punctuation as a boundary for spoken numbers.
+    tokens = re.findall(r"(?<!\w)-?\d+(?:[:,.]\d+)*(?!\w)|\w+|[^\s\w]", text)
+    normalized = []
+    index = 0
+    while index < len(tokens):
+        token = tokens[index]
+        if token in HOUR_WORDS or token == "o":
+            clock, end = read_clock(tokens, index + 1, token in HOUR_WORDS)
+            if clock is not None:
+                normalized.extend((token, clock))
+                index = end
+                continue
+        if token == "%" and normalized and NUMBER_TOKEN.fullmatch(normalized[-1]):
+            normalized.append("procent")
+            index += 1
+            continue
+        start = index + (token == "minus")
+        value, end = read_cardinal(tokens, start)
+        if end > start:
+            normalized.append(str(-value if token == "minus" else value))
+            index = end
+        else:
+            if re.fullmatch(r"-?\d+(?:[:,.]\d+)*|\w+", token):
+                if token == "nr":
+                    token = "numer"
+                if normalized and NUMBER_TOKEN.fullmatch(normalized[-1]):
+                    token = UNIT_WORDS.get(token, token)
+                normalized.append(token)
+            index += 1
+    return " ".join(normalized)
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Benchmark Whisper vs Vosk na polskich nagraniach.")
@@ -65,7 +255,7 @@ def transcribe_whisper(model, file_path):
     start_time = time.time()
     result = model.transcribe(file_path, language="pl")
     processing_time = time.time() - start_time
-    return result["text"].strip().lower(), processing_time
+    return result["text"].strip(), processing_time
 
 def transcribe_vosk(model, file_path, samplerate):
     rec = KaldiRecognizer(model, samplerate)
@@ -80,7 +270,7 @@ def transcribe_vosk(model, file_path, samplerate):
     res = json.loads(rec.FinalResult())
     processing_time = time.time() - start_time
     
-    return res.get("text", "").strip().lower(), processing_time
+    return res.get("text", "").strip(), processing_time
 
 def next_run_number(results_dir):
     """Find the next free 3-digit run number based on existing wyniki_asr-NNN.csv files."""
@@ -110,10 +300,11 @@ def main():
             tqdm.write(f"Brak transkrypcji dla {wav_path}, pomijanie.")
             continue
             
-        with open(txt_path, 'r', encoding='utf-8') as f:
-            reference_text = f.read().strip().lower()
+        with open(txt_path, 'r', encoding='utf-8-sig') as f:
+            reference_text = f.read().strip()
             
-        ref_words_count = len(reference_text.split())
+        normalized_reference = normalize_for_wer(reference_text)
+        ref_words_count = len(normalized_reference.split())
         if ref_words_count == 0:
             continue
             
@@ -127,7 +318,8 @@ def main():
         for size, model in whisper_models.items():
             hyp_whisper, time_whisper = transcribe_whisper(model, wav_path)
             rtf_whisper = time_whisper / duration
-            wer_whisper = process_words(reference_text, hyp_whisper)
+            normalized_whisper = normalize_for_wer(hyp_whisper)
+            wer_whisper = process_words(normalized_reference, normalized_whisper)
 
             csv_data.append({
                 "Plik": filename,
@@ -142,13 +334,16 @@ def main():
                 "I (Wstawienia)": wer_whisper.insertions,
                 "N (Słowa)": ref_words_count,
                 "Transkrypcja systemu": hyp_whisper,
-                "Transkrypcja referencyjna": reference_text
+                "Transkrypcja referencyjna": reference_text,
+                "Transkrypcja systemu do WER": normalized_whisper,
+                "Transkrypcja referencyjna do WER": normalized_reference,
             })
 
         # Test Vosk
         hyp_vosk, time_vosk = transcribe_vosk(vosk_model, wav_path, samplerate)
         rtf_vosk = time_vosk / duration
-        wer_vosk = process_words(reference_text, hyp_vosk)
+        normalized_vosk = normalize_for_wer(hyp_vosk)
+        wer_vosk = process_words(normalized_reference, normalized_vosk)
         
         csv_data.append({
             "Plik": filename,
@@ -163,7 +358,9 @@ def main():
             "I (Wstawienia)": wer_vosk.insertions,
             "N (Słowa)": ref_words_count,
             "Transkrypcja systemu": hyp_vosk,
-            "Transkrypcja referencyjna": reference_text
+            "Transkrypcja referencyjna": reference_text,
+            "Transkrypcja systemu do WER": normalized_vosk,
+            "Transkrypcja referencyjna do WER": normalized_reference,
         })
 
     # Zapis szczegółowych wyników do pliku CSV
