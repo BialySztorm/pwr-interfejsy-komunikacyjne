@@ -1,0 +1,8 @@
+requests
+python-dotenv
+edge-tts
+piper-tts
+elevenlabs
+pandas
+scipy
+tqdm

@@ -1,0 +1,91 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage[polish, bidi=basic, provide=*]{babel}
+\babelprovide[import, onchar=ids fonts]{polish}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\title{Raport z badania porównawczego systemów syntezy mowy (TTS)}
+\author{TODO: imiona, nazwiska i numery indeksów}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Wstęp i cel badania}
+Celem niniejszego badania jest ocena przydatności trzech wybranych systemów syntezy mowy
+polskiej (TTS) -- Edge-TTS, Piper TTS oraz ElevenLabs -- do obsługi projektowanego interfejsu
+konwersacyjnego.
+
+Systemy zostały ocenione pod kątem poprawności wymowy, zrozumiałości, naturalności brzmienia,
+intonacji i prozodii, płynności, stabilności syntezy, szybkości generowania oraz przydatności
+w dialogu z użytkownikiem.
+
+\section{Wybrane systemy TTS}
+\begin{itemize}
+    \item \textbf{Edge-TTS} -- darmowy, działa w chmurze (Microsoft), głos: TODO.
+    \item \textbf{Piper TTS} -- lokalny, open-source, działa offline, model/głos: TODO.
+    \item \textbf{ElevenLabs} -- płatny/limitowany darmowy tier, chmura, głos: TODO.
+\end{itemize}
+TODO: opisać ustalone porównywalne parametry (szybkość mówienia, sposób generowania).
+
+\section{Metodologia i zbiór testowy}
+\subsection{Zbiór danych}
+Badanie przeprowadzono na wspólnym zbiorze testowym przygotowanym przez grupę projektową,
+składającym się z TODO tekstów od TODO osób (5 tekstów na osobę), podzielonych na 5 kategorii:
+\begin{itemize}
+    \item Krótkie komunikaty informacyjne,
+    \item Pytania i odpowiedzi,
+    \item Wypowiedzi zawierające liczby, daty, godziny i skróty,
+    \item Zdania złożone i dłuższe wypowiedzi,
+    \item Wypowiedzi zawierające nazwy własne i wyrazy obcojęzyczne.
+\end{itemize}
+Do dalszej, pogłębionej analizy wybrano 10 tekstów własnych grupy oraz 20 tekstów ze
+wspólnej bazy (TODO: lista wybranych tekstów).
+
+\subsection{Generowanie i anonimizacja nagrań}
+Dla każdego tekstu wygenerowano nagrania wszystkimi trzema systemami
+(\texttt{scripts/generate\_speech.py}), a następnie nagrania zanonimizowano względem systemu
+źródłowego (\texttt{scripts/anonymize\_audio.py}), aby ograniczyć wpływ oczekiwań oceniających.
+
+\subsection{Kryteria oceny}
+Kryteria 2--6 i 8 oceniono w 5-punktowej skali Likerta (1 -- bardzo słaba, 5 -- bardzo dobra).
+Kryterium 1 (poprawność wymowy) oceniono poprzez zliczanie błędów w kategoriach: liczby/daty/
+godziny, skróty, nazwy własne, wyrazy obce, akcentowanie. Kryterium 7 (szybkość generowania)
+zmierzono jako czas od przekazania tekstu do syntezatora do wygenerowania dźwięku.
+
+\section{Wyniki badań}
+
+\subsection{Poprawność wymowy (kryterium 1)}
+TODO: tabela najczęstszych błędów per system (\texttt{results/bledy\_wymowy-NNN.csv}).
+
+\subsection{Oceny subiektywne (kryteria 2--6, 8)}
+TODO: tabela średnich ocen per system i kryterium, ogółem i per kategoria
+(\texttt{results/podsumowanie\_tts-NNN.csv}).
+
+\subsection{Szybkość generowania (kryterium 7)}
+TODO: tabela średniego czasu generowania i znaków/sekundę per system
+(\texttt{results/latency\_tts-NNN.csv}).
+
+\subsection{Ocena końcowa}
+TODO: wynik \texttt{scripts/compute\_final\_score.py} -- UWAGA: wagi domyślne w tym skrypcie
+są placeholderem (1/3 na komponent), nie wynikiem ustalonym z wymaganiami ćwiczenia.
+
+\section{Analiza wyników}
+TODO:
+\begin{enumerate}
+    \item Porównanie wyników dla różnych kategorii wypowiedzi.
+    \item Najczęściej występujące błędy syntezy.
+    \item Porównanie czasu generowania mowy przez poszczególne systemy.
+    \item Który system najlepiej sprawdza się w komunikacji z użytkownikiem.
+\end{enumerate}
+
+\section{Podsumowanie i wnioski końcowe}
+TODO.
+
+\end{document}

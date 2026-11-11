@@ -1,0 +1,46 @@
+﻿system,text_id,category,chars,seconds,chars_per_second,status
+edge-tts,Andrzej Manderla/294692-1-info,Krótki komunikat informacyjny,131,2.337,56.1,ok
+edge-tts,Andrzej Manderla/294692-2-qna,Pytanie / odpowiedź,127,1.205,105.4,ok
+edge-tts,Andrzej Manderla/294692-3-numbers,"Liczby, daty, godziny, skróty",153,1.34,114.2,ok
+edge-tts,Andrzej Manderla/294692-4-long,Zdanie złożone / dłuższa wypowiedź,346,1.237,279.6,ok
+edge-tts,Andrzej Manderla/294692-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,210,1.202,174.7,ok
+edge-tts,Dariusz Szypka/272678-1-info,Krótki komunikat informacyjny,92,1.101,83.5,ok
+edge-tts,Dariusz Szypka/272678-2-qna,Pytanie / odpowiedź,146,1.113,131.2,ok
+edge-tts,Dariusz Szypka/272678-3-numbers,"Liczby, daty, godziny, skróty",146,1.412,103.4,ok
+edge-tts,Dariusz Szypka/272678-4-long,Zdanie złożone / dłuższa wypowiedź,192,1.175,163.4,ok
+edge-tts,Dariusz Szypka/272678-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,116,1.092,106.2,ok
+edge-tts,Kacper Kawecki/272663-1-info,Krótki komunikat informacyjny,86,1.088,79.0,ok
+edge-tts,Kacper Kawecki/272663-2-qna,Pytanie / odpowiedź,105,1.095,95.9,ok
+edge-tts,Kacper Kawecki/272663-3-numbers,"Liczby, daty, godziny, skróty",112,1.095,102.3,ok
+edge-tts,Kacper Kawecki/272663-4-long,Zdanie złożone / dłuższa wypowiedź,197,1.346,146.4,ok
+edge-tts,Kacper Kawecki/272663-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,95,1.056,90.0,ok
+piper,Andrzej Manderla/294692-1-info,Krótki komunikat informacyjny,131,2.108,62.2,ok
+piper,Andrzej Manderla/294692-2-qna,Pytanie / odpowiedź,127,2.087,60.9,ok
+piper,Andrzej Manderla/294692-3-numbers,"Liczby, daty, godziny, skróty",153,2.18,70.2,ok
+piper,Andrzej Manderla/294692-4-long,Zdanie złożone / dłuższa wypowiedź,346,2.199,157.3,ok
+piper,Andrzej Manderla/294692-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,210,2.12,99.1,ok
+piper,Dariusz Szypka/272678-1-info,Krótki komunikat informacyjny,92,2.022,45.5,ok
+piper,Dariusz Szypka/272678-2-qna,Pytanie / odpowiedź,146,2.109,69.2,ok
+piper,Dariusz Szypka/272678-3-numbers,"Liczby, daty, godziny, skróty",146,2.113,69.1,ok
+piper,Dariusz Szypka/272678-4-long,Zdanie złożone / dłuższa wypowiedź,192,2.125,90.3,ok
+piper,Dariusz Szypka/272678-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,116,2.163,53.6,ok
+piper,Kacper Kawecki/272663-1-info,Krótki komunikat informacyjny,86,2.068,41.6,ok
+piper,Kacper Kawecki/272663-2-qna,Pytanie / odpowiedź,105,2.116,49.6,ok
+piper,Kacper Kawecki/272663-3-numbers,"Liczby, daty, godziny, skróty",112,2.183,51.3,ok
+piper,Kacper Kawecki/272663-4-long,Zdanie złożone / dłuższa wypowiedź,197,2.233,88.2,ok
+piper,Kacper Kawecki/272663-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,95,2.138,44.4,ok
+elevenlabs,Andrzej Manderla/294692-1-info,Krótki komunikat informacyjny,131,1.552,84.4,ok
+elevenlabs,Andrzej Manderla/294692-2-qna,Pytanie / odpowiedź,127,0.9,141.1,ok
+elevenlabs,Andrzej Manderla/294692-3-numbers,"Liczby, daty, godziny, skróty",153,1.33,115.0,ok
+elevenlabs,Andrzej Manderla/294692-4-long,Zdanie złożone / dłuższa wypowiedź,346,1.413,244.9,ok
+elevenlabs,Andrzej Manderla/294692-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,210,1.196,175.6,ok
+elevenlabs,Dariusz Szypka/272678-1-info,Krótki komunikat informacyjny,92,0.863,106.6,ok
+elevenlabs,Dariusz Szypka/272678-2-qna,Pytanie / odpowiedź,146,1.039,140.5,ok
+elevenlabs,Dariusz Szypka/272678-3-numbers,"Liczby, daty, godziny, skróty",146,1.192,122.5,ok
+elevenlabs,Dariusz Szypka/272678-4-long,Zdanie złożone / dłuższa wypowiedź,192,1.18,162.8,ok
+elevenlabs,Dariusz Szypka/272678-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,116,0.907,127.8,ok
+elevenlabs,Kacper Kawecki/272663-1-info,Krótki komunikat informacyjny,86,0.942,91.3,ok
+elevenlabs,Kacper Kawecki/272663-2-qna,Pytanie / odpowiedź,105,0.946,111.0,ok
+elevenlabs,Kacper Kawecki/272663-3-numbers,"Liczby, daty, godziny, skróty",112,0.927,120.9,ok
+elevenlabs,Kacper Kawecki/272663-4-long,Zdanie złożone / dłuższa wypowiedź,197,1.131,174.1,ok
+elevenlabs,Kacper Kawecki/272663-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,95,0.926,102.6,ok
