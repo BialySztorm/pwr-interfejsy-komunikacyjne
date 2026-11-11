@@ -52,7 +52,7 @@ wartość**, do zastąpienia przez `--weights` po decyzji grupy/prowadzącego.
 
 | Wymóg | Status | Gdzie w repo | Czego brakuje |
 |---|---|---|---|
-| Wybór 10 własnych + 20 wspólnych tekstów do analizy | 🟡 | `scripts/make_rating_sheet.py --text-ids` (filtr po liście) | Sama lista 10+20 tekstów — decyzja grupy projektowej, nie do automatyzacji |
+| Wybór 15 własnych + 30 wspólnych tekstów do analizy (grupa 3-osobowa: liczby z brief'u ×1.5, proporcjonalnie do rozmiaru grupy) | 🟡 | `scripts/make_rating_sheet.py --text-ids` (filtr po liście) | Sama lista 15+30 tekstów — decyzja grupy projektowej, nie do automatyzacji |
 | Średnie oceny per kryterium i system | 🟢 | `scripts/aggregate_ratings.py` → `results/podsumowanie_tts-NNN.csv` | — |
 | Porównanie wyników per kategoria wypowiedzi | 🟢 | `podsumowanie_tts-NNN.csv` (kolumna `category`) | — |
 | Najczęstsze błędy syntezy | 🟢 | `results/bledy_wymowy-NNN.csv` | — |
@@ -65,7 +65,7 @@ wartość**, do zastąpienia przez `--weights` po decyzji grupy/prowadzącego.
   pobrania ręcznie), ElevenLabs (`ELEVENLABS_API_KEY` + wybór `voice_id`).
 - Wypełnienie wspólnego folderu Drive przez całą grupę (200 tekstów, 5 per osoba).
 - Decyzja grupy/prowadzącego o wagach kryteriów (brak w briefie).
-- Decyzja, które 10 własnych + 20 wspólnych tekstów analizować w pełni.
+- Decyzja, które 15 własnych + 30 wspólnych tekstów (45 łącznie, dla grupy 3-osobowej) analizować w pełni.
 - Realna sesja odsłuchowa (ten scaffold tylko przygotowuje i agreguje arkusze ocen).
 - Prezentacja i raport (`docs/main.tex` to tylko szkielet sekcji, bez danych).
 

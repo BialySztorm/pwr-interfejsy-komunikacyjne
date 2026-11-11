@@ -144,9 +144,10 @@ Produces `results/oceny_tts-NNN_template.csv`. Listen to each
 pronunciation-error log columns (criterion 1), save it as `results/oceny_tts-NNN.csv` (without
 `_template`).
 
-Per the brief, each 2-3 person group picks 10 of their own texts + 20 shared ones for the full
-evaluation — use `--text-ids path/to/list.txt` to restrict the sheet to that subset (one
-`text_id` per line, matching the `text_id` column in `results/mapping-NNN.csv`).
+Per the brief, each group picks "10 of its own texts + 20 shared ones" for the full
+evaluation; for our 3-person group that's scaled ×1.5 to **15 own + 30 shared = 45 texts** —
+use `--text-ids path/to/list.txt` to restrict the sheet to that subset (one `text_id` per
+line, matching the `text_id` column in `results/mapping-NNN.csv`).
 
 ### 9. Aggregate ratings
 
