@@ -10,7 +10,7 @@
 \usepackage{hyperref}
 
 \title{Raport z badania porównawczego systemów syntezy mowy (TTS)}
-\author{TODO: imiona, nazwiska i numery indeksów}
+\author{Adam Krzywicki - 272523 \and Andrzej Manderla - 294692 \and Filip Zmyślony - 275748}
 \date{\today}
 
 \begin{document}
@@ -28,16 +28,21 @@ w dialogu z użytkownikiem.
 
 \section{Wybrane systemy TTS}
 \begin{itemize}
-    \item \textbf{Edge-TTS} -- darmowy, działa w chmurze (Microsoft), głos: TODO.
-    \item \textbf{Piper TTS} -- lokalny, open-source, działa offline, model/głos: TODO.
-    \item \textbf{ElevenLabs} -- płatny/limitowany darmowy tier, chmura, głos: TODO.
+    \item \textbf{Edge-TTS} -- darmowy, działa w chmurze (Microsoft), głos: \texttt{pl-PL-MarekNeural}.
+    \item \textbf{Piper TTS} -- lokalny, open-source, działa offline (w tym badaniu na GPU przez
+    \texttt{onnxruntime}'s CUDA execution provider), model/głos: \texttt{pl\_PL-darkman-medium}
+    (22~kHz, jakość \textit{medium}).
+    \item \textbf{ElevenLabs} -- płatny/limitowany darmowy tier, chmura, głos: "Adam"
+    (\texttt{eleven\_multilingual\_v2}).
 \end{itemize}
-TODO: opisać ustalone porównywalne parametry (szybkość mówienia, sposób generowania).
+Wszystkie trzy głosy wybrano jako neutralne, dorosłe głosy męskie, aby różnice w ocenie
+odsłuchowej odzwierciedlały jakość syntezy, a nie różnice barwy/płci głosu.
 
 \section{Metodologia i zbiór testowy}
 \subsection{Zbiór danych}
 Badanie przeprowadzono na wspólnym zbiorze testowym przygotowanym przez grupę projektową,
-składającym się z TODO tekstów od TODO osób (5 tekstów na osobę), podzielonych na 5 kategorii:
+składającym się łącznie z 169 tekstów od 34 osób (po 5 tekstów na osobę, z wyjątkiem jednej
+niekompletnej zgłoszonej pozycji), podzielonych na 5 kategorii:
 \begin{itemize}
     \item Krótkie komunikaty informacyjne,
     \item Pytania i odpowiedzi,
@@ -45,48 +50,226 @@ składającym się z TODO tekstów od TODO osób (5 tekstów na osobę), podziel
     \item Zdania złożone i dłuższe wypowiedzi,
     \item Wypowiedzi zawierające nazwy własne i wyrazy obcojęzyczne.
 \end{itemize}
-Do dalszej, pogłębionej analizy wybrano 15 tekstów własnych grupy oraz 30 tekstów ze
-wspólnej bazy (liczby z brief'u $\times 1{,}5$, proporcjonalnie do 3-osobowego składu grupy;
-TODO: lista wybranych tekstów).
+
+Do dalszej, pogłębionej analizy odsłuchowej wybrano \textbf{45 tekstów}: 15 własnych grupy
+(po 5 od każdej z trzech osób: Adam Krzywicki, Andrzej Manderla, Filip Zmyślony) oraz 30
+tekstów losowo wybranych ze wspólnej bazy (6 losowo wylosowanych osób $\times$ 5 tekstów:
+Mateusz Dejewski, Hubert Tański, Kacper Tomczyk, Kacper Kubiak, Marcin Goliasz, Leszek Kryzar).
+Liczby te są liczbami z brief'u (10 własnych + 20 wspólnych) przeskalowanymi $\times 1{,}5$
+proporcjonalnie do 3-osobowego składu grupy (w brief'ie podanymi dla grupy 2--3-osobowej).
+Każdy z trzech członków grupy ocenił 15 tekstów (swoje 5 własnych + 10 losowo przydzielonych
+z 30 wspólnych, podzielonych bez powtórzeń między trójkę oceniających) $\times$ 3 systemy =
+45 nagrań na osobę, łącznie 135 ocenionych nagrań.
 
 \subsection{Generowanie i anonimizacja nagrań}
-Dla każdego tekstu wygenerowano nagrania wszystkimi trzema systemami
+Dla każdego z 45 tekstów wygenerowano nagrania wszystkimi trzema systemami
 (\texttt{scripts/generate\_speech.py}), a następnie nagrania zanonimizowano względem systemu
 źródłowego (\texttt{scripts/anonymize\_audio.py}), aby ograniczyć wpływ oczekiwań oceniających.
+Każdy oceniający otrzymał arkusz ocen (\texttt{ARKUSZ\_OCEN.csv}) bez tekstu referencyjnego --
+tekst znajdował się w odrębnym pliku (\texttt{TEKSTY\_REFERENCYJNE.csv}), konsultowanym
+dopiero po pierwszym, "ślepym" odsłuchu, aby nie zaburzać oceny zrozumiałości i naturalności.
 
 \subsection{Kryteria oceny}
-Kryteria 2--6 i 8 oceniono w 5-punktowej skali Likerta (1 -- bardzo słaba, 5 -- bardzo dobra).
-Kryterium 1 (poprawność wymowy) oceniono poprzez zliczanie błędów w kategoriach: liczby/daty/
-godziny, skróty, nazwy własne, wyrazy obce, akcentowanie. Kryterium 7 (szybkość generowania)
-zmierzono jako czas od przekazania tekstu do syntezatora do wygenerowania dźwięku.
+Kryteria 2--6 i 8 oceniono w 5-punktowej skali Likerta (1~=~bardzo słaba, 5~=~bardzo dobra).
+Oceniający rozszerzyli tę skalę o wartość \textbf{0} dla nagrań całkowicie niezrozumiałych /
+nieużywalnych (poza oryginalną skalą brief'u) -- wartość ta jest uwzględniona w średnich
+literalnie (słusznie obniżając wynik systemu, który wyprodukował niezrozumiałe nagranie), a
+dodatkowo odsetek takich "katastroficznych" nagrań jest raportowany osobno jako
+\texttt{pct\_katastroficznych}, żeby ten efekt nie "chował się" wyłącznie w niższej średniej.
+
+Kryterium 1 (poprawność wymowy) oceniono poprzez zliczanie błędów w pięciu kategoriach: liczby/
+daty/godziny, skróty, nazwy własne, wyrazy obce, akcentowanie (0~=~brak błędu, N~=~liczba
+błędów, 99~=~sentinel dla nagrania całkowicie niezrozumiałego we wszystkich kategoriach
+jednocześnie). Kryterium 7 (szybkość generowania) zmierzono jako czas od przekazania tekstu do
+syntezatora do wygenerowania dźwięku (\texttt{scripts/generate\_speech.py}).
 
 \section{Wyniki badań}
 
 \subsection{Poprawność wymowy (kryterium 1)}
-TODO: tabela najczęstszych błędów per system (\texttt{results/bledy\_wymowy-NNN.csv}).
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrrrr}
+\toprule
+System & Liczby/daty/godz. & Skróty & Nazwy własne & Wyrazy obce & Akcentowanie \\
+\midrule
+Edge-TTS    & 6,7\%  & 8,9\%  & 11,1\% & 11,1\% & 11,1\% \\
+ElevenLabs  & 15,6\% & 13,3\% & 2,2\%  & 2,2\%  & 8,9\% \\
+Piper       & 26,7\% & 33,3\% & 31,1\% & 31,1\% & 44,4\% \\
+\bottomrule
+\end{tabular}
+\caption{Odsetek nagrań (z 45) z co najmniej jednym błędem danego typu, per system.}
+\end{table}
+
+Piper wypada najsłabiej w każdej z pięciu kategorii błędów, szczególnie przy skrótach
+(33,3\%, głównie literowanie skrótów typu "r.", "godz.", "nr" zamiast ich rozwinięcia) i
+akcentowaniu (44,4\%). ElevenLabs ma zaskakująco wysoki odsetek błędów liczb/dat/godzin
+(15,6\%, wyższy niż Edge-TTS) -- w kilku przypadkach błędnie odczytał cenę lub rok (np. "1499,99
+zł" jako "1099 zł", rok zweryfikowany jako przesunięty o dekadę), co przy zastosowaniu w
+sklepie internetowym mogłoby być krytycznym błędem. Edge-TTS i ElevenLabs radzą sobie dobrze z
+nazwami własnymi i wyrazami obcymi (2--11\%), Piper radykalnie słabiej (31,1\%).
 
 \subsection{Oceny subiektywne (kryteria 2--6, 8)}
-TODO: tabela średnich ocen per system i kryterium, ogółem i per kategoria
-(\texttt{results/podsumowanie\_tts-NNN.csv}).
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrrrrrrr}
+\toprule
+System & Zrozum. & Natur. & Intonacja & Płynność & Stabil. & Dialog & Śr.~ogólna & \%~katastr. \\
+\midrule
+Edge-TTS   & 4,53 & 4,02 & 4,18 & 4,51 & 4,69 & 4,29 & \textbf{4,37} & 0,0\% \\
+ElevenLabs & 4,62 & 3,44 & 3,58 & 4,47 & 4,60 & 4,36 & 4,18 & 0,0\% \\
+Piper      & 3,04 & 2,16 & 2,38 & 3,27 & 3,36 & 2,38 & 2,77 & \textbf{13,3\%} \\
+\bottomrule
+\end{tabular}
+\caption{Średnie oceny Likerta (1-5, n=45 per system) oraz odsetek nagrań ocenionych jako
+całkowicie niezrozumiałe (0).}
+\end{table}
+
+Edge-TTS ma najwyższą średnią ogólną (4,37), tuż przed ElevenLabs (4,18) -- co jest
+zaskakujące, bo ElevenLabs wypada gorzej akurat na naturalności (3,44) i intonacji (3,58),
+mimo reputacji systemu "najbardziej ludzkiego". Piper wypada wyraźnie najsłabiej na każdym
+kryterium i jest jedynym systemem, który wyprodukował nagrania całkowicie niezrozumiałe
+(6 z 45, 13,3\%) -- w tych przypadkach model "halucynował" niezrozumiałe fragmenty (oceniający
+opisywali to jako odczyt "ukrytych znaków/symboli", np. wstawki przypominające nazwy znaków
+Unicode) niezależnie od treści wejściowej (sam tekst źródłowy był poprawnie zakodowanym
+UTF-8, bez żadnych nietypowych symboli -- zweryfikowano bajt po bajcie).
+
+\subsubsection{Wyniki per kategoria wypowiedzi}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llr}
+\toprule
+System & Kategoria & Śr.~ogólna \\
+\midrule
+Edge-TTS   & Krótki komunikat informacyjny       & 4,52 \\
+Edge-TTS   & Pytanie / odpowiedź                 & 4,46 \\
+Edge-TTS   & Zdanie złożone / dłuższa wypowiedź   & 4,46 \\
+Edge-TTS   & Liczby, daty, godziny, skróty        & 4,31 \\
+Edge-TTS   & Nazwy własne i wyrazy obcojęzyczne   & 4,09 \\
+\midrule
+ElevenLabs & Nazwy własne i wyrazy obcojęzyczne   & 4,50 \\
+ElevenLabs & Krótki komunikat informacyjny        & 4,33 \\
+ElevenLabs & Zdanie złożone / dłuższa wypowiedź    & 4,33 \\
+ElevenLabs & Pytanie / odpowiedź                  & 4,24 \\
+ElevenLabs & Liczby, daty, godziny, skróty         & 3,48 \\
+\midrule
+Piper      & Nazwy własne i wyrazy obcojęzyczne   & 3,00 \\
+Piper      & Liczby, daty, godziny, skróty        & 2,78 \\
+Piper      & Pytanie / odpowiedź                  & 2,79 \\
+Piper      & Zdanie złożone / dłuższa wypowiedź    & 2,78 \\
+Piper      & Krótki komunikat informacyjny         & 2,46 \\
+\bottomrule
+\end{tabular}
+\caption{Średnia ogólna ocen Likerta per system i kategoria tekstu (n=9 per wiersz).}
+\end{table}
+
+Najbardziej wyrazista jest słabość ElevenLabs akurat w kategorii liczb/dat/skrótów (3,48, jego
+najniższy wynik), podczas gdy ten sam system wypada najlepiej właśnie na nazwach własnych i
+wyrazach obcojęzycznych (4,50) -- odwrotna zależność niż u Edge-TTS, który jest najsłabszy
+właśnie na nazwach własnych/obcych (4,09, jego najniższy wynik). Piper jest konsekwentnie
+najsłabszy niezależnie od kategorii, z najniższym wynikiem przy krótkich komunikatach
+informacyjnych (2,46) -- w tej kategorii skupiły się też 2 z 6 katastroficznych nagrań.
 
 \subsection{Szybkość generowania (kryterium 7)}
-TODO: tabela średniego czasu generowania i znaków/sekundę per system
-(\texttt{results/latency\_tts-NNN.csv}).
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+System & Śr.~czas [s] & Med.~czas [s] & Śr.~znaki/s & Med.~znaki/s \\
+\midrule
+ElevenLabs & 1,28 & 1,11 & \textbf{127,3} & 113,2 \\
+Piper      & 2,43 & 2,20 & 70,1  & 60,6 \\
+Edge-TTS   & 4,57 & 4,29 & 37,2  & 36,6 \\
+\bottomrule
+\end{tabular}
+\caption{Czas generowania (n=15 per system; 15 unikalnych tekstów $\times$ 1 pomiar, ten sam
+tekst dla wszystkich trzech systemów) -- Piper mierzony na GPU (CUDA execution provider).}
+\end{table}
+
+ElevenLabs jest najszybszy, mimo że jest jedynym płatnym systemem działającym w chmurze --
+najwyraźniej silnie zoptymalizowanym pod kątem niskiego opóźnienia. Piper na GPU jest wyraźnie
+szybszy niż Edge-TTS, mimo że Edge-TTS też działa w chmurze (Microsoft) -- dla tak krótkich
+tekstów narzut sieciowy/API Edge-TTS najwyraźniej dominuje nad samym czasem syntezy. Warto
+odnotować, że Piper na CPU (bez \texttt{PIPER\_USE\_GPU=1}) byłby wolniejszy -- to porównanie
+nie jest więc w 100\% "uczciwe" międzysystemowo (Edge-TTS i ElevenLabs zawsze liczą po stronie
+dostawcy, niezależnie od naszego sprzętu), ale odzwierciedla realny scenariusz wdrożenia
+lokalnego Pipera na maszynie z GPU.
 
 \subsection{Ocena końcowa}
-TODO: wynik \texttt{scripts/compute\_final\_score.py} -- UWAGA: wagi domyślne w tym skrypcie
-są placeholderem (1/3 na komponent), nie wynikiem ustalonym z wymaganiami ćwiczenia.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+System & Likert (0-100) & Szybkość (0-100) & Wymowa (0-100) & \textbf{Ocena końcowa} \\
+\midrule
+ElevenLabs & 79,50 & 100,00 & 91,56 & \textbf{90,35} \\
+Edge-TTS   & 84,25 & 29,21  & 90,22 & 67,89 \\
+Piper      & 44,25 & 55,08  & 66,68 & 55,34 \\
+\bottomrule
+\end{tabular}
+\caption{Ocena końcowa -- synteza 3 komponentów (8 kryteriów), wagi \textbf{równe (1/3 każdy)
+-- to placeholder, nie wagi z wymagań ćwiczenia} (brief, w przeciwieństwie do ASR z Ćwiczenia
+1, nie podaje oficjalnych wag; patrz \texttt{docs/WYMAGANIA.md}).}
+\end{table}
+
+Przy przyjętych (równych) wagach ElevenLabs wygrywa głównie dzięki zdecydowanie najwyższej
+szybkości (100/100) -- gdyby kryterium szybkości ważyć niżej (np. 0,10 jak w brief'ie ASR z
+Ćwiczenia 1, gdzie szybkość miała wagę 0,10 z 1,00), Edge-TTS i ElevenLabs byłyby znacznie
+bliżej siebie, bo pod względem jakości subiektywnej (Likert) Edge-TTS wypada lepiej (84,25 vs
+79,50). Jest to istotne zastrzeżenie metodologiczne: \textbf{wynik końcowy silnie zależy od
+wag, które nie są ustalone przez brief}.
 
 \section{Analiza wyników}
-TODO:
+
 \begin{enumerate}
-    \item Porównanie wyników dla różnych kategorii wypowiedzi.
-    \item Najczęściej występujące błędy syntezy.
-    \item Porównanie czasu generowania mowy przez poszczególne systemy.
-    \item Który system najlepiej sprawdza się w komunikacji z użytkownikiem.
+    \item \textbf{Porównanie wyników dla różnych kategorii wypowiedzi.} Każdy system ma inną
+    "słabą kategorię": Edge-TTS -- nazwy własne/wyrazy obcojęzyczne (4,09); ElevenLabs --
+    liczby/daty/skróty (3,48, mimo wysokiej ogólnej jakości); Piper -- krótkie komunikaty
+    informacyjne (2,46, m.in. z powodu katastroficznych nagrań). Nie ma kategorii uniwersalnie
+    "łatwej" dla wszystkich trzech systemów.
+    \item \textbf{Najczęściej występujące błędy syntezy.} Dominującym wzorcem błędów jest
+    dosłowne literowanie skrótów ("r.", "godz.", "nr", "tj.") zamiast ich rozwinięcia --
+    widoczne u wszystkich trzech systemów, najsilniej u Pipera (33,3\% nagrań). Drugi
+    powszechny wzorzec to zniekształcanie angielskich nazw/wyrażeń obcych (np. "Kentucky Fried
+    Chicken", "all inclusive", "equalizer") -- szczególnie problematyczne dla Pipera, który
+    czyta je "polską fonetyką" lub całkowicie je zniekształca. Piper dodatkowo ucierpiał na
+    sporadycznych, pełnych "halucynacjach" (6 nagrań, 13,3\%) niezwiązanych z konkretną treścią
+    tekstu.
+    \item \textbf{Porównanie czasu generowania.} ElevenLabs (127,3 znaków/s) $>$ Piper na GPU
+    (70,1 znaków/s) $>$ Edge-TTS (37,2 znaków/s). Dla krótkich, pojedynczych wypowiedzi typowych
+    dla interfejsu konwersacyjnego narzut API/sieci ma większy wpływ na odczuwaną szybkość niż
+    sama złożoność syntezy.
+    \item \textbf{Który system najlepiej sprawdza się w komunikacji z użytkownikiem.} Biorąc pod
+    uwagę zarówno jakość subiektywną, jak i brak jakichkolwiek katastroficznych awarii,
+    \textbf{Edge-TTS} wydaje się najbezpieczniejszym wyborem dla interfejsu konwersacyjnego --
+    darmowy, najwyższa średnia ocena subiektywna, zero nagrań niezrozumiałych, choć najwolniejszy.
+    \textbf{ElevenLabs} jest realną alternatywą tam, gdzie liczy się szybkość odpowiedzi
+    (np. rozmowa w czasie rzeczywistym), kosztem nieco gorszej naturalności/intonacji i wyższego
+    ryzyka błędu w liczbach -- co jest istotne przy np. podawaniu cen. \textbf{Piper} nie jest
+    obecnie rekomendowany jako główny system ze względu na 13,3\% ryzyko całkowicie
+    niezrozumiałego nagrania oraz wyraźnie gorszą jakość ogólną -- może być rozważany jedynie
+    tam, gdzie krytyczne są koszt zerowy i praca w pełni offline, akceptując wyższe ryzyko
+    błędu.
 \end{enumerate}
 
 \section{Podsumowanie i wnioski końcowe}
-TODO.
+Żaden z trzech systemów nie jest bezbłędny, ale różnią się istotnie profilem słabości: Edge-TTS
+najbardziej przewidywalny i bezpieczny (zero katastrofalnych awarii), ElevenLabs najszybszy ale
+z ryzykiem błędów w liczbach krytycznych dla komunikacji handlowej, Piper -- choć darmowy i
+lokalny -- obecnie nie nadaje się do produkcyjnego wdrożenia bez dodatkowej walidacji z powodu
+nieprzewidywalnych całkowitych awarii syntezy. Rekomendacja dla docelowego interfejsu
+konwersacyjnego sklepu elektronicznego: \textbf{Edge-TTS jako główny system}, z ElevenLabs jako
+opcją dla scenariuszy wymagających niższego opóźnienia, pod warunkiem dodatkowej weryfikacji
+poprawności odczytu liczb/cen.
+
+Warto podkreślić dwa zastrzeżenia metodologiczne: (1) ocena końcowa (sekcja 4.4) zależy silnie
+od nieprzypisanych przez brief wag kryteriów -- powyższe wnioski oparto głównie na surowych
+wynikach per kryterium, nie na jednej zagregowanej liczbie; (2) Piper mierzono na GPU, podczas
+gdy Edge-TTS i ElevenLabs zawsze liczą po stronie dostawcy -- porównanie szybkości nie jest
+więc w pełni "sprzęt kontra sprzęt", lecz odzwierciedla realny koszt wdrożenia każdej opcji.
 
 \end{document}
