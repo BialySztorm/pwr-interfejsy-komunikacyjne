@@ -243,7 +243,10 @@ def sync_folder(
             print(f"WARNING: {warning}")
             continue
 
-        local_path = dest_dir / child.name
+        # Some filenames on Drive carry trailing whitespace (a stray space before the
+        # extension, e.g. "...-info.txt ") despite the group's "no spaces" convention —
+        # strip it so the suffix check and local filename aren't thrown off by it.
+        local_path = dest_dir / child.name.strip()
         if local_path.suffix.lower() != ".txt":
             warning = f"Skipping non-.txt file (unexpected in the text corpus): {local_path}"
             stats.warnings.append(warning)
