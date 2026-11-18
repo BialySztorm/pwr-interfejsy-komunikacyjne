@@ -1,0 +1,46 @@
+anon_id,rater,kryt2_zrozumialosc,kryt3_naturalnosc,kryt4_intonacja_prozodia,kryt5_plynnosc,kryt6_stabilnosc,kryt8_przydatnosc_w_dialogu,kryt1_bledy_liczby_daty_godziny,kryt1_bledy_skroty,kryt1_bledy_nazwy_wlasne,kryt1_bledy_wyrazy_obce,kryt1_bledy_akcentowanie,uwagi
+a46ce6d9,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,"Bezbłędnie, naturalne brzmienie"
+4a903e45,Filip Zmyślony,4,2,4,3,2,1,0,0,1,2,0,"„loty Ryanair” zlane („loterianer”), „pick-up” → „pizku”, „shuttle” zniekształcone; brzmienie nienaturalne"
+5392e969,Filip Zmyślony,4,2,3,4,4,3,0,0,0,0,0,"Treść poprawna, brzmienie syntetyczne"
+35780429,Filip Zmyślony,5,4,4,4,4,4,0,0,0,0,0,"Poprawnie, wyrazy obce dobrze"
+b2a1a993,Filip Zmyślony,3,2,3,4,3,2,0,0,0,4,0,"„do Beach Baru na drinka” zlane („Bech Barona Drinka”), „All inclusive” → „alle inslusive”; obce wyrazy czytane polską fonetyką"
+522bfb79,Filip Zmyślony,5,4,4,4,4,5,0,0,0,0,0,"Poprawnie, data słownie dobrze; długie pauzy"
+c03dd760,Filip Zmyślony,5,4,4,4,5,5,0,0,0,0,0,Poprawnie; długie pauzy
+c6eaf01b,Filip Zmyślony,5,3,1,3,3,4,0,0,0,0,2,"Treść poprawna, ale bardzo płaska intonacja – ostatnie pytanie brzmi jak oznajmienie; 2 błędy akcentu"
+f9f573e2,Filip Zmyślony,3,3,5,5,4,3,0,1,1,0,0,"„Makita” zniekształcone („Makytę”), „B2B” przeczytane błędnie"
+937aa10a,Filip Zmyślony,3,2,4,5,4,1,2,2,0,0,0,"„r. o godz.” zniekształcone (ASR: „RT-Ogodzenda”), data jako ciąg liczb, „09:30” jako „zero dziewięć trzydzieści”; nieprzydatne w dialogu"
+59110ff0,Filip Zmyślony,1,1,1,1,3,1,0,0,0,0,4,"Zamiast „Twój” i „jest już dostępny” wtrącone niezrozumiałe fragmenty (m.in. „…zastrzeżony znak towarowy…”, „umlaut”) – prawdopodobnie odczyt ukrytych znaków/symboli; nagranie nieużywalne"
+12d833fd,Filip Zmyślony,4,4,5,5,4,4,0,0,0,0,1,Poprawnie; jeden błąd akcentu
+70973eff,Filip Zmyślony,3,2,3,4,3,3,0,2,0,0,1,"Po „Dostawę” wtrącone niezrozumiałe fragmenty (m.in. „…zastrzeżony znak towarowy…”, „umlaut”) – prawdopodobnie odczyt ukrytych znaków/symboli; „r.” i „godz.” czytane literowo; jeden błąd akcentu"
+72618d85,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,Bezbłędnie
+0c623c2e,Filip Zmyślony,3,4,4,5,4,3,0,1,0,0,0,„ROG” przeczytane jako słowo („Rook”)
+d3c0a366,Filip Zmyślony,4,5,5,5,5,4,0,0,0,0,1,"Data, godzina i skróty rozwinięte poprawnie („15 listopada 2026 roku o godzinie 9:30”, „numer”); jeden błąd akcentu"
+fe275599,Filip Zmyślony,1,1,1,1,2,1,0,0,0,0,2,"„porównać” zniekształcone (ASR: „zainteresować”), wtrącone „na”; bardzo nienaturalne, ledwo zrozumiałe"
+3a136309,Filip Zmyślony,5,3,3,4,4,4,0,0,0,0,1,"Poprawnie; intonacja dość płaska, jeden błąd akcentu"
+66b9ebf7,Filip Zmyślony,5,5,4,3,5,4,0,0,0,0,0,Poprawnie; długa pauza między zdaniami
+878d591d,Filip Zmyślony,3,1,2,4,3,2,1,1,1,0,1,"„zł” zastąpione niezrozumiałym wtrąceniem („e-lostre”), „Core” zniekształcone; jeden błąd akcentu"
+41306fe7,Filip Zmyślony,5,4,4,4,4,5,0,0,0,0,0,Poprawnie
+5da3e806,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,Bezbłędnie
+93f907e4,Filip Zmyślony,2,1,1,4,2,1,1,0,0,0,1,"Wielokrotnie wtrącone niezrozumiałe fragmenty (m.in. „…zastrzeżony znak towarowy…”, „umlaut”) – prawdopodobnie odczyt ukrytych znaków/symboli; zdanie rozbite, nieużywalne"
+b9b1846b,Filip Zmyślony,3,3,3,4,4,4,0,0,0,1,1,„All inclusive” wymówione nienaturalnie; godziny poprawnie
+682144d5,Filip Zmyślony,5,4,5,4,5,5,0,0,0,0,0,"Angielskie wtrącenia (shuttle, Ryanair, pick-up, presidential) poprawnie; długie (~1 s) pauzy między zdaniami"
+a9b1db57,Filip Zmyślony,2,3,3,4,3,2,0,1,0,0,0,"W środku zdania wtrącone niezrozumiałe fragmenty (m.in. „…zastrzeżony znak towarowy…”, „umlaut”) – prawdopodobnie odczyt ukrytych znaków/symboli; „B2B” błędnie"
+dd360d09,Filip Zmyślony,3,2,4,4,3,4,0,1,1,0,0,"Zamiast „które obsługują” wtrącone niezrozumiałe fragmenty (m.in. „…zastrzeżony znak towarowy…”, „umlaut”) – prawdopodobnie odczyt ukrytych znaków/symboli; „ROG” zniekształcone, „USB-C” bez „C”"
+bd8215fa,Filip Zmyślony,3,1,3,4,3,3,4,0,0,0,0,"Błędy w liczbach, m.in. cena „4299 zł” → „412,99 zł”(?), rok „2026” → „2016”(?); bardzo nienaturalne"
+685a0ba5,Filip Zmyślony,5,4,4,4,4,5,0,0,0,0,1,Poprawnie; jeden błąd akcentu
+88e1bfaa,Filip Zmyślony,5,3,4,4,4,4,1,0,0,0,1,Błąd w odczycie godziny/liczebnika; jeden błąd akcentu
+1e4a9dc5,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,"Bezbłędnie, naturalne brzmienie"
+897986e0,Filip Zmyślony,4,4,4,4,4,4,1,0,0,0,0,Poprawnie; drobna niedokładność w odczycie godziny 14:30
+18c1ae12,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,"Bezbłędnie, liczby i skróty poprawnie"
+b723b8ba,Filip Zmyślony,5,3,4,5,5,4,0,0,0,0,0,"Poprawnie, ale brzmienie mniej naturalne"
+bc0ed956,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,Bezbłędnie
+1b3c246d,Filip Zmyślony,4,2,3,4,4,3,0,0,0,1,0,„All inclusive” czytane polską fonetyką
+dc2b9be7,Filip Zmyślony,4,3,3,3,4,3,0,0,0,1,0,"„cheeseburger” wymówiony nienaturalnie; płaska intonacja, długie pauzy"
+a8973014,Filip Zmyślony,5,5,4,5,5,5,0,0,0,0,1,Poprawnie; jeden drobny błąd akcentu
+392c6b0d,Filip Zmyślony,4,3,4,3,4,3,0,0,0,2,0,"„&” w „Spa & Wellness” prawdopodobnie pominięte, wyrazy obce brzmią nienaturalnie; długie pauzy"
+b7ad2acd,Filip Zmyślony,4,2,2,3,3,2,0,0,0,0,0,"Treść poprawna, ale intonacja nienaturalna – pytania nie brzmią jak pytania"
+774aaf57,Filip Zmyślony,2,1,1,3,2,2,0,0,1,1,1,"„McDonald” literowane („MC Donald”), „cheeseburger” zniekształcony; bardzo sztuczna intonacja"
+32dc4309,Filip Zmyślony,5,4,3,4,4,4,0,0,0,0,1,"Wyrazy obce poprawnie; intonacja miejscami monotonna, jeden błąd akcentu"
+cdb9a030,Filip Zmyślony,5,2,3,3,3,3,0,0,0,0,1,"Poprawnie, sztuczne brzmienie; jeden błąd akcentu"
+d816ea52,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,"Bezbłędnie, dobra wymowa nazw"
+dcddf33e,Filip Zmyślony,5,5,5,5,5,5,1,0,0,0,0,Poprawnie; drobny błąd w odczycie godziny

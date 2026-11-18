@@ -1,0 +1,136 @@
+﻿anon_id,rater,kryt2_zrozumialosc,kryt3_naturalnosc,kryt4_intonacja_prozodia,kryt5_plynnosc,kryt6_stabilnosc,kryt8_przydatnosc_w_dialogu,kryt1_bledy_liczby_daty_godziny,kryt1_bledy_skroty,kryt1_bledy_nazwy_wlasne,kryt1_bledy_wyrazy_obce,kryt1_bledy_akcentowanie,uwagi
+f258e3d6,Andrzej Manderla,4,3,3,4,4,3,0,0,0,0,1,[akcent] „żarcie” niewyraźne (ASR: „żacie”) – do weryfikacji odsłuchem | Liczby 1 2 3 / 4 5 6 i 24/7 przeczytane poprawnie; dość płaska intonacja wykrzyknień
+bdcd6af7,Andrzej Manderla,4,4,4,4,4,4,0,0,0,0,1,[akcent] „odjeździe” niewyraźne (ASR: „gwieździe”) – do weryfikacji odsłuchem | Długie (~1 s) pauzy między zdaniami i cisza na końcu
+21183617,Andrzej Manderla,5,3,3,4,5,3,0,0,0,0,0,"Poprawnie, brzmienie syntetyczne"
+e0002a71,Andrzej Manderla,5,4,4,5,5,5,0,0,0,0,0,Bezbłędnie
+3acadead,Andrzej Manderla,5,4,4,4,5,4,0,0,0,0,0,Szybkie tempo; końcówka „lżejszy” mało wyraźna
+9143ca2f,Andrzej Manderla,5,3,3,4,5,3,0,0,0,0,0,"Poprawnie, brzmienie syntetyczne"
+821a656c,Andrzej Manderla,5,4,4,5,5,5,0,0,0,0,0,Bezbłędnie
+c5ef0784,Andrzej Manderla,4,4,4,4,4,4,1,0,1,0,0,[liczby] Dodane „roku” po „1995” | [nazwy] „Yum! Brands” → „Jan. Brands” (n zamiast m?) – do weryfikacji odsłuchem | Poza „Yum!” poprawnie; długie pauzy
+29ff817f,Andrzej Manderla,3,3,3,3,4,2,1,3,0,0,0,"[liczby] Data 15.03.2026 czytana jako ciąg liczb zamiast „15 marca” – do weryfikacji odsłuchem | [skróty] „r.”, „godz.”, „s.” czytane literowo lub pominięte (ASR: „L. OGOC. … .204”) | Nie rozwija skrótów"
+1135a857,Andrzej Manderla,3,3,3,3,4,2,2,2,0,0,0,"[liczby] Daty 15.07.2026 / 22.07.2026 prawdopodobnie jako ciąg liczb – do weryfikacji odsłuchem | [skróty] „nr” i „godz.” czytane literowo (ASR: „NR214”, „GOC.”) | Nie rozwija skrótów"
+e91373b1,Andrzej Manderla,5,4,4,5,5,5,0,0,0,0,0,Bezbłędnie; mało pauz między zdaniami – tekst czytany jednym ciągiem
+82d45fba,Andrzej Manderla,5,4,4,5,5,5,0,0,0,0,0,Bezbłędnie
+bd61b932,Andrzej Manderla,2,2,3,3,3,2,0,0,7,0,1,[nazwy] „Corporation” → „korporaty”; „Kentucky Fried Chicken” (2×) → „kentuckiej Friat Hitzken” / „kentuski w Jethitzk”; „Kentucky” (stan) → „kentuckiej”; „Tricon” → „Triton”; „Yum! Brands” niezrozumiałe; „Pizza Hut” → „Pisa Hub” | [akcent] „sieć barów szybkiej” zlane („siedba rów szybkie”) | Najgorsza wersja tego tekstu – angielskie nazwy praktycznie niezrozumiałe
+ad78903a,Andrzej Manderla,5,4,4,4,5,4,0,0,0,0,0,Długie pauzy między zdaniami
+906eb97d,Andrzej Manderla,5,4,4,5,5,5,0,0,0,0,0,"Bezbłędnie, dobra wymowa angielskich nazw"
+4fc25603,Andrzej Manderla,3,3,4,3,2,2,3,0,0,0,0,"[liczby] „2028 roku” → „roku 2028 roku” (powtórzenie); „1 2 3” → „jeden, dwa, trój”; „6” → „sześcio” | Halucynacje/powtórzenia słów („Godzina to godzina 5:30”); najwolniejsze nagranie tego tekstu"
+df1d0859,Andrzej Manderla,5,4,4,5,5,4,0,0,0,0,0,Poprawnie
+6ce1813e,Andrzej Manderla,3,3,3,3,4,2,2,1,0,0,0,"[liczby] „27""” prawdopodobnie jako „207” lub bez „cali”; data 15.12.2026 jako ciąg liczb (ASR: „1512 2026”) | [skróty] „r.” czytane jako litera | Liczby i data problematyczne"
+c40ac16b,Andrzej Manderla,2,2,3,3,4,2,0,0,1,2,1,[nazwy] „Sound Connect” → „SoundConez” | [obce] „active noise cancelling” → „ad Steven Noisem Suncelling”; „equalizer” → „ekwalizę” | [akcent] „sparować” → „sporować” | Angielskie wyrażenia niezrozumiałe
+f94a5489,Andrzej Manderla,3,4,4,4,4,2,1,2,0,0,0,"[liczby] „1499,99 zł” prawdopodobnie jako „1099 zł” (ASR) – do weryfikacji odsłuchem | [skróty] „ok.” jako „OK/okej”; „r.” literowo | Możliwy błąd w cenie – krytyczny dla sklepu"
+267c2fe8,Andrzej Manderla,5,4,4,5,5,5,0,0,0,0,0,"Daty i skróty rozwinięte poprawnie („15 lipca 2026 roku”, „numer”, „godziny”)"
+58d5c539,Andrzej Manderla,4,4,4,4,4,3,0,1,0,0,0,[skróty] „godz.” zniekształcone (ASR: „godzeka”) | Wolne tempo; sprawdzić odczyt dat
+f1ace456,Andrzej Manderla,3,4,4,4,4,3,0,0,0,2,0,[obce] „wrapy” → „rai pi”(?); „Piña Colada” → „pinackelade” | Kilka zniekształconych obcych nazw
+9f7e6fb4,Andrzej Manderla,5,4,4,5,5,5,0,0,0,1,0,[obce] „barbeque” mało wyraźne (ASR: „barbec”) | Prawie bezbłędnie
+038513ed,Andrzej Manderla,5,4,4,5,5,4,0,0,0,0,0,Poprawnie
+7cdadd1d,Andrzej Manderla,5,4,4,5,5,5,0,0,0,0,0,Bezbłędnie
+d6e8d065,Andrzej Manderla,5,3,3,4,5,3,0,0,0,0,0,"Poprawnie, brzmienie syntetyczne"
+371218ca,Andrzej Manderla,5,4,4,5,5,5,0,0,0,0,0,"Bezbłędnie, dobra wymowa angielskich nazw"
+93fe7b3b,Andrzej Manderla,5,3,3,4,5,3,0,0,0,0,0,"Poprawnie, brzmienie syntetyczne"
+8422614a,Andrzej Manderla,4,3,3,4,4,3,0,0,0,0,1,[akcent] „bezlusterkowiec” zniekształcony (ASR: „bez lustrękowy”) | Poza jednym słowem poprawnie
+bd4ea643,Andrzej Manderla,5,4,4,5,5,4,0,0,0,0,0,Poprawnie
+84c8863a,Andrzej Manderla,3,4,4,3,4,3,1,2,0,0,0,"[liczby] Rok prawdopodobnie przeczytany jako 2006 (ASR) – do weryfikacji odsłuchem | [skróty] „r. o godz.” zniekształcone (ASR: „reg, ogodzymy”) | Problem ze skrótami"
+588fab66,Andrzej Manderla,3,4,4,3,4,2,0,4,0,0,0,"[skróty] „nr” (ASR: „m.”), „godz.” → „godzy”, „tj.” czytane jako litery (ASR: „Toyota”), „Gł.” czytane dosłownie („Gło”) | Dużo błędów w skrótach"
+0c4d7954,Andrzej Manderla,5,4,4,4,5,4,0,0,0,0,0,"Data rozwinięta poprawnie („15 grudnia 2026 roku”), „ok.” → „około”; sprawdzić czy przeczytano „cali”"
+5078bb66,Andrzej Manderla,5,4,4,5,5,4,0,0,0,0,0,Poprawnie
+0c10adb3,Andrzej Manderla,5,3,3,4,5,3,0,0,0,1,0,"[obce] „Crème brûlée” → „kremem brulee” (dodane „-em”?) – do weryfikacji odsłuchem | Obce nazwy czytane polską fonetyką, ale zrozumiale"
+c956c9c6,Andrzej Manderla,5,4,4,5,5,5,0,0,0,0,0,Wszystkie skróty i data rozwinięte poprawnie („15 marca 2026 roku o godzinie 14:30”)
+d95e741b,Andrzej Manderla,4,4,4,4,4,4,0,0,1,0,0,[nazwy] „WH-1000XM6” → „WH100XM6” (pominięte „tysiąc”?) – do weryfikacji odsłuchem | Poza oznaczeniem modelu poprawnie
+f0b017f0,Andrzej Manderla,5,4,4,5,5,5,0,0,0,0,0,Bezbłędnie
+cabad688,Andrzej Manderla,4,4,4,4,4,3,1,1,0,0,1,"[liczby] „tor 4” → „tor czwarta” (zła forma) | [skróty] „Gł.” przeliterowane (ASR: „G.E.ł”) | [akcent] „odjedzie” niewyraźne (ASR: „ogiedzie”) | Data, godzina i „tj.” rozwinięte poprawnie"
+e1ad1ac0,Andrzej Manderla,5,3,3,4,5,3,0,0,0,0,0,"Poprawnie, brzmienie syntetyczne"
+00c84c48,Andrzej Manderla,3,3,3,3,4,2,2,5,0,0,0,"[liczby] Data 28.10.2026 jako ciąg liczb; 23:15 jako „23 15” | [skróty] „nr”, „r.”, „godz.”, „tj.” czytane literowo (ASR: „NR123”, „R.”, „Ogoc.”, „TJ.”); „Gł.” → „G.” | Nie rozwija skrótów – trudne do zrozumienia"
+93d15f3a,Andrzej Manderla,5,4,4,5,5,5,0,0,0,0,0,Bezbłędnie
+772f5d4e,Andrzej Manderla,5,4,4,5,5,5,0,0,0,0,0,Bezbłędnie
+81cb78d1,Andrzej Manderla,5,3,3,4,5,3,0,0,0,0,0,"Poprawnie, brzmienie syntetyczne"
+05929358,Adam Krzywicki,5,3,3,3,5,5,0,0,0,0,0,nienaturalna przerwa w środku zdania
+08a6cd30,Adam Krzywicki,0,0,0,4,2,0,0,99,99,99,99,model nie rozumie polskich znaków
+0bc7c7a0,Adam Krzywicki,2,2,2,5,4,1,0,0,0,0,99,model nie poradził sobie z polskimi znakami
+0d903f5e,Adam Krzywicki,4,4,3,5,5,4,0,0,0,0,0,dziwnie powiedzane jedno zdanie - chyba próbuje przeczytać link
+169fcee7,Adam Krzywicki,2,2,1,3,4,1,5,1,1,0,0,tragedia
+1c95a012,Adam Krzywicki,1,2,2,4,4,1,0,2,1,4,0,brak polskich znaków - czyta znaki specjalne
+236f3870,Adam Krzywicki,5,1,1,5,5,5,0,0,0,0,0,mówi jak jakiś kosmita
+3350506e,Adam Krzywicki,4,4,4,5,5,4,0,2,1,0,0,przeczytał M2 jako mieszkanie 2 oraz źle powiedział PCIe
+397ab8b5,Adam Krzywicki,5,3,4,5,5,5,0,0,0,0,0,brak
+3ae5b7d1,Adam Krzywicki,5,4,4,5,5,5,0,0,0,0,0,brak
+3c0ff42c,Adam Krzywicki,5,3,4,5,5,5,0,0,0,0,0,brak
+3ead9d25,Adam Krzywicki,0,0,0,0,0,0,99,99,99,99,99,absolutnie nie zrozumiałem ani jednego słowa
+43c515bf,Adam Krzywicki,5,4,4,5,5,5,0,0,0,0,0,brak
+5252604c,Adam Krzywicki,5,2,2,4,5,5,0,0,0,0,0,ten model mówi dobrze ale strasznie nienaturalnie
+557ff4df,Adam Krzywicki,0,0,0,0,0,0,99,99,99,99,99,brak polskich znaków
+5fb28fef,Adam Krzywicki,5,2,2,4,5,5,0,0,0,0,0,brak
+63c83323,Adam Krzywicki,5,2,2,4,5,5,0,0,0,0,0,brak
+70a93d85,Adam Krzywicki,5,2,2,5,5,5,0,0,0,0,0,brak
+710cca5f,Adam Krzywicki,5,4,4,5,5,5,0,0,0,0,0,brak
+7a7ae76e,Adam Krzywicki,5,3,3,5,5,5,0,0,0,0,0,brak
+83ea5531,Adam Krzywicki,5,5,4,5,5,5,0,0,0,0,0,brak
+871a030c,Adam Krzywicki,5,3,4,5,5,5,0,0,0,0,0,brak
+8bc7f0bf,Adam Krzywicki,3,3,3,4,5,5,0,0,4,3,0,brak
+970cc4cd,Adam Krzywicki,5,4,4,4,5,5,0,0,0,0,0,brak
+973d8d63,Adam Krzywicki,5,4,5,5,5,5,0,0,0,0,0,brak
+9d02bc0b,Adam Krzywicki,5,3,3,5,5,5,0,0,0,0,0,brak
+9e22afe6,Adam Krzywicki,5,4,5,5,5,5,0,0,0,0,0,brak
+a2622d32,Adam Krzywicki,5,5,5,5,5,5,0,0,0,0,0,brak
+a52540ab,Adam Krzywicki,0,0,0,0,0,0,99,99,99,99,99,nie ma polskich znaków
+a905cd1b,Adam Krzywicki,2,2,2,4,4,2,0,0,0,0,0,strasznie niewyraźnie
+ac183a5f,Adam Krzywicki,5,4,4,4,4,5,0,0,0,0,0,brak
+b24d8aba,Adam Krzywicki,5,5,5,5,5,5,0,0,0,0,0,brak
+b5171ada,Adam Krzywicki,5,2,3,5,5,5,0,0,0,0,0,brak
+c5803c96,Adam Krzywicki,5,4,3,5,5,5,0,0,0,0,0,brak
+d031ae32,Adam Krzywicki,5,3,3,5,5,5,0,0,0,0,0,brak
+e21a9b5b,Adam Krzywicki,3,4,4,5,5,3,0,0,2,2,0,największy problem ze słowem smartwatch
+e5903e1b,Adam Krzywicki,5,3,3,4,5,5,0,0,0,0,0,brak
+e9e565aa,Adam Krzywicki,5,3,3,4,5,5,0,0,0,0,0,brak
+ed7e69eb,Adam Krzywicki,5,3,3,4,4,5,0,0,0,0,0,brak
+f0bb4f00,Adam Krzywicki,3,2,2,5,3,3,0,0,0,0,0,brak
+f1173348,Adam Krzywicki,5,4,5,3,5,5,0,0,0,0,0,za długa pauza po uwaga
+f2afbd0b,Adam Krzywicki,0,0,0,0,0,0,99,99,99,99,99,brak polskich znaków
+f5b44b0f,Adam Krzywicki,5,4,4,5,5,5,0,0,0,0,0,brak
+f69cddb8,Adam Krzywicki,0,0,0,0,0,0,99,99,99,99,99,brak polskich znaków
+fc18164c,Adam Krzywicki,5,4,5,5,5,5,0,0,0,0,0,brak
+a46ce6d9,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,"Bezbłędnie, naturalne brzmienie"
+4a903e45,Filip Zmyślony,4,2,4,3,2,1,0,0,1,2,0,"„loty Ryanair” zlane („loterianer”), „pick-up” → „pizku”, „shuttle” zniekształcone; brzmienie nienaturalne"
+5392e969,Filip Zmyślony,4,2,3,4,4,3,0,0,0,0,0,"Treść poprawna, brzmienie syntetyczne"
+35780429,Filip Zmyślony,5,4,4,4,4,4,0,0,0,0,0,"Poprawnie, wyrazy obce dobrze"
+b2a1a993,Filip Zmyślony,3,2,3,4,3,2,0,0,0,4,0,"„do Beach Baru na drinka” zlane („Bech Barona Drinka”), „All inclusive” → „alle inslusive”; obce wyrazy czytane polską fonetyką"
+522bfb79,Filip Zmyślony,5,4,4,4,4,5,0,0,0,0,0,"Poprawnie, data słownie dobrze; długie pauzy"
+c03dd760,Filip Zmyślony,5,4,4,4,5,5,0,0,0,0,0,Poprawnie; długie pauzy
+c6eaf01b,Filip Zmyślony,5,3,1,3,3,4,0,0,0,0,2,"Treść poprawna, ale bardzo płaska intonacja – ostatnie pytanie brzmi jak oznajmienie; 2 błędy akcentu"
+f9f573e2,Filip Zmyślony,3,3,5,5,4,3,0,1,1,0,0,"„Makita” zniekształcone („Makytę”), „B2B” przeczytane błędnie"
+937aa10a,Filip Zmyślony,3,2,4,5,4,1,2,2,0,0,0,"„r. o godz.” zniekształcone (ASR: „RT-Ogodzenda”), data jako ciąg liczb, „09:30” jako „zero dziewięć trzydzieści”; nieprzydatne w dialogu"
+59110ff0,Filip Zmyślony,1,1,1,1,3,1,0,0,0,0,4,"Zamiast „Twój” i „jest już dostępny” wtrącone niezrozumiałe fragmenty (m.in. „…zastrzeżony znak towarowy…”, „umlaut”) – prawdopodobnie odczyt ukrytych znaków/symboli; nagranie nieużywalne"
+12d833fd,Filip Zmyślony,4,4,5,5,4,4,0,0,0,0,1,Poprawnie; jeden błąd akcentu
+70973eff,Filip Zmyślony,3,2,3,4,3,3,0,2,0,0,1,"Po „Dostawę” wtrącone niezrozumiałe fragmenty (m.in. „…zastrzeżony znak towarowy…”, „umlaut”) – prawdopodobnie odczyt ukrytych znaków/symboli; „r.” i „godz.” czytane literowo; jeden błąd akcentu"
+72618d85,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,Bezbłędnie
+0c623c2e,Filip Zmyślony,3,4,4,5,4,3,0,1,0,0,0,„ROG” przeczytane jako słowo („Rook”)
+d3c0a366,Filip Zmyślony,4,5,5,5,5,4,0,0,0,0,1,"Data, godzina i skróty rozwinięte poprawnie („15 listopada 2026 roku o godzinie 9:30”, „numer”); jeden błąd akcentu"
+fe275599,Filip Zmyślony,1,1,1,1,2,1,0,0,0,0,2,"„porównać” zniekształcone (ASR: „zainteresować”), wtrącone „na”; bardzo nienaturalne, ledwo zrozumiałe"
+3a136309,Filip Zmyślony,5,3,3,4,4,4,0,0,0,0,1,"Poprawnie; intonacja dość płaska, jeden błąd akcentu"
+66b9ebf7,Filip Zmyślony,5,5,4,3,5,4,0,0,0,0,0,Poprawnie; długa pauza między zdaniami
+878d591d,Filip Zmyślony,3,1,2,4,3,2,1,1,1,0,1,"„zł” zastąpione niezrozumiałym wtrąceniem („e-lostre”), „Core” zniekształcone; jeden błąd akcentu"
+41306fe7,Filip Zmyślony,5,4,4,4,4,5,0,0,0,0,0,Poprawnie
+5da3e806,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,Bezbłędnie
+93f907e4,Filip Zmyślony,2,1,1,4,2,1,1,0,0,0,1,"Wielokrotnie wtrącone niezrozumiałe fragmenty (m.in. „…zastrzeżony znak towarowy…”, „umlaut”) – prawdopodobnie odczyt ukrytych znaków/symboli; zdanie rozbite, nieużywalne"
+b9b1846b,Filip Zmyślony,3,3,3,4,4,4,0,0,0,1,1,„All inclusive” wymówione nienaturalnie; godziny poprawnie
+682144d5,Filip Zmyślony,5,4,5,4,5,5,0,0,0,0,0,"Angielskie wtrącenia (shuttle, Ryanair, pick-up, presidential) poprawnie; długie (~1 s) pauzy między zdaniami"
+a9b1db57,Filip Zmyślony,2,3,3,4,3,2,0,1,0,0,0,"W środku zdania wtrącone niezrozumiałe fragmenty (m.in. „…zastrzeżony znak towarowy…”, „umlaut”) – prawdopodobnie odczyt ukrytych znaków/symboli; „B2B” błędnie"
+dd360d09,Filip Zmyślony,3,2,4,4,3,4,0,1,1,0,0,"Zamiast „które obsługują” wtrącone niezrozumiałe fragmenty (m.in. „…zastrzeżony znak towarowy…”, „umlaut”) – prawdopodobnie odczyt ukrytych znaków/symboli; „ROG” zniekształcone, „USB-C” bez „C”"
+bd8215fa,Filip Zmyślony,3,1,3,4,3,3,4,0,0,0,0,"Błędy w liczbach, m.in. cena „4299 zł” → „412,99 zł”(?), rok „2026” → „2016”(?); bardzo nienaturalne"
+685a0ba5,Filip Zmyślony,5,4,4,4,4,5,0,0,0,0,1,Poprawnie; jeden błąd akcentu
+88e1bfaa,Filip Zmyślony,5,3,4,4,4,4,1,0,0,0,1,Błąd w odczycie godziny/liczebnika; jeden błąd akcentu
+1e4a9dc5,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,"Bezbłędnie, naturalne brzmienie"
+897986e0,Filip Zmyślony,4,4,4,4,4,4,1,0,0,0,0,Poprawnie; drobna niedokładność w odczycie godziny 14:30
+18c1ae12,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,"Bezbłędnie, liczby i skróty poprawnie"
+b723b8ba,Filip Zmyślony,5,3,4,5,5,4,0,0,0,0,0,"Poprawnie, ale brzmienie mniej naturalne"
+bc0ed956,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,Bezbłędnie
+1b3c246d,Filip Zmyślony,4,2,3,4,4,3,0,0,0,1,0,„All inclusive” czytane polską fonetyką
+dc2b9be7,Filip Zmyślony,4,3,3,3,4,3,0,0,0,1,0,"„cheeseburger” wymówiony nienaturalnie; płaska intonacja, długie pauzy"
+a8973014,Filip Zmyślony,5,5,4,5,5,5,0,0,0,0,1,Poprawnie; jeden drobny błąd akcentu
+392c6b0d,Filip Zmyślony,4,3,4,3,4,3,0,0,0,2,0,"„&” w „Spa & Wellness” prawdopodobnie pominięte, wyrazy obce brzmią nienaturalnie; długie pauzy"
+b7ad2acd,Filip Zmyślony,4,2,2,3,3,2,0,0,0,0,0,"Treść poprawna, ale intonacja nienaturalna – pytania nie brzmią jak pytania"
+774aaf57,Filip Zmyślony,2,1,1,3,2,2,0,0,1,1,1,"„McDonald” literowane („MC Donald”), „cheeseburger” zniekształcony; bardzo sztuczna intonacja"
+32dc4309,Filip Zmyślony,5,4,3,4,4,4,0,0,0,0,1,"Wyrazy obce poprawnie; intonacja miejscami monotonna, jeden błąd akcentu"
+cdb9a030,Filip Zmyślony,5,2,3,3,3,3,0,0,0,0,1,"Poprawnie, sztuczne brzmienie; jeden błąd akcentu"
+d816ea52,Filip Zmyślony,5,5,5,5,5,5,0,0,0,0,0,"Bezbłędnie, dobra wymowa nazw"
+dcddf33e,Filip Zmyślony,5,5,5,5,5,5,1,0,0,0,0,Poprawnie; drobny błąd w odczycie godziny

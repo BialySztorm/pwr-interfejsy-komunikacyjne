@@ -1,0 +1,46 @@
+anon_id,rater,kryt2_zrozumialosc,kryt3_naturalnosc,kryt4_intonacja_prozodia,kryt5_plynnosc,kryt6_stabilnosc,kryt8_przydatnosc_w_dialogu,kryt1_bledy_liczby_daty_godziny,kryt1_bledy_skroty,kryt1_bledy_nazwy_wlasne,kryt1_bledy_wyrazy_obce,kryt1_bledy_akcentowanie,uwagi
+05929358,Adam Krzywicki,5,3,3,3,5,5,0,0,0,0,0,nienaturalna przerwa w środku zdania
+08a6cd30,Adam Krzywicki,0,0,0,4,2,0,0,99,99,99,99,model nie rozumie polskich znaków
+0bc7c7a0,Adam Krzywicki,2,2,2,5,4,1,0,0,0,0,99,model nie poradził sobie z polskimi znakami
+0d903f5e,Adam Krzywicki,4,4,3,5,5,4,0,0,0,0,0,dziwnie powiedzane jedno zdanie - chyba próbuje przeczytać link
+169fcee7,Adam Krzywicki,2,2,1,3,4,1,5,1,1,0,0,tragedia
+1c95a012,Adam Krzywicki,1,2,2,4,4,1,0,2,1,4,0,brak polskich znaków - czyta znaki specjalne
+236f3870,Adam Krzywicki,5,1,1,5,5,5,0,0,0,0,0,mówi jak jakiś kosmita
+3350506e,Adam Krzywicki,4,4,4,5,5,4,0,2,1,0,0,przeczytał M2 jako mieszkanie 2 oraz źle powiedział PCIe
+397ab8b5,Adam Krzywicki,5,3,4,5,5,5,0,0,0,0,0,brak
+3ae5b7d1,Adam Krzywicki,5,4,4,5,5,5,0,0,0,0,0,brak
+3c0ff42c,Adam Krzywicki,5,3,4,5,5,5,0,0,0,0,0,brak
+3ead9d25,Adam Krzywicki,0,0,0,0,0,0,99,99,99,99,99,absolutnie nie zrozumiałem ani jednego słowa
+43c515bf,Adam Krzywicki,5,4,4,5,5,5,0,0,0,0,0,brak
+5252604c,Adam Krzywicki,5,2,2,4,5,5,0,0,0,0,0,ten model mówi dobrze ale strasznie nienaturalnie
+557ff4df,Adam Krzywicki,0,0,0,0,0,0,99,99,99,99,99,brak polskich znaków
+5fb28fef,Adam Krzywicki,5,2,2,4,5,5,0,0,0,0,0,brak
+63c83323,Adam Krzywicki,5,2,2,4,5,5,0,0,0,0,0,brak
+70a93d85,Adam Krzywicki,5,2,2,5,5,5,0,0,0,0,0,brak
+710cca5f,Adam Krzywicki,5,4,4,5,5,5,0,0,0,0,0,brak
+7a7ae76e,Adam Krzywicki,5,3,3,5,5,5,0,0,0,0,0,brak
+83ea5531,Adam Krzywicki,5,5,4,5,5,5,0,0,0,0,0,brak
+871a030c,Adam Krzywicki,5,3,4,5,5,5,0,0,0,0,0,brak
+8bc7f0bf,Adam Krzywicki,3,3,3,4,5,5,0,0,4,3,0,brak
+970cc4cd,Adam Krzywicki,5,4,4,4,5,5,0,0,0,0,0,brak
+973d8d63,Adam Krzywicki,5,4,5,5,5,5,0,0,0,0,0,brak
+9d02bc0b,Adam Krzywicki,5,3,3,5,5,5,0,0,0,0,0,brak
+9e22afe6,Adam Krzywicki,5,4,5,5,5,5,0,0,0,0,0,brak
+a2622d32,Adam Krzywicki,5,5,5,5,5,5,0,0,0,0,0,brak
+a52540ab,Adam Krzywicki,0,0,0,0,0,0,99,99,99,99,99,nie ma polskich znaków
+a905cd1b,Adam Krzywicki,2,2,2,4,4,2,0,0,0,0,0,strasznie niewyraźnie
+ac183a5f,Adam Krzywicki,5,4,4,4,4,5,0,0,0,0,0,brak
+b24d8aba,Adam Krzywicki,5,5,5,5,5,5,0,0,0,0,0,brak
+b5171ada,Adam Krzywicki,5,2,3,5,5,5,0,0,0,0,0,brak
+c5803c96,Adam Krzywicki,5,4,3,5,5,5,0,0,0,0,0,brak
+d031ae32,Adam Krzywicki,5,3,3,5,5,5,0,0,0,0,0,brak
+e21a9b5b,Adam Krzywicki,3,4,4,5,5,3,0,0,2,2,0,największy problem ze słowem smartwatch
+e5903e1b,Adam Krzywicki,5,3,3,4,5,5,0,0,0,0,0,brak
+e9e565aa,Adam Krzywicki,5,3,3,4,5,5,0,0,0,0,0,brak
+ed7e69eb,Adam Krzywicki,5,3,3,4,4,5,0,0,0,0,0,brak
+f0bb4f00,Adam Krzywicki,3,2,2,5,3,3,0,0,0,0,0,brak
+f1173348,Adam Krzywicki,5,4,5,3,5,5,0,0,0,0,0,za długa pauza po uwaga
+f2afbd0b,Adam Krzywicki,0,0,0,0,0,0,99,99,99,99,99,brak polskich znaków
+f5b44b0f,Adam Krzywicki,5,4,4,5,5,5,0,0,0,0,0,brak
+f69cddb8,Adam Krzywicki,0,0,0,0,0,0,99,99,99,99,99,brak polskich znaków
+fc18164c,Adam Krzywicki,5,4,5,5,5,5,0,0,0,0,0,brak

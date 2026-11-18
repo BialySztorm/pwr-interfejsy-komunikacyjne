@@ -1,0 +1,19 @@
+﻿system,category,n_ratings,kryt2_zrozumialosc,kryt3_naturalnosc,kryt4_intonacja_prozodia,kryt5_plynnosc,kryt6_stabilnosc,kryt8_przydatnosc_w_dialogu,mean_likert_overall,n_katastroficznych,pct_katastroficznych
+edge-tts,ALL,45,4.53,4.02,4.18,4.51,4.69,4.29,4.37,0,0.0
+edge-tts,Krótki komunikat informacyjny,9,4.89,4.33,4.11,4.56,4.89,4.33,4.52,0,0.0
+edge-tts,"Liczby, daty, godziny, skróty",9,4.44,4.11,4.22,4.44,4.56,4.11,4.31,0,0.0
+edge-tts,Nazwy własne i wyrazy obcojęzyczne,9,3.89,3.78,4.44,4.22,4.44,3.78,4.09,0,0.0
+edge-tts,Pytanie / odpowiedź,9,4.67,4.0,4.22,4.56,4.67,4.67,4.46,0,0.0
+edge-tts,Zdanie złożone / dłuższa wypowiedź,9,4.78,3.89,3.89,4.78,4.89,4.56,4.46,0,0.0
+elevenlabs,ALL,45,4.62,3.44,3.58,4.47,4.6,4.36,4.18,0,0.0
+elevenlabs,Krótki komunikat informacyjny,9,4.89,3.44,3.56,4.67,4.67,4.78,4.33,0,0.0
+elevenlabs,"Liczby, daty, godziny, skróty",9,3.44,3.22,3.56,3.89,4.0,2.78,3.48,0,0.0
+elevenlabs,Nazwy własne i wyrazy obcojęzyczne,9,5.0,3.89,4.0,4.56,4.78,4.78,4.5,0,0.0
+elevenlabs,Pytanie / odpowiedź,9,4.89,3.33,3.56,4.44,4.67,4.56,4.24,0,0.0
+elevenlabs,Zdanie złożone / dłuższa wypowiedź,9,4.89,3.33,3.22,4.78,4.89,4.89,4.33,0,0.0
+piper,ALL,45,3.04,2.16,2.38,3.27,3.36,2.38,2.77,6,13.3
+piper,Krótki komunikat informacyjny,9,3.0,1.67,1.89,3.0,3.22,2.0,2.46,2,22.2
+piper,"Liczby, daty, godziny, skróty",9,3.0,2.33,2.67,3.11,3.33,2.22,2.78,1,11.1
+piper,Nazwy własne i wyrazy obcojęzyczne,9,2.78,2.33,3.0,3.78,3.67,2.44,3.0,0,0.0
+piper,Pytanie / odpowiedź,9,3.33,2.11,2.0,3.33,3.44,2.56,2.79,1,11.1
+piper,Zdanie złożone / dłuższa wypowiedź,9,3.11,2.33,2.33,3.11,3.11,2.67,2.78,2,22.2

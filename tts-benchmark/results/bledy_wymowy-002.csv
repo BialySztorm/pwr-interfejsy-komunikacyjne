@@ -1,0 +1,16 @@
+﻿system,error_subtype,count,pct_of_ratings
+edge-tts,kryt1_bledy_liczby_daty_godziny,3,6.7
+edge-tts,kryt1_bledy_skroty,4,8.9
+edge-tts,kryt1_bledy_nazwy_wlasne,5,11.1
+edge-tts,kryt1_bledy_wyrazy_obce,5,11.1
+edge-tts,kryt1_bledy_akcentowanie,5,11.1
+elevenlabs,kryt1_bledy_liczby_daty_godziny,7,15.6
+elevenlabs,kryt1_bledy_skroty,6,13.3
+elevenlabs,kryt1_bledy_nazwy_wlasne,1,2.2
+elevenlabs,kryt1_bledy_wyrazy_obce,1,2.2
+elevenlabs,kryt1_bledy_akcentowanie,4,8.9
+piper,kryt1_bledy_liczby_daty_godziny,12,26.7
+piper,kryt1_bledy_skroty,15,33.3
+piper,kryt1_bledy_nazwy_wlasne,14,31.1
+piper,kryt1_bledy_wyrazy_obce,14,31.1
+piper,kryt1_bledy_akcentowanie,20,44.4
