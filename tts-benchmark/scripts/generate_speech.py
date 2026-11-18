@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import os
 import re
 import sys
 import time
@@ -45,6 +46,13 @@ SUPPORTED_SYSTEMS = ("edge-tts", "piper", "elevenlabs")
 # gender/timbre — see README.md "Voice selection" for the rationale and how to verify them.
 EDGE_TTS_VOICE = "pl-PL-MarekNeural"  # MS male PL voice
 PIPER_MODEL_PATH = MODELS_DIR / "pl_PL-darkman-medium.onnx"  # male PL voice, 22kHz, medium quality
+# Set PIPER_USE_GPU=1 (e.g. in .env or a run configuration's env vars) to run Piper on an
+# NVIDIA GPU via onnxruntime-gpu + --cuda, instead of CPU. Requires `pip install onnxruntime-gpu`
+# (uninstall plain `onnxruntime` first — the two packages ship the same import name and
+# conflict if both are installed) and a CUDA-capable GPU. Note this makes criterion 7 (speed)
+# less directly comparable to Edge-TTS/ElevenLabs, which always run on the vendor's own cloud
+# hardware — document which mode was used in docs/main.tex.
+PIPER_USE_GPU = os.environ.get("PIPER_USE_GPU", "").strip() not in ("", "0", "false", "False")
 # "Adam" — ElevenLabs premade voice, deep adult male, multilingual-capable. Premade voice IDs
 # occasionally get retired/remapped by ElevenLabs — verify it still points to Adam in your
 # account's Voice Library before a real run (see README.md).
@@ -71,6 +79,40 @@ def synth_edge_tts(text: str, destination: Path) -> None:
         raise GenerationError(f"edge-tts failed: {exc}") from exc
 
 
+# pip-installed CUDA/cuDNN packages whose bin/ dirs must be on PATH for
+# onnxruntime_providers_cuda.dll (and its own dependencies) to load — see README.md
+# "Running Piper on GPU" for why each one is needed (found by inspecting the DLL's
+# import table with pefile; onnxruntime's own error message only names cuDNN/CUDA,
+# not cuFFT, which also has to be there).
+_NVIDIA_GPU_PACKAGES = ("cuda_runtime", "cublas", "cudnn", "cuda_nvrtc", "cufft", "nvjitlink")
+
+
+def _piper_gpu_env() -> dict:
+    """Build a subprocess env with the pip-installed CUDA/cuDNN bin/ dirs prepended to PATH."""
+    import importlib
+
+    try:
+        nvidia_root = Path(importlib.import_module("nvidia").__path__[0])
+    except ImportError as exc:
+        raise GenerationError(
+            "PIPER_USE_GPU is set but the 'nvidia' pip namespace package isn't installed. "
+            "Run: pip install onnxruntime-gpu==1.20.2 nvidia-cublas-cu12 nvidia-cudnn-cu12 "
+            "nvidia-cuda-runtime-cu12 nvidia-cufft-cu12 (see README.md)."
+        ) from exc
+
+    bin_dirs = [nvidia_root / name / "bin" for name in _NVIDIA_GPU_PACKAGES]
+    missing = [str(d) for d in bin_dirs if not d.exists()]
+    if missing:
+        raise GenerationError(
+            f"PIPER_USE_GPU is set but these expected CUDA package dirs are missing: {missing}. "
+            "See README.md 'Running Piper on GPU' for the exact pip packages needed."
+        )
+
+    env = dict(os.environ)
+    env["PATH"] = os.pathsep.join([str(d) for d in bin_dirs] + [env.get("PATH", "")])
+    return env
+
+
 def synth_piper(text: str, destination: Path) -> None:
     import subprocess
 
@@ -80,16 +122,18 @@ def synth_piper(text: str, destination: Path) -> None:
             "model (see README.md) and place it under models/."
         )
 
+    command = ["piper", "--model", str(PIPER_MODEL_PATH), "--output_file", str(destination)]
+    env = None
+    if PIPER_USE_GPU:
+        command.append("--cuda")
+        env = _piper_gpu_env()
+
     try:
         # Piper's own stdin reader expects UTF-8 regardless of the OS locale, but
         # subprocess.run(text=True) on Windows encodes `input` using the console's
         # codepage (cp1250 for Polish Windows) unless told otherwise — so encode to
         # UTF-8 bytes ourselves instead of relying on text mode for stdin.
-        result = subprocess.run(
-            ["piper", "--model", str(PIPER_MODEL_PATH), "--output_file", str(destination)],
-            input=text.encode("utf-8"),
-            capture_output=True,
-        )
+        result = subprocess.run(command, input=text.encode("utf-8"), capture_output=True, env=env)
     except FileNotFoundError as exc:
         raise GenerationError(
             "piper binary not found on PATH. Install it with 'pip install piper-tts'."
@@ -201,6 +245,15 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         action="store_true",
         help="Regenerate even if the destination .wav already exists.",
     )
+    parser.add_argument(
+        "--text-ids",
+        type=Path,
+        default=None,
+        help="Optional text file with one text_id per line (format "
+        "'<person>/<nrindeksu>-<N>-<slug>') to restrict generation to that subset, instead "
+        "of the whole corpus — use this to avoid burning API quota/credits on texts you "
+        "don't actually need (e.g. the group's chosen 15 own + 30 shared texts).",
+    )
     return parser.parse_args(argv)
 
 
@@ -209,6 +262,18 @@ def main(argv: list[str]) -> int:
     args = parse_args(argv)
 
     items = iter_corpus()
+    if args.text_ids is not None:
+        wanted_ids = set(args.text_ids.read_text(encoding="utf-8").splitlines())
+        wanted_ids.discard("")
+        items = [item for item in items if item.text_id in wanted_ids]
+        missing_ids = wanted_ids - {item.text_id for item in items}
+        if missing_ids:
+            print(
+                f"WARNING: {len(missing_ids)} text_id(s) from --text-ids not found in the "
+                f"corpus: {sorted(missing_ids)}",
+                file=sys.stderr,
+            )
+
     if not items:
         print(
             "No texts found. Run scripts/sync_drive.py and scripts/preprocess_texts.py first.",

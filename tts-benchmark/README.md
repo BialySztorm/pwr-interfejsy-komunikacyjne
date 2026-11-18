@@ -114,6 +114,33 @@ evaluation reflect synthesis quality rather than gender/timbre:
 | Piper | `pl_PL-darkman-medium` | the only actively-maintained male Polish Piper voice (the other male option, `mc_speech`, hasn't been updated in over a year) |
 | ElevenLabs | "Adam" (`pNInz6obpgDQGcFmaJgB`) | deep adult male, multilingual-capable — pick a different voice from your account if Adam doesn't sound right for Polish, but keep it male to match the other two |
 
+#### Running Piper on GPU
+
+By default Piper runs on CPU. Set `PIPER_USE_GPU=1` (already on in the `.run/TTS Generate
+Speech (all systems)` and `.run/TTS Sync + Preprocess + Generate Speech` configs) to run it on
+an NVIDIA GPU via `onnxruntime`'s CUDA execution provider instead — `scripts/generate_speech.py`
+passes `--cuda` to Piper and points its subprocess `PATH` at the pip-installed CUDA libraries.
+
+This makes criterion 7 (speed) **not directly comparable** to Edge-TTS/ElevenLabs, which always
+run on the vendor's own cloud hardware regardless of your machine — note which mode Piper used
+in `docs/main.tex`.
+
+Setup (tested with CUDA 13 driver + RTX 5080; CUDA-13-targeted `onnxruntime-gpu` 1.31 couldn't
+find a published `nvidia-cublas-cu13` wheel yet, so this pins the CUDA-12-era release instead):
+
+```powershell
+pip uninstall -y onnxruntime
+pip install onnxruntime-gpu==1.20.2 nvidia-cublas-cu12 nvidia-cudnn-cu12 nvidia-cuda-runtime-cu12 nvidia-cufft-cu12
+```
+
+`nvidia-cufft-cu12` is easy to miss: ONNX Runtime's own error message only mentions "cuDNN 9.*
+and CUDA 12.*", but `onnxruntime_providers_cuda.dll` also imports `cufft64_11.dll` — found by
+inspecting its import table with `pefile`, not from any error message. Without it you get a
+silent `LoadLibrary failed with error 126 ""` with no further detail.
+
+If `PIPER_USE_GPU=1` is set but these packages aren't installed, `generate_speech.py` fails
+with a clear message rather than Piper's raw ONNX Runtime error.
+
 ### 6. Generate speech
 
 ```powershell

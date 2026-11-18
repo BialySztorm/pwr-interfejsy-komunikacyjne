@@ -6,3 +6,10 @@ elevenlabs
 pandas
 scipy
 tqdm
+
+# Optional, for running Piper on an NVIDIA GPU (PIPER_USE_GPU=1) instead of CPU.
+# piper-tts depends on plain `onnxruntime` above; installing these does NOT
+# remove it automatically, so run (in this order, after `pip install -r requirements.txt`):
+#   pip uninstall -y onnxruntime
+#   pip install onnxruntime-gpu==1.20.2 nvidia-cublas-cu12 nvidia-cudnn-cu12 nvidia-cuda-runtime-cu12 nvidia-cufft-cu12
+# See README.md "Running Piper on GPU" for why the pinned 1.20.2 (not latest) and why cuFFT is needed.

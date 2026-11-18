@@ -1,0 +1,358 @@
+﻿system,text_id,category,chars,seconds,chars_per_second,status
+edge-tts,Aleksander Stepaniuk/272644-1-info,Krótki komunikat informacyjny,71,3.714,19.1,ok
+edge-tts,Aleksander Stepaniuk/272644-2-qna,Pytanie / odpowiedź,115,2.967,38.8,ok
+edge-tts,Aleksander Stepaniuk/272644-3-numbers,"Liczby, daty, godziny, skróty",107,2.868,37.3,ok
+edge-tts,Aleksander Stepaniuk/272644-4-long,Zdanie złożone / dłuższa wypowiedź,185,3.691,50.1,ok
+edge-tts,Aleksander Stepaniuk/272644-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,110,2.392,46.0,ok
+edge-tts,Andrzej Manderla/294692-1-info,Krótki komunikat informacyjny,131,,,skipped (already exists)
+edge-tts,Andrzej Manderla/294692-2-qna,Pytanie / odpowiedź,127,,,skipped (already exists)
+edge-tts,Andrzej Manderla/294692-3-numbers,"Liczby, daty, godziny, skróty",153,,,skipped (already exists)
+edge-tts,Andrzej Manderla/294692-4-long,Zdanie złożone / dłuższa wypowiedź,346,,,skipped (already exists)
+edge-tts,Andrzej Manderla/294692-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,210,,,skipped (already exists)
+edge-tts,Dariusz Szypka/272678-1-info,Krótki komunikat informacyjny,92,,,skipped (already exists)
+edge-tts,Dariusz Szypka/272678-2-qna,Pytanie / odpowiedź,146,,,skipped (already exists)
+edge-tts,Dariusz Szypka/272678-3-numbers,"Liczby, daty, godziny, skróty",146,,,skipped (already exists)
+edge-tts,Dariusz Szypka/272678-4-long,Zdanie złożone / dłuższa wypowiedź,192,,,skipped (already exists)
+edge-tts,Dariusz Szypka/272678-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,116,,,skipped (already exists)
+edge-tts,Jakub Borsuk/272646-1-info,Krótki komunikat informacyjny,185,4.627,40.0,ok
+edge-tts,Jakub Borsuk/272646-2-qna,Pytanie / odpowiedź,207,6.332,32.7,ok
+edge-tts,Jakub Borsuk/272646-3-numbers,"Liczby, daty, godziny, skróty",225,5.601,40.2,ok
+edge-tts,Jakub Borsuk/272646-4-long,Zdanie złożone / dłuższa wypowiedź,327,9.914,33.0,ok
+edge-tts,Jakub Borsuk/272646-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,180,7.048,25.5,ok
+edge-tts,Jakub Śliwka/272649-2-qna,Pytanie / odpowiedź,103,,,skipped (already exists)
+edge-tts,Jakub Śliwka/272649-3-numbers,"Liczby, daty, godziny, skróty",79,,,skipped (already exists)
+edge-tts,Jakub Śliwka/272649-4-long,Zdanie złożone / dłuższa wypowiedź,241,,,skipped (already exists)
+edge-tts,Jakub Śliwka/272649-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,94,,,skipped (already exists)
+edge-tts,Jan Powęski/272648-1-info,Krótki komunikat informacyjny,106,2.845,37.3,ok
+edge-tts,Jan Powęski/272648-2-qna,Pytanie / odpowiedź,175,4.966,35.2,ok
+edge-tts,Jan Powęski/272648-3-numbers,"Liczby, daty, godziny, skróty",147,4.631,31.7,ok
+edge-tts,Jan Powęski/272648-4-long,Zdanie złożone / dłuższa wypowiedź,701,11.871,59.1,ok
+edge-tts,Jan Powęski/272648-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,308,6.716,45.9,ok
+edge-tts,Julia Kroczek/266853-1-info,Krótki komunikat informacyjny,133,4.316,30.8,ok
+edge-tts,Julia Kroczek/266853-2-qna,Pytanie / odpowiedź,187,5.442,34.4,ok
+edge-tts,Julia Kroczek/266853-3-numbers,"Liczby, daty, godziny, skróty",259,9.272,27.9,ok
+edge-tts,Julia Kroczek/266853-4-long,Zdanie złożone / dłuższa wypowiedź,247,7.115,34.7,ok
+edge-tts,Julia Kroczek/266853-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,227,5.26,43.2,ok
+edge-tts,Kacper Kawecki/272663-1-info,Krótki komunikat informacyjny,86,,,skipped (already exists)
+edge-tts,Kacper Kawecki/272663-2-qna,Pytanie / odpowiedź,105,,,skipped (already exists)
+edge-tts,Kacper Kawecki/272663-3-numbers,"Liczby, daty, godziny, skróty",112,,,skipped (already exists)
+edge-tts,Kacper Kawecki/272663-4-long,Zdanie złożone / dłuższa wypowiedź,197,,,skipped (already exists)
+edge-tts,Kacper Kawecki/272663-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,95,,,skipped (already exists)
+edge-tts,Kacper Kubiak/272636-1-info,Krótki komunikat informacyjny,182,4.169,43.7,ok
+edge-tts,Kacper Kubiak/272636-2-qna,Pytanie / odpowiedź,242,5.622,43.0,ok
+edge-tts,Kacper Kubiak/272636-3-numbers,"Liczby, daty, godziny, skróty",294,9.98,29.5,ok
+edge-tts,Kacper Kubiak/272636-4-long,Zdanie złożone / dłuższa wypowiedź,870,22.933,37.9,ok
+edge-tts,Kacper Kubiak/272636-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,220,5.657,38.9,ok
+edge-tts,Kacper Tomczyk/272650-1-info,Krótki komunikat informacyjny,93,4.487,20.7,ok
+edge-tts,Kacper Tomczyk/272650-2-qna,Pytanie / odpowiedź,101,2.074,48.7,ok
+edge-tts,Kacper Tomczyk/272650-3-numbers,"Liczby, daty, godziny, skróty",79,3.472,22.8,ok
+edge-tts,Kacper Tomczyk/272650-4-long,Zdanie złożone / dłuższa wypowiedź,195,4.939,39.5,ok
+edge-tts,Kacper Tomczyk/272650-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,75,1.957,38.3,ok
+edge-tts,Karol Zając/276263-1-info,Krótki komunikat informacyjny,83,4.161,19.9,ok
+edge-tts,Karol Zając/276263-2-qna,Pytanie / odpowiedź,80,2.917,27.4,ok
+edge-tts,Karol Zając/276263-3-numbers,"Liczby, daty, godziny, skróty",108,3.704,29.2,ok
+edge-tts,Karol Zając/276263-4-long,Zdanie złożone / dłuższa wypowiedź,176,4.626,38.0,ok
+edge-tts,Karol Zając/276263-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,76,2.287,33.2,ok
+edge-tts,Leszek Kryzar/266877-1-info,Krótki komunikat informacyjny,82,4.54,18.1,ok
+edge-tts,Leszek Kryzar/266877-2-qna,Pytanie / odpowiedź,138,3.562,38.7,ok
+edge-tts,Leszek Kryzar/266877-3-numbers,"Liczby, daty, godziny, skróty",171,6.574,26.0,ok
+edge-tts,Leszek Kryzar/266877-4-long,Zdanie złożone / dłuższa wypowiedź,311,7.327,42.4,ok
+edge-tts,Leszek Kryzar/266877-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,181,4.155,43.6,ok
+edge-tts,Marcin Borkowski/272974-1-info,Krótki komunikat informacyjny,98,,,skipped (already exists)
+edge-tts,Marcin Borkowski/272974-2-qna,Pytanie / odpowiedź,108,,,skipped (already exists)
+edge-tts,Marcin Borkowski/272974-3-numbers,"Liczby, daty, godziny, skróty",136,,,skipped (already exists)
+edge-tts,Marcin Borkowski/272974-4-long,Zdanie złożone / dłuższa wypowiedź,262,,,skipped (already exists)
+edge-tts,Marcin Borkowski/272974-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,179,,,skipped (already exists)
+edge-tts,Marcin Goliasz/273185-1-info,Krótki komunikat informacyjny,104,3.196,32.5,ok
+edge-tts,Marcin Goliasz/273185-2-qna,Pytanie / odpowiedź,240,5.964,40.2,ok
+edge-tts,Marcin Goliasz/273185-3-numbers,"Liczby, daty, godziny, skróty",185,4.952,37.4,ok
+edge-tts,Marcin Goliasz/273185-4-long,Zdanie złożone / dłuższa wypowiedź,386,6.785,56.9,ok
+edge-tts,Marcin Goliasz/273185-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,261,7.559,34.5,ok
+edge-tts,Mateusz Dejewski/272691-1-info,Krótki komunikat informacyjny,77,3.472,22.2,ok
+edge-tts,Mateusz Dejewski/272691-2-qna,Pytanie / odpowiedź,123,4.529,27.2,ok
+edge-tts,Mateusz Dejewski/272691-3-numbers,"Liczby, daty, godziny, skróty",188,8.362,22.5,ok
+edge-tts,Mateusz Dejewski/272691-4-long,Zdanie złożone / dłuższa wypowiedź,502,12.059,41.6,ok
+edge-tts,Mateusz Dejewski/272691-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,264,6.524,40.5,ok
+edge-tts,Mieszko Szczekla/272688-1-info,Krótki komunikat informacyjny,62,2.273,27.3,ok
+edge-tts,Mieszko Szczekla/272688-2-qna,Pytanie / odpowiedź,97,2.821,34.4,ok
+edge-tts,Mieszko Szczekla/272688-3-numbers,"Liczby, daty, godziny, skróty",87,1.986,43.8,ok
+edge-tts,Mieszko Szczekla/272688-4-long,Zdanie złożone / dłuższa wypowiedź,170,3.214,52.9,ok
+edge-tts,Mieszko Szczekla/272688-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,110,2.903,37.9,ok
+edge-tts,Myroslav Hryniuka/294863-1-info,Krótki komunikat informacyjny,84,,,skipped (already exists)
+edge-tts,Myroslav Hryniuka/294863-2-qna,Pytanie / odpowiedź,105,,,skipped (already exists)
+edge-tts,Myroslav Hryniuka/294863-3-numbers,"Liczby, daty, godziny, skróty",83,,,skipped (already exists)
+edge-tts,Myroslav Hryniuka/294863-4-long,Zdanie złożone / dłuższa wypowiedź,157,,,skipped (already exists)
+edge-tts,Myroslav Hryniuka/294863-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,170,,,skipped (already exists)
+edge-tts,Natalia Suda/294696-1-info,Krótki komunikat informacyjny,198,4.394,45.1,ok
+edge-tts,Natalia Suda/294696-2-qna,Pytanie / odpowiedź,117,3.636,32.2,ok
+edge-tts,Natalia Suda/294696-3-numbers,"Liczby, daty, godziny, skróty",206,4.9,42.0,ok
+edge-tts,Natalia Suda/294696-4-long,Zdanie złożone / dłuższa wypowiedź,353,5.774,61.1,ok
+edge-tts,Natalia Suda/294696-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,321,11.55,27.8,ok
+edge-tts,Piotr Bogacki/272753-1-info,Krótki komunikat informacyjny,95,3.977,23.9,ok
+edge-tts,Piotr Bogacki/272753-2-qna,Pytanie / odpowiedź,135,4.191,32.2,ok
+edge-tts,Piotr Bogacki/272753-3-numbers,"Liczby, daty, godziny, skróty",158,5.358,29.5,ok
+edge-tts,Piotr Bogacki/272753-4-long,Zdanie złożone / dłuższa wypowiedź,224,4.231,52.9,ok
+edge-tts,Piotr Bogacki/272753-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,145,3.772,38.4,ok
+edge-tts,Piotr Strycharczyk/272995-1-info,Krótki komunikat informacyjny,129,,,skipped (already exists)
+edge-tts,Piotr Strycharczyk/272995-2-qna,Pytanie / odpowiedź,140,,,skipped (already exists)
+edge-tts,Piotr Strycharczyk/272995-3-numbers,"Liczby, daty, godziny, skróty",152,,,skipped (already exists)
+edge-tts,Piotr Strycharczyk/272995-4-long,Zdanie złożone / dłuższa wypowiedź,235,,,skipped (already exists)
+edge-tts,Piotr Strycharczyk/272995-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,198,,,skipped (already exists)
+edge-tts,Wiktor Kubera/266539-1-info,Krótki komunikat informacyjny,104,4.772,21.8,ok
+edge-tts,Wiktor Kubera/266539-2-qna,Pytanie / odpowiedź,173,4.446,38.9,ok
+edge-tts,Wiktor Kubera/266539-3-numbers,"Liczby, daty, godziny, skróty",143,6.968,20.5,ok
+edge-tts,Wiktor Kubera/266539-4-long,Zdanie złożone / dłuższa wypowiedź,308,4.971,62.0,ok
+edge-tts,Wiktor Kubera/266539-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,160,3.956,40.4,ok
+edge-tts,Wiktor Piekarski/272726-1-info,Krótki komunikat informacyjny,134,3.889,34.5,ok
+edge-tts,Wiktor Piekarski/272726-2-qna,Pytanie / odpowiedź,179,4.356,41.1,ok
+edge-tts,Wiktor Piekarski/272726-3-numbers,"Liczby, daty, godziny, skróty",170,5.312,32.0,ok
+edge-tts,Wiktor Piekarski/272726-4-long,Zdanie złożone / dłuższa wypowiedź,342,6.179,55.3,ok
+edge-tts,Wiktor Piekarski/272726-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,216,5.2,41.5,ok
+edge-tts,Wojciech Krzos/276264-1-info,Krótki komunikat informacyjny,77,2.922,26.3,ok
+edge-tts,Wojciech Krzos/276264-2-qna,Pytanie / odpowiedź,80,2.548,31.4,ok
+edge-tts,Wojciech Krzos/276264-3-numbers,"Liczby, daty, godziny, skróty",172,4.25,40.5,ok
+edge-tts,Wojciech Krzos/276264-4-long,Zdanie złożone / dłuższa wypowiedź,220,4.669,47.1,ok
+edge-tts,Wojciech Krzos/276264-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,174,5.265,33.0,ok
+edge-tts,Yevhenii Lukianenko/294861-1-info,Krótki komunikat informacyjny,80,4.165,19.2,ok
+edge-tts,Yevhenii Lukianenko/294861-2-qna,Pytanie / odpowiedź,109,5.345,20.4,ok
+edge-tts,Yevhenii Lukianenko/294861-3-numbers,"Liczby, daty, godziny, skróty",150,4.429,33.9,ok
+edge-tts,Yevhenii Lukianenko/294861-4-long,Zdanie złożone / dłuższa wypowiedź,252,7.109,35.4,ok
+edge-tts,Yevhenii Lukianenko/294861-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,157,6.55,24.0,ok
+piper,Aleksander Stepaniuk/272644-1-info,Krótki komunikat informacyjny,71,1.969,36.1,ok
+piper,Aleksander Stepaniuk/272644-2-qna,Pytanie / odpowiedź,115,1.945,59.1,ok
+piper,Aleksander Stepaniuk/272644-3-numbers,"Liczby, daty, godziny, skróty",107,1.861,57.5,ok
+piper,Aleksander Stepaniuk/272644-4-long,Zdanie złożone / dłuższa wypowiedź,185,1.906,97.0,ok
+piper,Aleksander Stepaniuk/272644-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,110,1.914,57.5,ok
+piper,Andrzej Manderla/294692-1-info,Krótki komunikat informacyjny,131,,,skipped (already exists)
+piper,Andrzej Manderla/294692-2-qna,Pytanie / odpowiedź,127,,,skipped (already exists)
+piper,Andrzej Manderla/294692-3-numbers,"Liczby, daty, godziny, skróty",153,,,skipped (already exists)
+piper,Andrzej Manderla/294692-4-long,Zdanie złożone / dłuższa wypowiedź,346,,,skipped (already exists)
+piper,Andrzej Manderla/294692-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,210,,,skipped (already exists)
+piper,Dariusz Szypka/272678-1-info,Krótki komunikat informacyjny,92,,,skipped (already exists)
+piper,Dariusz Szypka/272678-2-qna,Pytanie / odpowiedź,146,,,skipped (already exists)
+piper,Dariusz Szypka/272678-3-numbers,"Liczby, daty, godziny, skróty",146,,,skipped (already exists)
+piper,Dariusz Szypka/272678-4-long,Zdanie złożone / dłuższa wypowiedź,192,,,skipped (already exists)
+piper,Dariusz Szypka/272678-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,116,,,skipped (already exists)
+piper,Jakub Borsuk/272646-1-info,Krótki komunikat informacyjny,185,2.174,85.1,ok
+piper,Jakub Borsuk/272646-2-qna,Pytanie / odpowiedź,207,2.23,92.8,ok
+piper,Jakub Borsuk/272646-3-numbers,"Liczby, daty, godziny, skróty",225,2.208,101.9,ok
+piper,Jakub Borsuk/272646-4-long,Zdanie złożone / dłuższa wypowiedź,327,2.059,158.8,ok
+piper,Jakub Borsuk/272646-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,180,2.155,83.5,ok
+piper,Jakub Śliwka/272649-2-qna,Pytanie / odpowiedź,103,,,skipped (already exists)
+piper,Jakub Śliwka/272649-3-numbers,"Liczby, daty, godziny, skróty",79,,,skipped (already exists)
+piper,Jakub Śliwka/272649-4-long,Zdanie złożone / dłuższa wypowiedź,241,,,skipped (already exists)
+piper,Jakub Śliwka/272649-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,94,,,skipped (already exists)
+piper,Jan Powęski/272648-1-info,Krótki komunikat informacyjny,106,1.987,53.4,ok
+piper,Jan Powęski/272648-2-qna,Pytanie / odpowiedź,175,2.084,84.0,ok
+piper,Jan Powęski/272648-3-numbers,"Liczby, daty, godziny, skróty",147,1.982,74.2,ok
+piper,Jan Powęski/272648-4-long,Zdanie złożone / dłuższa wypowiedź,701,2.149,326.2,ok
+piper,Jan Powęski/272648-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,308,1.978,155.7,ok
+piper,Julia Kroczek/266853-1-info,Krótki komunikat informacyjny,133,2.026,65.6,ok
+piper,Julia Kroczek/266853-2-qna,Pytanie / odpowiedź,187,2.236,83.6,ok
+piper,Julia Kroczek/266853-3-numbers,"Liczby, daty, godziny, skróty",259,2.132,121.5,ok
+piper,Julia Kroczek/266853-4-long,Zdanie złożone / dłuższa wypowiedź,247,2.065,119.6,ok
+piper,Julia Kroczek/266853-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,227,2.042,111.1,ok
+piper,Kacper Kawecki/272663-1-info,Krótki komunikat informacyjny,86,,,skipped (already exists)
+piper,Kacper Kawecki/272663-2-qna,Pytanie / odpowiedź,105,,,skipped (already exists)
+piper,Kacper Kawecki/272663-3-numbers,"Liczby, daty, godziny, skróty",112,,,skipped (already exists)
+piper,Kacper Kawecki/272663-4-long,Zdanie złożone / dłuższa wypowiedź,197,,,skipped (already exists)
+piper,Kacper Kawecki/272663-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,95,,,skipped (already exists)
+piper,Kacper Kubiak/272636-1-info,Krótki komunikat informacyjny,182,2.085,87.3,ok
+piper,Kacper Kubiak/272636-2-qna,Pytanie / odpowiedź,242,2.137,113.2,ok
+piper,Kacper Kubiak/272636-3-numbers,"Liczby, daty, godziny, skróty",294,2.354,124.9,ok
+piper,Kacper Kubiak/272636-4-long,Zdanie złożone / dłuższa wypowiedź,870,2.369,367.2,ok
+piper,Kacper Kubiak/272636-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,220,2.179,101.0,ok
+piper,Kacper Tomczyk/272650-1-info,Krótki komunikat informacyjny,93,2.063,45.1,ok
+piper,Kacper Tomczyk/272650-2-qna,Pytanie / odpowiedź,101,1.943,52.0,ok
+piper,Kacper Tomczyk/272650-3-numbers,"Liczby, daty, godziny, skróty",79,2.028,38.9,ok
+piper,Kacper Tomczyk/272650-4-long,Zdanie złożone / dłuższa wypowiedź,195,1.983,98.3,ok
+piper,Kacper Tomczyk/272650-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,75,2.01,37.3,ok
+piper,Karol Zając/276263-1-info,Krótki komunikat informacyjny,83,2.079,39.9,ok
+piper,Karol Zając/276263-2-qna,Pytanie / odpowiedź,80,1.902,42.1,ok
+piper,Karol Zając/276263-3-numbers,"Liczby, daty, godziny, skróty",108,2.134,50.6,ok
+piper,Karol Zając/276263-4-long,Zdanie złożone / dłuższa wypowiedź,176,1.943,90.6,ok
+piper,Karol Zając/276263-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,76,1.894,40.1,ok
+piper,Leszek Kryzar/266877-1-info,Krótki komunikat informacyjny,82,1.954,42.0,ok
+piper,Leszek Kryzar/266877-2-qna,Pytanie / odpowiedź,138,2.089,66.1,ok
+piper,Leszek Kryzar/266877-3-numbers,"Liczby, daty, godziny, skróty",171,2.178,78.5,ok
+piper,Leszek Kryzar/266877-4-long,Zdanie złożone / dłuższa wypowiedź,311,1.892,164.3,ok
+piper,Leszek Kryzar/266877-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,181,2.117,85.5,ok
+piper,Marcin Borkowski/272974-1-info,Krótki komunikat informacyjny,98,,,skipped (already exists)
+piper,Marcin Borkowski/272974-2-qna,Pytanie / odpowiedź,108,,,skipped (already exists)
+piper,Marcin Borkowski/272974-3-numbers,"Liczby, daty, godziny, skróty",136,,,skipped (already exists)
+piper,Marcin Borkowski/272974-4-long,Zdanie złożone / dłuższa wypowiedź,262,,,skipped (already exists)
+piper,Marcin Borkowski/272974-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,179,,,skipped (already exists)
+piper,Marcin Goliasz/273185-1-info,Krótki komunikat informacyjny,104,2.014,51.6,ok
+piper,Marcin Goliasz/273185-2-qna,Pytanie / odpowiedź,240,2.071,115.9,ok
+piper,Marcin Goliasz/273185-3-numbers,"Liczby, daty, godziny, skróty",185,1.992,92.9,ok
+piper,Marcin Goliasz/273185-4-long,Zdanie złożone / dłuższa wypowiedź,386,2.056,187.7,ok
+piper,Marcin Goliasz/273185-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,261,2.1,124.3,ok
+piper,Mateusz Dejewski/272691-1-info,Krótki komunikat informacyjny,77,1.995,38.6,ok
+piper,Mateusz Dejewski/272691-2-qna,Pytanie / odpowiedź,123,2.005,61.3,ok
+piper,Mateusz Dejewski/272691-3-numbers,"Liczby, daty, godziny, skróty",188,2.127,88.4,ok
+piper,Mateusz Dejewski/272691-4-long,Zdanie złożone / dłuższa wypowiedź,502,2.205,227.7,ok
+piper,Mateusz Dejewski/272691-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,264,2.012,131.2,ok
+piper,Mieszko Szczekla/272688-1-info,Krótki komunikat informacyjny,62,1.969,31.5,ok
+piper,Mieszko Szczekla/272688-2-qna,Pytanie / odpowiedź,97,2.014,48.2,ok
+piper,Mieszko Szczekla/272688-3-numbers,"Liczby, daty, godziny, skróty",87,1.916,45.4,ok
+piper,Mieszko Szczekla/272688-4-long,Zdanie złożone / dłuższa wypowiedź,170,1.961,86.7,ok
+piper,Mieszko Szczekla/272688-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,110,1.965,56.0,ok
+piper,Myroslav Hryniuka/294863-1-info,Krótki komunikat informacyjny,84,,,skipped (already exists)
+piper,Myroslav Hryniuka/294863-2-qna,Pytanie / odpowiedź,105,,,skipped (already exists)
+piper,Myroslav Hryniuka/294863-3-numbers,"Liczby, daty, godziny, skróty",83,,,skipped (already exists)
+piper,Myroslav Hryniuka/294863-4-long,Zdanie złożone / dłuższa wypowiedź,157,,,skipped (already exists)
+piper,Myroslav Hryniuka/294863-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,170,,,skipped (already exists)
+piper,Natalia Suda/294696-1-info,Krótki komunikat informacyjny,198,2.104,94.1,ok
+piper,Natalia Suda/294696-2-qna,Pytanie / odpowiedź,117,1.974,59.3,ok
+piper,Natalia Suda/294696-3-numbers,"Liczby, daty, godziny, skróty",206,2.071,99.4,ok
+piper,Natalia Suda/294696-4-long,Zdanie złożone / dłuższa wypowiedź,353,2.015,175.1,ok
+piper,Natalia Suda/294696-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,321,2.128,150.8,ok
+piper,Piotr Bogacki/272753-1-info,Krótki komunikat informacyjny,95,1.967,48.3,ok
+piper,Piotr Bogacki/272753-2-qna,Pytanie / odpowiedź,135,2.094,64.5,ok
+piper,Piotr Bogacki/272753-3-numbers,"Liczby, daty, godziny, skróty",158,1.99,79.4,ok
+piper,Piotr Bogacki/272753-4-long,Zdanie złożone / dłuższa wypowiedź,224,1.867,120.0,ok
+piper,Piotr Bogacki/272753-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,145,1.942,74.7,ok
+piper,Piotr Strycharczyk/272995-1-info,Krótki komunikat informacyjny,129,,,skipped (already exists)
+piper,Piotr Strycharczyk/272995-2-qna,Pytanie / odpowiedź,140,,,skipped (already exists)
+piper,Piotr Strycharczyk/272995-3-numbers,"Liczby, daty, godziny, skróty",152,,,skipped (already exists)
+piper,Piotr Strycharczyk/272995-4-long,Zdanie złożone / dłuższa wypowiedź,235,,,skipped (already exists)
+piper,Piotr Strycharczyk/272995-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,198,,,skipped (already exists)
+piper,Wiktor Kubera/266539-1-info,Krótki komunikat informacyjny,104,1.95,53.3,ok
+piper,Wiktor Kubera/266539-2-qna,Pytanie / odpowiedź,173,2.125,81.4,ok
+piper,Wiktor Kubera/266539-3-numbers,"Liczby, daty, godziny, skróty",143,2.385,60.0,ok
+piper,Wiktor Kubera/266539-4-long,Zdanie złożone / dłuższa wypowiedź,308,2.423,127.1,ok
+piper,Wiktor Kubera/266539-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,160,1.986,80.6,ok
+piper,Wiktor Piekarski/272726-1-info,Krótki komunikat informacyjny,134,2.07,64.7,ok
+piper,Wiktor Piekarski/272726-2-qna,Pytanie / odpowiedź,179,2.052,87.2,ok
+piper,Wiktor Piekarski/272726-3-numbers,"Liczby, daty, godziny, skróty",170,2.121,80.2,ok
+piper,Wiktor Piekarski/272726-4-long,Zdanie złożone / dłuższa wypowiedź,342,1.91,179.1,ok
+piper,Wiktor Piekarski/272726-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,216,2.043,105.7,ok
+piper,Wojciech Krzos/276264-1-info,Krótki komunikat informacyjny,77,1.977,38.9,ok
+piper,Wojciech Krzos/276264-2-qna,Pytanie / odpowiedź,80,2.004,39.9,ok
+piper,Wojciech Krzos/276264-3-numbers,"Liczby, daty, godziny, skróty",172,1.986,86.6,ok
+piper,Wojciech Krzos/276264-4-long,Zdanie złożone / dłuższa wypowiedź,220,1.885,116.7,ok
+piper,Wojciech Krzos/276264-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,174,1.968,88.4,ok
+piper,Yevhenii Lukianenko/294861-1-info,Krótki komunikat informacyjny,80,2.022,39.6,ok
+piper,Yevhenii Lukianenko/294861-2-qna,Pytanie / odpowiedź,109,2.04,53.4,ok
+piper,Yevhenii Lukianenko/294861-3-numbers,"Liczby, daty, godziny, skróty",150,2.121,70.7,ok
+piper,Yevhenii Lukianenko/294861-4-long,Zdanie złożone / dłuższa wypowiedź,252,1.968,128.0,ok
+piper,Yevhenii Lukianenko/294861-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,157,2.009,78.1,ok
+elevenlabs,Aleksander Stepaniuk/272644-1-info,Krótki komunikat informacyjny,71,1.828,38.8,ok
+elevenlabs,Aleksander Stepaniuk/272644-2-qna,Pytanie / odpowiedź,115,0.881,130.5,ok
+elevenlabs,Aleksander Stepaniuk/272644-3-numbers,"Liczby, daty, godziny, skróty",107,0.924,115.8,ok
+elevenlabs,Aleksander Stepaniuk/272644-4-long,Zdanie złożone / dłuższa wypowiedź,185,1.058,174.9,ok
+elevenlabs,Aleksander Stepaniuk/272644-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,110,0.949,115.9,ok
+elevenlabs,Andrzej Manderla/294692-1-info,Krótki komunikat informacyjny,131,,,skipped (already exists)
+elevenlabs,Andrzej Manderla/294692-2-qna,Pytanie / odpowiedź,127,,,skipped (already exists)
+elevenlabs,Andrzej Manderla/294692-3-numbers,"Liczby, daty, godziny, skróty",153,,,skipped (already exists)
+elevenlabs,Andrzej Manderla/294692-4-long,Zdanie złożone / dłuższa wypowiedź,346,,,skipped (already exists)
+elevenlabs,Andrzej Manderla/294692-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,210,,,skipped (already exists)
+elevenlabs,Dariusz Szypka/272678-1-info,Krótki komunikat informacyjny,92,,,skipped (already exists)
+elevenlabs,Dariusz Szypka/272678-2-qna,Pytanie / odpowiedź,146,,,skipped (already exists)
+elevenlabs,Dariusz Szypka/272678-3-numbers,"Liczby, daty, godziny, skróty",146,,,skipped (already exists)
+elevenlabs,Dariusz Szypka/272678-4-long,Zdanie złożone / dłuższa wypowiedź,192,,,skipped (already exists)
+elevenlabs,Dariusz Szypka/272678-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,116,,,skipped (already exists)
+elevenlabs,Jakub Borsuk/272646-1-info,Krótki komunikat informacyjny,185,1.077,171.7,ok
+elevenlabs,Jakub Borsuk/272646-2-qna,Pytanie / odpowiedź,207,1.13,183.2,ok
+elevenlabs,Jakub Borsuk/272646-3-numbers,"Liczby, daty, godziny, skróty",225,1.427,157.7,ok
+elevenlabs,Jakub Borsuk/272646-4-long,Zdanie złożone / dłuższa wypowiedź,327,1.336,244.7,ok
+elevenlabs,Jakub Borsuk/272646-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,180,1.126,159.9,ok
+elevenlabs,Jakub Śliwka/272649-2-qna,Pytanie / odpowiedź,103,,,skipped (already exists)
+elevenlabs,Jakub Śliwka/272649-3-numbers,"Liczby, daty, godziny, skróty",79,,,skipped (already exists)
+elevenlabs,Jakub Śliwka/272649-4-long,Zdanie złożone / dłuższa wypowiedź,241,,,skipped (already exists)
+elevenlabs,Jakub Śliwka/272649-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,94,,,skipped (already exists)
+elevenlabs,Jan Powęski/272648-1-info,Krótki komunikat informacyjny,106,0.854,124.1,ok
+elevenlabs,Jan Powęski/272648-2-qna,Pytanie / odpowiedź,175,1.068,163.9,ok
+elevenlabs,Jan Powęski/272648-3-numbers,"Liczby, daty, godziny, skróty",147,1.096,134.1,ok
+elevenlabs,Jan Powęski/272648-4-long,Zdanie złożone / dłuższa wypowiedź,701,2.167,323.5,ok
+elevenlabs,Jan Powęski/272648-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,308,1.47,209.6,ok
+elevenlabs,Julia Kroczek/266853-1-info,Krótki komunikat informacyjny,133,0.877,151.7,ok
+elevenlabs,Julia Kroczek/266853-2-qna,Pytanie / odpowiedź,187,1.142,163.7,ok
+elevenlabs,Julia Kroczek/266853-3-numbers,"Liczby, daty, godziny, skróty",259,1.609,161.0,ok
+elevenlabs,Julia Kroczek/266853-4-long,Zdanie złożone / dłuższa wypowiedź,247,1.26,196.0,ok
+elevenlabs,Julia Kroczek/266853-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,227,1.246,182.1,ok
+elevenlabs,Kacper Kawecki/272663-1-info,Krótki komunikat informacyjny,86,,,skipped (already exists)
+elevenlabs,Kacper Kawecki/272663-2-qna,Pytanie / odpowiedź,105,,,skipped (already exists)
+elevenlabs,Kacper Kawecki/272663-3-numbers,"Liczby, daty, godziny, skróty",112,,,skipped (already exists)
+elevenlabs,Kacper Kawecki/272663-4-long,Zdanie złożone / dłuższa wypowiedź,197,,,skipped (already exists)
+elevenlabs,Kacper Kawecki/272663-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,95,,,skipped (already exists)
+elevenlabs,Kacper Kubiak/272636-1-info,Krótki komunikat informacyjny,182,1.034,176.0,ok
+elevenlabs,Kacper Kubiak/272636-2-qna,Pytanie / odpowiedź,242,1.284,188.5,ok
+elevenlabs,Kacper Kubiak/272636-3-numbers,"Liczby, daty, godziny, skróty",294,1.755,167.6,ok
+elevenlabs,Kacper Kubiak/272636-4-long,Zdanie złożone / dłuższa wypowiedź,870,2.9,300.0,ok
+elevenlabs,Kacper Kubiak/272636-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,220,1.24,177.5,ok
+elevenlabs,Kacper Tomczyk/272650-1-info,Krótki komunikat informacyjny,93,0.827,112.4,ok
+elevenlabs,Kacper Tomczyk/272650-2-qna,Pytanie / odpowiedź,101,0.887,113.9,ok
+elevenlabs,Kacper Tomczyk/272650-3-numbers,"Liczby, daty, godziny, skróty",79,1.011,78.2,ok
+elevenlabs,Kacper Tomczyk/272650-4-long,Zdanie złożone / dłuższa wypowiedź,195,1.053,185.2,ok
+elevenlabs,Kacper Tomczyk/272650-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,75,0.768,97.6,ok
+elevenlabs,Karol Zając/276263-1-info,Krótki komunikat informacyjny,83,0.78,106.4,ok
+elevenlabs,Karol Zając/276263-2-qna,Pytanie / odpowiedź,80,0.795,100.7,ok
+elevenlabs,Karol Zając/276263-3-numbers,"Liczby, daty, godziny, skróty",108,1.028,105.1,ok
+elevenlabs,Karol Zając/276263-4-long,Zdanie złożone / dłuższa wypowiedź,176,1.068,164.8,ok
+elevenlabs,Karol Zając/276263-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,76,0.871,87.2,ok
+elevenlabs,Leszek Kryzar/266877-1-info,Krótki komunikat informacyjny,82,0.804,101.9,ok
+elevenlabs,Leszek Kryzar/266877-2-qna,Pytanie / odpowiedź,138,0.895,154.2,ok
+elevenlabs,Leszek Kryzar/266877-3-numbers,"Liczby, daty, godziny, skróty",171,1.451,117.8,ok
+elevenlabs,Leszek Kryzar/266877-4-long,Zdanie złożone / dłuższa wypowiedź,311,1.288,241.4,ok
+elevenlabs,Leszek Kryzar/266877-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,181,1.063,170.3,ok
+elevenlabs,Marcin Borkowski/272974-1-info,Krótki komunikat informacyjny,98,,,skipped (already exists)
+elevenlabs,Marcin Borkowski/272974-2-qna,Pytanie / odpowiedź,108,,,skipped (already exists)
+elevenlabs,Marcin Borkowski/272974-3-numbers,"Liczby, daty, godziny, skróty",136,,,skipped (already exists)
+elevenlabs,Marcin Borkowski/272974-4-long,Zdanie złożone / dłuższa wypowiedź,262,,,skipped (already exists)
+elevenlabs,Marcin Borkowski/272974-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,179,,,skipped (already exists)
+elevenlabs,Marcin Goliasz/273185-1-info,Krótki komunikat informacyjny,104,0.904,115.0,ok
+elevenlabs,Marcin Goliasz/273185-2-qna,Pytanie / odpowiedź,240,1.153,208.2,ok
+elevenlabs,Marcin Goliasz/273185-3-numbers,"Liczby, daty, godziny, skróty",185,1.035,178.7,ok
+elevenlabs,Marcin Goliasz/273185-4-long,Zdanie złożone / dłuższa wypowiedź,386,1.494,258.3,ok
+elevenlabs,Marcin Goliasz/273185-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,261,1.213,215.1,ok
+elevenlabs,Mateusz Dejewski/272691-1-info,Krótki komunikat informacyjny,77,0.854,90.2,ok
+elevenlabs,Mateusz Dejewski/272691-2-qna,Pytanie / odpowiedź,123,0.905,136.0,ok
+elevenlabs,Mateusz Dejewski/272691-3-numbers,"Liczby, daty, godziny, skróty",188,1.483,126.8,ok
+elevenlabs,Mateusz Dejewski/272691-4-long,Zdanie złożone / dłuższa wypowiedź,502,1.865,269.1,ok
+elevenlabs,Mateusz Dejewski/272691-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,264,1.298,203.3,ok
+elevenlabs,Mieszko Szczekla/272688-1-info,Krótki komunikat informacyjny,62,0.811,76.4,ok
+elevenlabs,Mieszko Szczekla/272688-2-qna,Pytanie / odpowiedź,97,0.893,108.6,ok
+elevenlabs,Mieszko Szczekla/272688-3-numbers,"Liczby, daty, godziny, skróty",87,0.868,100.3,ok
+elevenlabs,Mieszko Szczekla/272688-4-long,Zdanie złożone / dłuższa wypowiedź,170,1.018,167.0,ok
+elevenlabs,Mieszko Szczekla/272688-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,110,0.937,117.4,ok
+elevenlabs,Myroslav Hryniuka/294863-1-info,Krótki komunikat informacyjny,84,,,skipped (already exists)
+elevenlabs,Myroslav Hryniuka/294863-2-qna,Pytanie / odpowiedź,105,,,skipped (already exists)
+elevenlabs,Myroslav Hryniuka/294863-3-numbers,"Liczby, daty, godziny, skróty",83,,,skipped (already exists)
+elevenlabs,Myroslav Hryniuka/294863-4-long,Zdanie złożone / dłuższa wypowiedź,157,,,skipped (already exists)
+elevenlabs,Myroslav Hryniuka/294863-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,170,,,skipped (already exists)
+elevenlabs,Natalia Suda/294696-1-info,Krótki komunikat informacyjny,198,1.042,190.0,ok
+elevenlabs,Natalia Suda/294696-2-qna,Pytanie / odpowiedź,117,0.919,127.4,ok
+elevenlabs,Natalia Suda/294696-3-numbers,"Liczby, daty, godziny, skróty",206,1.224,168.3,ok
+elevenlabs,Natalia Suda/294696-4-long,Zdanie złożone / dłuższa wypowiedź,353,1.469,240.4,ok
+elevenlabs,Natalia Suda/294696-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,321,1.428,224.7,ok
+elevenlabs,Piotr Bogacki/272753-1-info,Krótki komunikat informacyjny,95,0.872,109.0,ok
+elevenlabs,Piotr Bogacki/272753-2-qna,Pytanie / odpowiedź,135,1.014,133.1,ok
+elevenlabs,Piotr Bogacki/272753-3-numbers,"Liczby, daty, godziny, skróty",158,1.274,124.0,ok
+elevenlabs,Piotr Bogacki/272753-4-long,Zdanie złożone / dłuższa wypowiedź,224,1.153,194.3,ok
+elevenlabs,Piotr Bogacki/272753-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,145,1.04,139.4,ok
+elevenlabs,Piotr Strycharczyk/272995-1-info,Krótki komunikat informacyjny,129,,,skipped (already exists)
+elevenlabs,Piotr Strycharczyk/272995-2-qna,Pytanie / odpowiedź,140,,,skipped (already exists)
+elevenlabs,Piotr Strycharczyk/272995-3-numbers,"Liczby, daty, godziny, skróty",152,,,skipped (already exists)
+elevenlabs,Piotr Strycharczyk/272995-4-long,Zdanie złożone / dłuższa wypowiedź,235,,,skipped (already exists)
+elevenlabs,Piotr Strycharczyk/272995-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,198,,,skipped (already exists)
+elevenlabs,Wiktor Kubera/266539-1-info,Krótki komunikat informacyjny,104,0.923,112.7,ok
+elevenlabs,Wiktor Kubera/266539-2-qna,Pytanie / odpowiedź,173,0.963,179.7,ok
+elevenlabs,Wiktor Kubera/266539-3-numbers,"Liczby, daty, godziny, skróty",143,1.636,87.4,ok
+elevenlabs,Wiktor Kubera/266539-4-long,Zdanie złożone / dłuższa wypowiedź,308,1.265,243.4,ok
+elevenlabs,Wiktor Kubera/266539-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,160,1.052,152.1,ok
+elevenlabs,Wiktor Piekarski/272726-1-info,Krótki komunikat informacyjny,134,1.131,118.5,ok
+elevenlabs,Wiktor Piekarski/272726-2-qna,Pytanie / odpowiedź,179,1.134,157.9,ok
+elevenlabs,Wiktor Piekarski/272726-3-numbers,"Liczby, daty, godziny, skróty",170,1.332,127.7,ok
+elevenlabs,Wiktor Piekarski/272726-4-long,Zdanie złożone / dłuższa wypowiedź,342,1.438,237.8,ok
+elevenlabs,Wiktor Piekarski/272726-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,216,1.238,174.5,ok
+elevenlabs,Wojciech Krzos/276264-1-info,Krótki komunikat informacyjny,77,0.838,91.9,ok
+elevenlabs,Wojciech Krzos/276264-2-qna,Pytanie / odpowiedź,80,0.772,103.7,ok
+elevenlabs,Wojciech Krzos/276264-3-numbers,"Liczby, daty, godziny, skróty",172,0.984,174.8,ok
+elevenlabs,Wojciech Krzos/276264-4-long,Zdanie złożone / dłuższa wypowiedź,220,1.186,185.5,ok
+elevenlabs,Wojciech Krzos/276264-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,174,1.062,163.8,ok
+elevenlabs,Yevhenii Lukianenko/294861-1-info,Krótki komunikat informacyjny,80,0.859,93.1,ok
+elevenlabs,Yevhenii Lukianenko/294861-2-qna,Pytanie / odpowiedź,109,0.945,115.3,ok
+elevenlabs,Yevhenii Lukianenko/294861-3-numbers,"Liczby, daty, godziny, skróty",150,1.191,125.9,ok
+elevenlabs,Yevhenii Lukianenko/294861-4-long,Zdanie złożone / dłuższa wypowiedź,252,1.218,207.0,ok
+elevenlabs,Yevhenii Lukianenko/294861-5-unique-foreign,Nazwy własne i wyrazy obcojęzyczne,157,1.044,150.4,ok
