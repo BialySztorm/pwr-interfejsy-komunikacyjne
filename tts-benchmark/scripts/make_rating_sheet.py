@@ -10,9 +10,16 @@ columns for every criterion that's scored by ear:
   - czas_generowania is NOT here — that's objective and already in latency_tts-NNN.csv
 
 Only `anon_id` is filled in (never `system` or `text_id` — raters must not see
-those). Fill this out by listening to data/anonymized/<anon_id>.wav, save it as
-results/oceny_tts-NNN.csv (drop the _template suffix), then run
-aggregate_ratings.py.
+those). The reference text is deliberately NOT a column here — seeing it right next
+to the score columns would prime the rater before they've judged zrozumiałość
+(criterion 2: can you actually understand it from the audio alone?) and naturalność,
+defeating the point of a blind listen. It's written to a companion
+"..._teksty_referencyjne.csv" (same anon_id, just the text) instead — consult it
+AFTER forming your first impression, mainly to check criterion 1 (poprawność wymowy:
+was this number/date/abbreviation/proper noun read correctly?).
+
+Fill this out by listening to data/anonymized/<anon_id>.wav, save it as
+results/oceny_tts-NNN.csv (drop the _template suffix), then run aggregate_ratings.py.
 
 Per the brief, each 2-3 person group picks 10 of their own texts + 20 shared
 ones for the full listening evaluation — use --text-ids to restrict the sheet
@@ -29,7 +36,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from text_corpus import PROJECT_ROOT  # noqa: E402
+from text_corpus import PROJECT_ROOT, resolve_texts_dir  # noqa: E402
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(errors="replace")
@@ -56,6 +63,16 @@ ERROR_LOG_COLUMNS = [
 ]
 
 FIELDNAMES = ["anon_id", "rater"] + LIKERT_CRITERIA + ERROR_LOG_COLUMNS + ["uwagi"]
+REFERENCE_FIELDNAMES = ["anon_id", "tekst"]
+
+
+def read_text_for(text_id: str) -> str:
+    """text_id looks like '<person>/<nrindeksu>-<N>-<slug>'."""
+    person, stem = text_id.split("/", 1)
+    path = resolve_texts_dir() / person / f"{stem}.txt"
+    if not path.exists():
+        return ""
+    return path.read_text(encoding="utf-8").strip()
 
 
 def latest_mapping_path() -> Path | None:
@@ -114,22 +131,29 @@ def main(argv: list[str]) -> int:
     run_suffix = re.match(r"^mapping-(\d{3})\.csv$", mapping_path.name)[1]
 
     with mapping_path.open("r", encoding="utf-8-sig", newline="") as f:
-        anon_ids = [row["anon_id"] for row in csv.DictReader(f)]
+        rows = list(csv.DictReader(f))
 
     if args.text_ids is not None:
         wanted_ids = set(args.text_ids.read_text(encoding="utf-8").splitlines())
-        with mapping_path.open("r", encoding="utf-8-sig", newline="") as f:
-            anon_ids = [row["anon_id"] for row in csv.DictReader(f) if row["text_id"] in wanted_ids]
+        rows = [row for row in rows if row["text_id"] in wanted_ids]
 
     template_path = RESULTS_DIR / f"oceny_tts-{run_suffix}_template.csv"
     with template_path.open("w", newline="", encoding="utf-8-sig") as f:
         writer = csv.DictWriter(f, fieldnames=FIELDNAMES)
         writer.writeheader()
-        for anon_id in anon_ids:
-            writer.writerow({"anon_id": anon_id, "rater": args.rater})
+        for row in rows:
+            writer.writerow({"anon_id": row["anon_id"], "rater": args.rater})
 
-    print(f"Saved: {template_path} ({len(anon_ids)} rows)")
-    print("Fill it in while listening to data/anonymized/<anon_id>.wav, save without")
+    reference_path = RESULTS_DIR / f"oceny_tts-{run_suffix}_teksty_referencyjne.csv"
+    with reference_path.open("w", newline="", encoding="utf-8-sig") as f:
+        writer = csv.DictWriter(f, fieldnames=REFERENCE_FIELDNAMES)
+        writer.writeheader()
+        for row in rows:
+            writer.writerow({"anon_id": row["anon_id"], "tekst": read_text_for(row["text_id"])})
+
+    print(f"Saved: {template_path} ({len(rows)} rows)")
+    print(f"Saved: {reference_path} (reference texts — consult AFTER your first blind listen)")
+    print("Fill the template in while listening to data/anonymized/<anon_id>.wav, save without")
     print(f"the _template suffix as results/oceny_tts-{run_suffix}.csv, then run aggregate_ratings.py.")
     return 0
 

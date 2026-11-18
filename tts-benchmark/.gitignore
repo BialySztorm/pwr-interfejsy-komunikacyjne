@@ -18,7 +18,9 @@ models/*
 
 results/oceny_tts-*.csv
 !results/oceny_tts-*_template.csv
+!results/oceny_tts-*_teksty_referencyjne.csv
 results/mapping-*.csv
+results/*.zip
 
 __pycache__/
 *.pyc
