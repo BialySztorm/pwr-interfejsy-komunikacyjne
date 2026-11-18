@@ -1,14 +1,14 @@
 # Raport zbioru tekstów (data/texts/raw/)
 
-Wygenerowano: 2026-11-11 13:41 UTC (przez scripts/preprocess_texts.py)
+Wygenerowano: 2026-11-18 16:37 UTC (przez scripts/preprocess_texts.py)
 
-- Liczba osób: 7
-- Liczba tekstów (.txt): 34
+- Liczba osób: 34
+- Liczba tekstów (.txt): 169
 - Liczba tekstów per kategoria:
-  - Krótki komunikat informacyjny: 6
-  - Pytanie / odpowiedź: 7
-  - Liczby, daty, godziny, skróty: 7
-  - Zdanie złożone / dłuższa wypowiedź: 7
-  - Nazwy własne i wyrazy obcojęzyczne: 7
-- Łączna liczba słów: 756
-- Łączna liczba znaków: 4973
+  - Krótki komunikat informacyjny: 33
+  - Pytanie / odpowiedź: 34
+  - Liczby, daty, godziny, skróty: 34
+  - Zdanie złożone / dłuższa wypowiedź: 34
+  - Nazwy własne i wyrazy obcojęzyczne: 34
+- Łączna liczba słów: 4711
+- Łączna liczba znaków: 31627
