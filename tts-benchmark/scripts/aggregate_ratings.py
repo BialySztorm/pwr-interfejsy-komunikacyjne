@@ -7,11 +7,18 @@ category, then writes:
   - results/podsumowanie_tts-NNN.csv: mean Likert score (criteria 2-6, 8) per
     system, both overall ("ALL" category row) and per text category
   - results/bledy_wymowy-NNN.csv: tallied pronunciation-error log (criterion 1)
-    per system and error subtype — counts non-empty entries in each kryt1_bledy_*
-    column, i.e. "rater logged at least one error of this subtype for this clip"
+    per system and error subtype — counts NONZERO entries in each kryt1_bledy_*
+    column (raters use 0 = no error, N = error count, 99 = sentinel for "clip
+    totally unintelligible, applies to every subtype")
 
 Criterion 7 (speed) is NOT aggregated here — see results/latency_tts-NNN.csv and
 scripts/compute_final_score.py, which combines both into the final score.
+
+Raters also used 0 on the Likert columns (kryt2..kryt8) for "completely
+unintelligible / unusable", below the brief's 1-5 scale — kept as a literal data
+point in the mean (correctly penalizing a system that produced unusable clips),
+but ALSO tallied separately per (system, category) as n_katastroficznych /
+pct_katastroficznych so that failure rate doesn't just hide inside a lower average.
 """
 
 from __future__ import annotations
@@ -100,6 +107,7 @@ def main(argv: list[str]) -> int:
         ratings = list(csv.DictReader(f))
 
     likert_scores = defaultdict(lambda: defaultdict(list))  # (system, category) -> criterion -> [scores]
+    catastrophic_counts = defaultdict(int)  # (system, category) -> n rated 0 (unintelligible)
     error_counts = defaultdict(lambda: defaultdict(int))  # system -> error_column -> count
     rated_counts = defaultdict(int)  # (system, category) -> n
 
@@ -117,6 +125,11 @@ def main(argv: list[str]) -> int:
         rated_counts[(system, category)] += 1
         rated_counts[(system, "ALL")] += 1
 
+        is_catastrophic = row.get(LIKERT_CRITERIA[0], "").strip() == "0"
+        if is_catastrophic:
+            catastrophic_counts[(system, category)] += 1
+            catastrophic_counts[(system, "ALL")] += 1
+
         for criterion in LIKERT_CRITERIA:
             raw = row.get(criterion, "").strip()
             if raw == "":
@@ -125,7 +138,8 @@ def main(argv: list[str]) -> int:
             likert_scores[(system, "ALL")][criterion].append(float(raw))
 
         for error_column in ERROR_LOG_COLUMNS:
-            if row.get(error_column, "").strip():
+            raw = row.get(error_column, "").strip()
+            if raw and raw != "0":
                 error_counts[system][error_column] += 1
 
     systems = sorted({info["system"] for info in mapping.values()})
@@ -146,11 +160,18 @@ def main(argv: list[str]) -> int:
                 if values:
                     criterion_means.append(mean)
             row["mean_likert_overall"] = round(statistics.mean(criterion_means), 2) if criterion_means else ""
+            n_catastrophic = catastrophic_counts.get((system, category), 0)
+            row["n_katastroficznych"] = n_catastrophic
+            row["pct_katastroficznych"] = round(100 * n_catastrophic / n, 1) if n else 0.0
             summary_rows.append(row)
 
     summary_path = RESULTS_DIR / ("podsumowanie_tts-" + args.ratings_csv.stem.rsplit("-", 1)[-1] + ".csv")
     with summary_path.open("w", newline="", encoding="utf-8-sig") as f:
-        fieldnames = ["system", "category", "n_ratings"] + LIKERT_CRITERIA + ["mean_likert_overall"]
+        fieldnames = (
+            ["system", "category", "n_ratings"]
+            + LIKERT_CRITERIA
+            + ["mean_likert_overall", "n_katastroficznych", "pct_katastroficznych"]
+        )
         writer = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(summary_rows)
