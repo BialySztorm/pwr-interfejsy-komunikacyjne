@@ -1,0 +1,7 @@
+requests
+python-dotenv
+pyyaml
+transformers
+torch
+scikit-learn
+matplotlib

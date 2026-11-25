@@ -1,0 +1,173 @@
+# Model registry, label mappings, and evaluation weights for the sentiment/emotion
+# benchmark. Keep model choices and label mappings here, not hardcoded in scripts.
+
+models:
+  herbert_sentiment:
+    hf_id: "Voicelab/herbert-base-cased-sentiment"
+    task: sentiment
+    multilabel: false
+    base_model: "allegro/herbert-base-cased"
+    license: "CC BY 4.0"
+    params: "~130M"
+    label_mapping:
+      negative: negative
+      neutral: neutral
+      positive: positive
+
+  bardsai_sentiment:
+    hf_id: "bardsai/twitter-sentiment-pl-base"
+    task: sentiment
+    multilabel: false
+    base_model: "allegro/herbert-base-cased"
+    license: "CC BY 4.0"
+    params: "~130M"
+    label_mapping:
+      negative: negative
+      neutral: neutral
+      positive: positive
+
+  horizon_sentiment:
+    hf_id: "Horizon-Labs/multilingual-sentiment-small"
+    task: sentiment
+    multilabel: false
+    base_model: "jhu-clsp/mmBERT-small"
+    license: "Apache-2.0"
+    params: "~141M"
+    label_mapping:
+      negative: negative
+      neutral: neutral
+      positive: positive
+
+  emotion_roberta_pl6:
+    hf_id: "visegradmedia-emotion/Emotion_RoBERTa_polish6"
+    task: emotion
+    multilabel: false
+    base_model: "RoBERTa"
+    license: "MIT"
+    params: "~355M"
+    label_mapping:
+      anger: anger
+      fear: fear
+      # Merged into "anger" by project decision -- see README "Label mapping decisions".
+      disgust: anger
+      sadness: sadness
+      joy: joy
+      "none of them": none
+
+  goemotions_pl_gpt2:
+    hf_id: "nie3e/go-emotions-polish-gpt2-small-v0.0.1"
+    task: emotion
+    multilabel: true
+    multilabel_threshold: 0.5
+    base_model: "sdadas/polish-gpt2-small"
+    license: "MIT"
+    params: "~124M"
+    label_mapping:
+      joy: joy
+      amusement: joy
+      excitement: joy
+      love: joy
+      admiration: joy
+      approval: joy
+      caring: joy
+      desire: joy
+      gratitude: joy
+      optimism: joy
+      pride: joy
+      relief: joy
+      sadness: sadness
+      grief: sadness
+      remorse: sadness
+      disappointment: sadness
+      embarrassment: sadness
+      anger: anger
+      annoyance: anger
+      disapproval: anger
+      disgust: anger
+      fear: fear
+      nervousness: fear
+      neutral: none
+      confusion: none
+      curiosity: none
+      surprise: none
+      realization: none
+
+  tabularisai_multilingual:
+    hf_id: "tabularisai/multilingual-emotion-classification"
+    task: emotion
+    multilabel: true
+    multilabel_threshold: 0.5
+    base_model: "FacebookAI/xlm-roberta-base"
+    license: "MIT"
+    params: "~278M"
+    label_mapping:
+      joy: joy
+      love: joy
+      gratitude: joy
+      sadness: sadness
+      anger: anger
+      contempt: anger
+      disgust: anger
+      frustration: anger
+      fear: fear
+      neutral: none
+      surprise: none
+
+# Unified label spaces every model's raw output is mapped into (see each model's
+# label_mapping above). Irony is intentionally not an emotion-space label: no candidate
+# model recognizes it, so it is evaluated separately as a sentiment-only subset (see
+# evaluation.irony_ref_sentiment and README "Irony handling").
+sentiment_labels: [negative, neutral, positive]
+emotion_labels: [joy, sadness, anger, fear, none]
+
+evaluation:
+  # A text at or below this word count is "short"; above it, "long" (criterion 3 subset).
+  short_utterance_max_words: 5
+
+  # The reference sentiment normally expected for the irony subset (used only to report
+  # how often models are fooled into predicting the opposite), not for supervised scoring.
+  irony_ref_sentiment: negative
+
+  # Criteria 1-9 from the exercise brief. The brief asks us to define our own measures.
+  # Computed criteria (1, 2, 3, 4, 6, 9) are produced automatically by evaluate.py from
+  # predictions + reference labels. Manual criteria (5, 7, 8) are scored 0-1 by hand in
+  # manual_scores below, with a short justification each.
+  #
+  # This weighting is a PROPOSAL awaiting approval, not an official rubric -- revisit
+  # before the final report if the group/instructor wants different weights.
+  criteria_weights:
+    correctness: 0.20                # 1. sentiment/emotion classification correctness
+    per_emotion_effectiveness: 0.15  # 2. effectiveness per emotion category
+    robustness: 0.15                 # 3. robustness to negation/irony/ambiguity
+    reference_agreement: 0.10        # 4. agreement with the reference annotation
+    label_coverage: 0.10             # 5. (manual) range of recognized emotions/categories
+    single_vs_batch: 0.05            # 6. single-utterance vs. larger-set analysis support
+    interpretability: 0.10           # 7. (manual) readability/interpretability of output
+    integration: 0.05                # 8. (manual) ease of integration into a conversational UI
+    speed: 0.10                      # 9. classification time
+  # Weights must sum to 1.0: 0.20+0.15+0.15+0.10+0.10+0.05+0.10+0.05+0.10 = 1.00
+
+  # Manual 0-1 scores for criteria 5, 7, 8, filled in by hand once models have actually
+  # been run (null = not scored yet). One short justification per score.
+  manual_scores:
+    label_coverage:
+      herbert_sentiment: {score: null, justification: ""}
+      bardsai_sentiment: {score: null, justification: ""}
+      horizon_sentiment: {score: null, justification: ""}
+      emotion_roberta_pl6: {score: null, justification: ""}
+      goemotions_pl_gpt2: {score: null, justification: ""}
+      tabularisai_multilingual: {score: null, justification: ""}
+    interpretability:
+      herbert_sentiment: {score: null, justification: ""}
+      bardsai_sentiment: {score: null, justification: ""}
+      horizon_sentiment: {score: null, justification: ""}
+      emotion_roberta_pl6: {score: null, justification: ""}
+      goemotions_pl_gpt2: {score: null, justification: ""}
+      tabularisai_multilingual: {score: null, justification: ""}
+    integration:
+      herbert_sentiment: {score: null, justification: ""}
+      bardsai_sentiment: {score: null, justification: ""}
+      horizon_sentiment: {score: null, justification: ""}
+      emotion_roberta_pl6: {score: null, justification: ""}
+      goemotions_pl_gpt2: {score: null, justification: ""}
+      tabularisai_multilingual: {score: null, justification: ""}

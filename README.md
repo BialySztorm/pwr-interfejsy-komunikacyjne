@@ -12,7 +12,7 @@ candidate technologies before they are combined into a working interface.
 |---|---|---|---|
 | 1 | ASR/STT comparison (Whisper vs Vosk) | Done | [`asr-benchmark/`](asr-benchmark/) |
 | 2 | TTS comparison (Edge-TTS vs Piper vs ElevenLabs) | In progress | [`tts-benchmark/`](tts-benchmark/) |
-| 3 | Sentiment recognition comparison | Planned | TBD |
+| 3 | Sentiment recognition comparison | In progress | [`sentiment-benchmark/`](sentiment-benchmark/) |
 | 4 | Conversational interface design & implementation | Planned | TBD |
 
 ## Stage 1: ASR benchmark (done)
@@ -78,12 +78,36 @@ Summary:
   stability, and dialogue suitability are rated on a 5-point Likert scale by human listeners on
   anonymized recordings. The brief gives no official per-criterion weights (unlike Stage 1).
 
+## Stage 3: Sentiment benchmark (in progress)
+
+Full details, setup, and usage are in
+[`sentiment-benchmark/README.md`](sentiment-benchmark/README.md). This is a scaffold
+(sync, dataset building, classification, and evaluation implemented and smoke-tested on
+fixtures) — no real Drive sync or model run has been done yet; see
+[`sentiment-benchmark/docs/WYMAGANIA.md`](sentiment-benchmark/docs/WYMAGANIA.md) for exact
+status. Summary:
+
+- **Systems compared:** 3 Polish sentiment models (`Voicelab/herbert-base-cased-sentiment`,
+  `bardsai/twitter-sentiment-pl-base`, `Horizon-Labs/multilingual-sentiment-small`) and 3
+  emotion models (`visegradmedia-emotion/Emotion_RoBERTa_polish6`,
+  `nie3e/go-emotions-polish-gpt2-small-v0.0.1`,
+  `tabularisai/multilingual-emotion-classification`).
+- **Shared test set:** min. 50 texts (5 per student), in Polish, hosted in a public Google
+  Drive folder (link kept only in `.env`, never in the repo).
+- **Dataset convention:** one folder per person named `"Imię Nazwisko"`, with 5 `.txt`
+  files named `<index>-<sentiment>-<emotion>.txt`, where `sentiment` ∈
+  {positive, negative, neutral} and `emotion` ∈ {joy, sadness, anger, fear, irony, none}.
+- **Evaluation criteria and weights:** proposed (not yet approved/finalized) in
+  [`sentiment-benchmark/config.yaml`](sentiment-benchmark/config.yaml) — see that file's
+  `evaluation.criteria_weights`.
+
 ## Repository layout
 
 ```
 pwr-interfejsy-konwersacyjne/
-  asr-benchmark/   # Stage 1: ASR/STT benchmark (Whisper vs Vosk) — see its own README
-  tts-benchmark/   # Stage 2: TTS benchmark (Edge-TTS vs Piper vs ElevenLabs) — see its own README
+  asr-benchmark/         # Stage 1: ASR/STT benchmark (Whisper vs Vosk) — see its own README
+  tts-benchmark/         # Stage 2: TTS benchmark (Edge-TTS vs Piper vs ElevenLabs) — see its own README
+  sentiment-benchmark/   # Stage 3: sentiment/emotion recognition benchmark — see its own README
   .gitignore       # Root-level ignores: IDE files, Python caches, venvs, .env
   README.md        # This file
 ```
@@ -99,6 +123,8 @@ For stage-specific setup (virtual environment, dependencies, Google Drive sync),
 - [`asr-benchmark/docs/GDRIVE_API_KEY.md`](asr-benchmark/docs/GDRIVE_API_KEY.md) — how to obtain
   a Google Drive API key
 - [`tts-benchmark/README.md`](tts-benchmark/README.md) — setup and usage
+- [`sentiment-benchmark/README.md`](sentiment-benchmark/README.md) — setup and usage (uses
+  Python 3.14, not 3.15 — see that README's Setup section for why)
 
 ## Deliverables
 
