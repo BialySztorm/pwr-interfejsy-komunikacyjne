@@ -127,7 +127,11 @@ emotion_labels: [joy, sadness, anger, fear, none]
 
 evaluation:
   # A text at or below this word count is "short"; above it, "long" (criterion 3 subset).
-  short_utterance_max_words: 5
+  # Not specified by the brief (it only asks for "short and elaborate" utterances) -- 10
+  # was picked by inspecting the actual dataset's length_words distribution (5-52 words,
+  # median 17) to get a non-trivial split (15 short / 40 long on the 55-text set at the
+  # time this was set), instead of the earlier default of 5 which only matched 1 text.
+  short_utterance_max_words: 10
 
   # The reference sentiment normally expected for the irony subset (used only to report
   # how often models are fooled into predicting the opposite), not for supervised scoring.

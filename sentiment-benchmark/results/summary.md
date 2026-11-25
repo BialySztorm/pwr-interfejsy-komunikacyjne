@@ -15,12 +15,12 @@
 
 | Model | Accuracy | Macro F1 | Weighted F1 | Mean time/text (ms) | Final score |
 |---|---|---|---|---|---|
-| herbert_sentiment | 0.545 | 0.536 | 0.540 | 21.73 | 0.566 |
-| bardsai_sentiment | 0.618 | 0.607 | 0.616 | 21.51 | 0.614 |
-| horizon_sentiment | 0.836 | 0.840 | 0.840 | 18.77 | 0.784 |
-| emotion_roberta_pl6 | 0.717 | 0.595 | 0.685 | 23.82 | 0.565 |
-| goemotions_pl_gpt2 | 0.522 | 0.501 | 0.525 | 26.03 | 0.536 |
-| tabularisai_multilingual | 0.783 | 0.741 | 0.784 | 23.60 | 0.716 |
+| herbert_sentiment | 0.545 | 0.536 | 0.540 | 22.20 | 0.587 |
+| bardsai_sentiment | 0.618 | 0.607 | 0.616 | 33.35 | 0.587 |
+| horizon_sentiment | 0.836 | 0.840 | 0.840 | 24.18 | 0.777 |
+| emotion_roberta_pl6 | 0.717 | 0.595 | 0.685 | 24.06 | 0.591 |
+| goemotions_pl_gpt2 | 0.522 | 0.501 | 0.525 | 28.58 | 0.556 |
+| tabularisai_multilingual | 0.783 | 0.741 | 0.784 | 23.42 | 0.744 |
 
 ## Inter-model agreement with the reference
 

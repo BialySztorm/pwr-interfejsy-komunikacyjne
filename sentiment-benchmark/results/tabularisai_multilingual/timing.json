@@ -7,9 +7,9 @@
   "model": "tabularisai_multilingual",
   "hf_id": "tabularisai/multilingual-emotion-classification",
   "n_texts": 55,
-  "warmup_s": 0.02480820007622242,
-  "single_pass_total_s": 1.2979290992952883,
-  "single_pass_mean_ms": 23.598710896277968,
-  "single_pass_median_ms": 22.137699997983873,
-  "batch_total_s": 1.4760730999987572
+  "warmup_s": 0.02329649997409433,
+  "single_pass_total_s": 1.2879090000642464,
+  "single_pass_mean_ms": 23.416527273895387,
+  "single_pass_median_ms": 22.75859995279461,
+  "batch_total_s": 1.5275905999587849
 }

@@ -7,9 +7,9 @@
   "model": "bardsai_sentiment",
   "hf_id": "bardsai/twitter-sentiment-pl-base",
   "n_texts": 55,
-  "warmup_s": 0.022384400013834238,
-  "single_pass_total_s": 1.1832366999005899,
-  "single_pass_mean_ms": 21.513394543647088,
-  "single_pass_median_ms": 20.85970004554838,
-  "batch_total_s": 1.154901499976404
+  "warmup_s": 0.02162999997381121,
+  "single_pass_total_s": 1.8344899006187916,
+  "single_pass_mean_ms": 33.35436182943258,
+  "single_pass_median_ms": 23.555399966426194,
+  "batch_total_s": 1.2380453000077978
 }

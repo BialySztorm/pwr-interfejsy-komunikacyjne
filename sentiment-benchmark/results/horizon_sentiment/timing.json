@@ -7,9 +7,9 @@
   "model": "horizon_sentiment",
   "hf_id": "Horizon-Labs/multilingual-sentiment-small",
   "n_texts": 55,
-  "warmup_s": 0.017449700040742755,
-  "single_pass_total_s": 1.032568699796684,
-  "single_pass_mean_ms": 18.77397635993971,
-  "single_pass_median_ms": 17.908800044097006,
-  "batch_total_s": 1.0771247000666335
+  "warmup_s": 0.021204199991188943,
+  "single_pass_total_s": 1.3300327003234997,
+  "single_pass_mean_ms": 24.18241273315454,
+  "single_pass_median_ms": 19.562099943868816,
+  "batch_total_s": 1.1563360000727698
 }

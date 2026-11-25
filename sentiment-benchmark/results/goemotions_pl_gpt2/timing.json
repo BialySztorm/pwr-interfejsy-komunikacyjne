@@ -7,9 +7,9 @@
   "model": "goemotions_pl_gpt2",
   "hf_id": "nie3e/go-emotions-polish-gpt2-small-v0.0.1",
   "n_texts": 55,
-  "warmup_s": 0.03305329999420792,
-  "single_pass_total_s": 1.4318296001292765,
-  "single_pass_mean_ms": 26.033265456895936,
-  "single_pass_median_ms": 25.106600020080805,
-  "batch_total_s": 1.4957771999761462
+  "warmup_s": 0.027398500009439886,
+  "single_pass_total_s": 1.5718491007573903,
+  "single_pass_mean_ms": 28.579074559225276,
+  "single_pass_median_ms": 26.724600000306964,
+  "batch_total_s": 1.873197800014168
 }

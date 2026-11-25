@@ -7,9 +7,9 @@
   "model": "emotion_roberta_pl6",
   "hf_id": "visegradmedia-emotion/Emotion_RoBERTa_polish6",
   "n_texts": 55,
-  "warmup_s": 0.02568660001270473,
-  "single_pass_total_s": 1.3099645000183955,
-  "single_pass_mean_ms": 23.817536363970827,
-  "single_pass_median_ms": 23.09230004902929,
-  "batch_total_s": 1.4742948999628425
+  "warmup_s": 0.023619399988092482,
+  "single_pass_total_s": 1.3234779000049457,
+  "single_pass_mean_ms": 24.063234545544468,
+  "single_pass_median_ms": 23.278200067579746,
+  "batch_total_s": 1.5454977999906987
 }

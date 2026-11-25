@@ -7,9 +7,9 @@
   "model": "herbert_sentiment",
   "hf_id": "Voicelab/herbert-base-cased-sentiment",
   "n_texts": 55,
-  "warmup_s": 0.08316160005051643,
-  "single_pass_total_s": 1.195154400775209,
-  "single_pass_mean_ms": 21.73008001409471,
-  "single_pass_median_ms": 20.63579997047782,
-  "batch_total_s": 1.1357726999558508
+  "warmup_s": 0.09331869997549802,
+  "single_pass_total_s": 1.2207929999567568,
+  "single_pass_mean_ms": 22.196236362850126,
+  "single_pass_median_ms": 21.451600012369454,
+  "batch_total_s": 1.136868300032802
 }
