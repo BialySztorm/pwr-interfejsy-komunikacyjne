@@ -1,0 +1,15 @@
+{
+  "device": "cpu",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD",
+  "python_version": "3.13.15",
+  "torch_version": "2.15.0+cu134",
+  "model": "horizon_sentiment",
+  "hf_id": "Horizon-Labs/multilingual-sentiment-small",
+  "n_texts": 48,
+  "warmup_s": 0.019627299974672496,
+  "single_pass_total_s": 0.9100413001142442,
+  "single_pass_mean_ms": 18.959193752380088,
+  "single_pass_median_ms": 18.22500000707805,
+  "batch_total_s": 0.8918576999567449
+}

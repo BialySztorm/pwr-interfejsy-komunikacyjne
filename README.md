@@ -123,8 +123,8 @@ For stage-specific setup (virtual environment, dependencies, Google Drive sync),
 - [`asr-benchmark/docs/GDRIVE_API_KEY.md`](asr-benchmark/docs/GDRIVE_API_KEY.md) — how to obtain
   a Google Drive API key
 - [`tts-benchmark/README.md`](tts-benchmark/README.md) — setup and usage
-- [`sentiment-benchmark/README.md`](sentiment-benchmark/README.md) — setup and usage (uses
-  Python 3.14, not 3.15 — see that README's Setup section for why)
+- [`sentiment-benchmark/README.md`](sentiment-benchmark/README.md) — setup and usage
+  (shares the root `.venv`, same as the other stages)
 
 ## Deliverables
 

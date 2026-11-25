@@ -1,0 +1,15 @@
+{
+  "device": "cpu",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD",
+  "python_version": "3.13.15",
+  "torch_version": "2.15.0+cu134",
+  "model": "tabularisai_multilingual",
+  "hf_id": "tabularisai/multilingual-emotion-classification",
+  "n_texts": 48,
+  "warmup_s": 0.028339500073343515,
+  "single_pass_total_s": 1.3052425999194384,
+  "single_pass_mean_ms": 27.192554164988298,
+  "single_pass_median_ms": 25.83360008429736,
+  "batch_total_s": 1.2361755000893027
+}

@@ -45,14 +45,19 @@ models:
     base_model: "RoBERTa"
     license: "MIT"
     params: "~355M"
+    # This model's own config.json has no named id2label (just LABEL_0..LABEL_5), unlike
+    # what the model card's prose implies. The order below was confirmed empirically
+    # (unambiguous example sentence per emotion -> argmax index), not read from the repo,
+    # and happens to match the model card's documented order (anger, fear, disgust,
+    # sadness, joy, none of them). Re-verify if the model is ever updated.
     label_mapping:
-      anger: anger
-      fear: fear
+      LABEL_0: anger
+      LABEL_1: fear
       # Merged into "anger" by project decision -- see README "Label mapping decisions".
-      disgust: anger
-      sadness: sadness
-      joy: joy
-      "none of them": none
+      LABEL_2: anger  # disgust
+      LABEL_3: sadness
+      LABEL_4: joy
+      LABEL_5: none  # "none of them"
 
   goemotions_pl_gpt2:
     hf_id: "nie3e/go-emotions-polish-gpt2-small-v0.0.1"

@@ -83,6 +83,7 @@ def build_dataset(raw_dir: Path) -> tuple[list[dict], list[str]]:
     rows: list[dict] = []
     warnings: list[str] = []
     seen_texts: dict[str, str] = {}  # normalized text -> first id that used it
+    seq_by_speaker: Counter = Counter()  # per-speaker running count, used to build unique ids
 
     for speaker, txt_path in iter_raw_files(raw_dir):
         match = FILENAME_PATTERN.match(txt_path.name)
@@ -108,7 +109,11 @@ def build_dataset(raw_dir: Path) -> tuple[list[dict], list[str]]:
             warnings.append(f"Empty file, skipped: {txt_path}")
             continue
 
-        row_id = f"{slugify(speaker)}-{index}"
+        # The filename's <index> is the student's constant index number, repeated
+        # across all 5 of their files -- it can't be used as a per-file unique id.
+        # Use a running per-speaker sequence number instead.
+        seq_by_speaker[speaker] += 1
+        row_id = f"{slugify(speaker)}-{seq_by_speaker[speaker]}"
 
         normalized_text = " ".join(text.lower().split())
         duplicate_of = seen_texts.get(normalized_text)

@@ -1,0 +1,38 @@
+﻿id,text,ref_sentiment,ref_emotion,pred_herbert_sentiment,pred_bardsai_sentiment,pred_horizon_sentiment,pred_emotion_roberta_pl6,pred_goemotions_pl_gpt2,pred_tabularisai_multilingual
+andrzej_manderla-1,"Trzeci raz pytam o status reklamacji telefonu i dalej nikt mi nie odpisał?! Serio, ile można czekać 😡",negative,anger,negative,negative,negative,anger,none,anger
+andrzej_manderla-2,"Słuchawki brzmią świetnie, ale trochę się boję, że lewa znowu przestanie działać jak w poprzednich, a gwarancja kończy mi się za miesiąc.",negative,fear,positive,negative,neutral,fear,fear,fear
+andrzej_manderla-3,"No super, nowy aparat za 4 tysiące, a ładowarki w zestawie oczywiście brak. Brawo, naprawdę przemyślane 👏",negative,irony,positive,positive,negative,n/a (irony),n/a (irony),n/a (irony)
+andrzej_manderla-4,"Hmm, ciekawy ten nowy model…",neutral,none,positive,positive,positive,joy,none,none
+andrzej_manderla-5,"Laptop doszedł dzień przed czasem i działa bez zarzutu, nie spodziewałem się, że pójdzie tak gładko! 😄",positive,joy,positive,positive,positive,joy,none,joy
+dariusz_szypka-1,"Ręczniki nie są brudne, ale obawiam się, czy przy tym hałasie z korytarza da radę tu w ogóle zasnąć.",negative,fear,positive,negative,neutral,fear,fear,fear
+dariusz_szypka-2,"No świetnie, znowu brak ciepłej wody. Naprawdę genialna obsługa jak na hotel 4-gwiazdkowy 👏 Bravo!",negative,irony,positive,positive,negative,n/a (irony),n/a (irony),n/a (irony)
+dariusz_szypka-3,"Aplikacja na telewizorze działa super, ale klimatyzacja to jakaś porażka... 😡",neutral,anger,positive,negative,neutral,anger,sadness,none
+dariusz_szypka-4,"Płatność przeszła, ale sytuacja z moim zameldowaniem wygląda dosyć specyficznie…",neutral,fear,neutral,neutral,neutral,anger,none,none
+jakub_borsuk-1,"Nie przechodzi mi BLIK przy finalizacji koszyka, co chwila wywala błąd i znowu muszę klikać od zera, szlag mnie trafia",negative,anger,negative,negative,negative,fear,anger,anger
+jakub_borsuk-2,"Szukam kryminału skandynawskiego po polsku, najlepiej z dostępem w miękkiej oprawie.",neutral,none,neutral,positive,neutral,none,none,none
+jakub_borsuk-3,"O stary, ten polecony przez ciebie tytuł to strzał w dziesiątkę! Nie sądziłem, że tak szybko wciągnie mnie historia o życiu w PRL, już wrzucam do koszyka 🔥",positive,joy,positive,positive,positive,joy,none,none
+jakub_gurgul-1,"Trzeci raz dzwonię na infolinię i trzeci raz bot mnie nie rozumie. Mówię wyraźnie „reklamacja”, a ten mi proponuje zmianę taryfy. Nie, nie chcę nowej taryfy, nie chcę słuchać muzyczki przez dwadzieścia minut i nie zamierzam po raz kolejny podawać numeru klienta! Czy naprawdę nie da się po prostu połączyć z człowiekiem?!",negative,anger,negative,negative,negative,fear,none,anger
+jakub_gurgul-2,"No super, pociąg znowu spóźniony o godzinę. Uwielbiam spędzać wieczory na peronie w deszczu, to moja ulubiona rozrywka 🙃 Brawo, kolej, jak zawsze niezawodna.",negative,irony,positive,positive,neutral,n/a (irony),n/a (irony),n/a (irony)
+jakub_gurgul-3,"Dziś ostatni dzień w starej pracy. Niby się cieszę, że idę dalej, ale jak oddawałem klucze i zobaczyłem puste biurko, to coś mnie ścisnęło w gardle. Będzie mi brakowało tych ludzi i naszych porannych kaw… :(",negative,sadness,neutral,negative,negative,fear,sadness,sadness
+jakub_gurgul-4,"No dobra, może być. Zobaczymy, jak wyjdzie.",neutral,none,positive,positive,neutral,none,joy,none
+jakub_sliwka-1,"No super, poleciłeś mi książkę, która ma same beznadziejne opinie. Chciałem książkę, która jest bestsellerem i którą ludzie polecają, a nie taką, która tylko dobrze się sprzedaje, choć czytelnicy ją krytykują.",negative,anger,negative,negative,negative,anger,joy,none
+jakub_sliwka-2,O nie! Została tylko ostatnia sztuka?! Nie będzie więcej egzemplarzy?,negative,fear,negative,neutral,negative,anger,none,none
+jakub_sliwka-5,"Nie jest źle, książka ma w porządku opinie i jest nawet tania.",positive,none,positive,positive,positive,joy,joy,none
+mateusz_dejewski-1,"Przyjechałem tutaj głównie dla basenu zewnętrznego, a od dwóch dni jest zamknięty z powodu awarii. Kiedy zamierzacie coś z tym zrobić?",negative,anger,neutral,neutral,negative,anger,none,none
+mateusz_dejewski-3,"No świetnie, hotel Gwiazda Morza reklamuje się jako all inclusive, a po kolacji okazało się, że większość napojów jest dodatkowo płatna. Naprawdę wspaniała definicja all inclusive.",negative,irony,positive,neutral,negative,n/a (irony),n/a (irony),n/a (irony)
+mateusz_dejewski-5,"Właśnie wróciłem z wycieczki organizowanej przez Wasz hotel, wspaniale się bawiłem :) Świetna atmosfera, super przewodnik i piękne widoki. Czy jutro są jeszcze jakieś podobne atrakcje?",positive,joy,positive,positive,positive,joy,joy,none
+myroslav_hryniuka-1,Ile razy mam jeszcze zgłaszać tę windę?! 😡,negative,anger,negative,neutral,negative,anger,none,anger
+myroslav_hryniuka-2,"No super, znowu winda w C-13 nie działa, jak zwykle 🙃",negative,irony,neutral,negative,negative,n/a (irony),n/a (irony),n/a (irony)
+myroslav_hryniuka-3,"Dzięki za trasę, ale szkoda, że znowu muszę jechać dookoła, bo przy głównym wejściu nadal nie ma podjazdu.",negative,sadness,positive,negative,neutral,anger,joy,none
+myroslav_hryniuka-4,"Podaj, proszę, godziny otwarcia biblioteki w budynku D-21.",neutral,none,positive,neutral,neutral,none,none,none
+natalia_suda-2,"Bardzo zależy mi na tej ofercie i strasznie się jaram technologiami w Waszym stacku, ale nie ukrywam, że mam lekki stres przed live codingiem, bo dawno nie rozwiązywałem zadań algorytmicznych pod presją czasu.",negative,fear,positive,positive,neutral,fear,none,fear
+natalia_suda-3,"Cudownie, rozmowa rekrutacyjna o 7:30 rano w poniedziałek po dwóch godzinach snu brzmi jak spełnienie marzeń każdego kandydata…",negative,irony,positive,positive,negative,n/a (irony),n/a (irony),n/a (irony)
+natalia_suda-4,"Praca w modelu hybrydowym, maksymalnie dwa dni z biura we Wrocławiu, reszta zdalnie.",neutral,none,positive,positive,neutral,none,none,none
+vladyslav_yevkov-1,"Boję się, że utknę w windzie, bo ostatnio ciągle się psuje.",negative,fear,neutral,negative,negative,fear,fear,fear
+vladyslav_yevkov-2,"Dzięki, naprawdę bardzo pomocne, że podjazd zamknięto akurat w sesji.",negative,irony,positive,positive,positive,n/a (irony),n/a (irony),n/a (irony)
+vladyslav_yevkov-3,"Chciałem zgłosić, że podjazd przy bibliotece jest zamknięty. Szkoda, bo to jedyne wejście, z którego mogę skorzystać.",negative,sadness,negative,neutral,negative,anger,joy,none
+vladyslav_yevkov-4,"To ciekawe, że trasa prowadzi przez parking…",neutral,none,neutral,neutral,neutral,joy,joy,none
+vladyslav_yevkov-5,"Nie było tak źle, jak się spodziewałem – wejście bez progów działało!",positive,joy,positive,positive,positive,joy,none,joy
+yevhenii_lukianenko-1,"Zgłaszałem uszkodzony krawężnik przy C-3 już trzy tygodnie temu i do dziś nikt nic z tym nie zrobił, to jest po prostu skandal.",negative,anger,negative,negative,negative,anger,sadness,anger
+yevhenii_lukianenko-2,"Nie jestem pewien, czy dam radę sam dojechać do budynku D-20… 😟",negative,fear,neutral,neutral,neutral,anger,none,fear
+yevhenii_lukianenko-5,"Spoko, dzięki za info, lecę na zajęcia 👍",positive,none,positive,positive,positive,joy,joy,none

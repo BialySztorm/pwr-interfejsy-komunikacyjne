@@ -31,9 +31,12 @@ Shared with the group via a Google Drive folder: each person creates a folder na
 <index>-<sentiment>-<emotion>.txt
 ```
 
-where `sentiment` is one of `positive`, `negative`, `neutral`, and `emotion` is one of
-`joy`, `sadness`, `anger`, `fear`, `irony`, `none`. `scripts/build_dataset.py` parses this
-convention; an unrecognized label or malformed filename is skipped with a warning rather
+where `index` is the person's own student index number (the **same** value repeats across
+all 5 of their files -- it is not a 1-5 sequence, so `dataset.csv`'s `id` column is built
+from a per-speaker running counter instead, not from this field), `sentiment` is one of
+`positive`, `negative`, `neutral`, and `emotion` is one of `joy`, `sadness`, `anger`,
+`fear`, `irony`, `none`. `scripts/build_dataset.py` parses this convention; an
+unrecognized label or malformed filename is skipped with a warning rather
 than crashing the pipeline.
 
 ## Label mapping decisions
@@ -57,20 +60,25 @@ Every model's raw output is mapped into a shared label space before evaluation (
 
 ## Setup
 
-### 1. Create a virtual environment
+### 1. Use the repo's shared virtual environment
+
+This stage shares the repository's root-level `.venv` (same as `asr-benchmark/` and
+`tts-benchmark/`) instead of its own — install this folder's dependencies into it:
 
 ```powershell
-py -3.14 -m venv .venv
+cd ..
 .venv\Scripts\activate
-pip install -r requirements.txt
+pip install -r sentiment-benchmark\requirements.txt
+cd sentiment-benchmark
 ```
 
-**Why 3.14, not 3.15:** as of November 2026, `transformers`' PyPI classifiers only declare
-support up to Python 3.14, and its `tokenizers` dependency only recently gained Windows
-wheels for 3.15 (still very fresh). `torch` itself has stable 3.15 wheels, but the
-transformers/tokenizers side is the riskier link on Windows, so this stage targets 3.14
-instead of the 3.15 used elsewhere in this repo. Revisit once `transformers` officially
-lists 3.15 support.
+**Python version note:** ideally this stage would target Python 3.14 — as of November
+2026, `transformers`' PyPI classifiers only declare support up to 3.14, and its
+`tokenizers` dependency only recently gained Windows wheels for 3.15 (still very fresh;
+`torch` itself has stable 3.15 wheels, but transformers/tokenizers is the riskier link on
+Windows). The shared root `.venv` in this repo is Python 3.13, not 3.14 or 3.15 — reusing
+it keeps one environment for the whole repo rather than a third separate one; revisit if
+`transformers`/`tokenizers` ever misbehave on 3.13.
 
 Runs on CPU by default; GPU (`--device cuda`) is optional and only changes speed, not
 output labels.
