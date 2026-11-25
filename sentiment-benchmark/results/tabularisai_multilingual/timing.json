@@ -6,10 +6,10 @@
   "torch_version": "2.15.0+cu134",
   "model": "tabularisai_multilingual",
   "hf_id": "tabularisai/multilingual-emotion-classification",
-  "n_texts": 48,
-  "warmup_s": 0.028339500073343515,
-  "single_pass_total_s": 1.3052425999194384,
-  "single_pass_mean_ms": 27.192554164988298,
-  "single_pass_median_ms": 25.83360008429736,
-  "batch_total_s": 1.2361755000893027
+  "n_texts": 55,
+  "warmup_s": 0.02480820007622242,
+  "single_pass_total_s": 1.2979290992952883,
+  "single_pass_mean_ms": 23.598710896277968,
+  "single_pass_median_ms": 22.137699997983873,
+  "batch_total_s": 1.4760730999987572
 }

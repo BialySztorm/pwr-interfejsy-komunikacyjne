@@ -6,10 +6,10 @@
   "torch_version": "2.15.0+cu134",
   "model": "horizon_sentiment",
   "hf_id": "Horizon-Labs/multilingual-sentiment-small",
-  "n_texts": 48,
-  "warmup_s": 0.019627299974672496,
-  "single_pass_total_s": 0.9100413001142442,
-  "single_pass_mean_ms": 18.959193752380088,
-  "single_pass_median_ms": 18.22500000707805,
-  "batch_total_s": 0.8918576999567449
+  "n_texts": 55,
+  "warmup_s": 0.017449700040742755,
+  "single_pass_total_s": 1.032568699796684,
+  "single_pass_mean_ms": 18.77397635993971,
+  "single_pass_median_ms": 17.908800044097006,
+  "batch_total_s": 1.0771247000666335
 }

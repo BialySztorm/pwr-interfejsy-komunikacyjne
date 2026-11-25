@@ -15,35 +15,35 @@
 
 | Model | Accuracy | Macro F1 | Weighted F1 | Mean time/text (ms) | Final score |
 |---|---|---|---|---|---|
-| herbert_sentiment | 0.583 | 0.577 | 0.576 | 23.05 | 0.549 |
-| bardsai_sentiment | 0.646 | 0.631 | 0.643 | 22.78 | 0.607 |
-| horizon_sentiment | 0.833 | 0.834 | 0.837 | 18.96 | 0.834 |
-| emotion_roberta_pl6 | 0.707 | 0.581 | 0.680 | 22.98 | 0.579 |
-| goemotions_pl_gpt2 | 0.512 | 0.486 | 0.506 | 24.34 | 0.467 |
-| tabularisai_multilingual | 0.780 | 0.751 | 0.787 | 27.19 | 0.644 |
+| herbert_sentiment | 0.545 | 0.536 | 0.540 | 21.73 | 0.566 |
+| bardsai_sentiment | 0.618 | 0.607 | 0.616 | 21.51 | 0.614 |
+| horizon_sentiment | 0.836 | 0.840 | 0.840 | 18.77 | 0.784 |
+| emotion_roberta_pl6 | 0.717 | 0.595 | 0.685 | 23.82 | 0.565 |
+| goemotions_pl_gpt2 | 0.522 | 0.501 | 0.525 | 26.03 | 0.536 |
+| tabularisai_multilingual | 0.783 | 0.741 | 0.784 | 23.60 | 0.716 |
 
 ## Inter-model agreement with the reference
 
 | Model | Agreement | Cohen's kappa |
 |---|---|---|
-| herbert_sentiment | 0.583 | 0.403 |
-| bardsai_sentiment | 0.646 | 0.476 |
-| horizon_sentiment | 0.833 | 0.746 |
-| emotion_roberta_pl6 | 0.707 | 0.619 |
-| goemotions_pl_gpt2 | 0.512 | 0.361 |
-| tabularisai_multilingual | 0.780 | 0.711 |
+| herbert_sentiment | 0.545 | 0.356 |
+| bardsai_sentiment | 0.618 | 0.442 |
+| horizon_sentiment | 0.836 | 0.749 |
+| emotion_roberta_pl6 | 0.717 | 0.634 |
+| goemotions_pl_gpt2 | 0.522 | 0.376 |
+| tabularisai_multilingual | 0.783 | 0.715 |
 
 ## Pairwise model agreement
 
 | Model A | Model B | Task | Agreement | Cohen's kappa |
 |---|---|---|---|---|
-| herbert_sentiment | bardsai_sentiment | sentiment | 0.729 | 0.566 |
-| herbert_sentiment | horizon_sentiment | sentiment | 0.646 | 0.480 |
-| bardsai_sentiment | horizon_sentiment | sentiment | 0.646 | 0.474 |
-| emotion_roberta_pl6 | goemotions_pl_gpt2 | emotion | 0.512 | 0.371 |
-| emotion_roberta_pl6 | tabularisai_multilingual | emotion | 0.585 | 0.468 |
-| goemotions_pl_gpt2 | tabularisai_multilingual | emotion | 0.585 | 0.404 |
+| herbert_sentiment | bardsai_sentiment | sentiment | 0.745 | 0.586 |
+| herbert_sentiment | horizon_sentiment | sentiment | 0.618 | 0.446 |
+| bardsai_sentiment | horizon_sentiment | sentiment | 0.636 | 0.464 |
+| emotion_roberta_pl6 | goemotions_pl_gpt2 | emotion | 0.522 | 0.383 |
+| emotion_roberta_pl6 | tabularisai_multilingual | emotion | 0.609 | 0.496 |
+| goemotions_pl_gpt2 | tabularisai_multilingual | emotion | 0.609 | 0.436 |
 
-Error/disputed cases: 37 (see `errors.csv`).
+Error/disputed cases: 43 (see `errors.csv`).
 
 See `plots/` for confusion matrices, per-class F1, subset results, and timing charts.

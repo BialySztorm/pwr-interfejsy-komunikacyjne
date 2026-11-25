@@ -6,10 +6,10 @@
   "torch_version": "2.15.0+cu134",
   "model": "goemotions_pl_gpt2",
   "hf_id": "nie3e/go-emotions-polish-gpt2-small-v0.0.1",
-  "n_texts": 48,
-  "warmup_s": 0.02708100003656,
-  "single_pass_total_s": 1.1681861999677494,
-  "single_pass_mean_ms": 24.337212499328114,
-  "single_pass_median_ms": 23.929800023324788,
-  "batch_total_s": 1.2545481999404728
+  "n_texts": 55,
+  "warmup_s": 0.03305329999420792,
+  "single_pass_total_s": 1.4318296001292765,
+  "single_pass_mean_ms": 26.033265456895936,
+  "single_pass_median_ms": 25.106600020080805,
+  "batch_total_s": 1.4957771999761462
 }

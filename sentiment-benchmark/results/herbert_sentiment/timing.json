@@ -6,10 +6,10 @@
   "torch_version": "2.15.0+cu134",
   "model": "herbert_sentiment",
   "hf_id": "Voicelab/herbert-base-cased-sentiment",
-  "n_texts": 48,
-  "warmup_s": 0.08535850001499057,
-  "single_pass_total_s": 1.1064622000558302,
-  "single_pass_mean_ms": 23.05129583449646,
-  "single_pass_median_ms": 22.116900072433054,
-  "batch_total_s": 0.9799831999698654
+  "n_texts": 55,
+  "warmup_s": 0.08316160005051643,
+  "single_pass_total_s": 1.195154400775209,
+  "single_pass_mean_ms": 21.73008001409471,
+  "single_pass_median_ms": 20.63579997047782,
+  "batch_total_s": 1.1357726999558508
 }

@@ -6,10 +6,10 @@
   "torch_version": "2.15.0+cu134",
   "model": "bardsai_sentiment",
   "hf_id": "bardsai/twitter-sentiment-pl-base",
-  "n_texts": 48,
-  "warmup_s": 0.025190899963490665,
-  "single_pass_total_s": 1.093351099640131,
-  "single_pass_mean_ms": 22.778147909169395,
-  "single_pass_median_ms": 21.802100003696978,
-  "batch_total_s": 0.9711545000318438
+  "n_texts": 55,
+  "warmup_s": 0.022384400013834238,
+  "single_pass_total_s": 1.1832366999005899,
+  "single_pass_mean_ms": 21.513394543647088,
+  "single_pass_median_ms": 20.85970004554838,
+  "batch_total_s": 1.154901499976404
 }

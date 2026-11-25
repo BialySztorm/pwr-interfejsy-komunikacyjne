@@ -1,24 +1,21 @@
 {
-  "total_texts": 48,
-  "meets_minimum": false,
+  "total_texts": 55,
+  "meets_minimum": true,
   "minimum_required": 50,
-  "speaker_count": 10,
+  "speaker_count": 11,
   "sentiment_distribution": {
-    "negative": 25,
-    "neutral": 11,
-    "positive": 12
+    "negative": 29,
+    "neutral": 13,
+    "positive": 13
   },
   "emotion_distribution": {
-    "anger": 9,
-    "fear": 8,
-    "irony": 7,
-    "none": 11,
-    "joy": 10,
-    "sadness": 3
+    "anger": 10,
+    "fear": 9,
+    "irony": 9,
+    "none": 12,
+    "joy": 11,
+    "sadness": 4
   },
-  "warning_count": 2,
-  "warnings": [
-    "Unknown emotion label 'sarcasm' in D:\\Projects\\pwr-interfejsy-konwersacyjne\\sentiment-benchmark\\data\\raw\\Jakub Borsuk\\272646-negative-sarcasm.txt, skipped.",
-    "Unknown emotion label 'undefined' in D:\\Projects\\pwr-interfejsy-konwersacyjne\\sentiment-benchmark\\data\\raw\\Jakub Borsuk\\272646-neutral-undefined.txt, skipped."
-  ]
+  "warning_count": 0,
+  "warnings": []
 }

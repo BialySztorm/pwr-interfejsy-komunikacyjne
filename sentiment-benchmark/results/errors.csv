@@ -9,8 +9,10 @@ dariusz_szypka-2,"No świetnie, znowu brak ciepłej wody. Naprawdę genialna obs
 dariusz_szypka-3,"Aplikacja na telewizorze działa super, ale klimatyzacja to jakaś porażka... 😡",neutral,anger,positive,negative,neutral,anger,sadness,none
 dariusz_szypka-4,"Płatność przeszła, ale sytuacja z moim zameldowaniem wygląda dosyć specyficznie…",neutral,fear,neutral,neutral,neutral,anger,none,none
 jakub_borsuk-1,"Nie przechodzi mi BLIK przy finalizacji koszyka, co chwila wywala błąd i znowu muszę klikać od zera, szlag mnie trafia",negative,anger,negative,negative,negative,fear,anger,anger
-jakub_borsuk-2,"Szukam kryminału skandynawskiego po polsku, najlepiej z dostępem w miękkiej oprawie.",neutral,none,neutral,positive,neutral,none,none,none
-jakub_borsuk-3,"O stary, ten polecony przez ciebie tytuł to strzał w dziesiątkę! Nie sądziłem, że tak szybko wciągnie mnie historia o życiu w PRL, już wrzucam do koszyka 🔥",positive,joy,positive,positive,positive,joy,none,none
+jakub_borsuk-2,"No cudownie, płatność niby zeszła z konta, a zamówienie dalej wisi jako nieopłacone – uwielbiam tę płynność zakupów.",negative,irony,positive,positive,negative,n/a (irony),n/a (irony),n/a (irony)
+jakub_borsuk-3,"Szukam kryminału skandynawskiego po polsku, najlepiej z dostępem w miękkiej oprawie.",neutral,none,neutral,positive,neutral,none,none,none
+jakub_borsuk-4,"Fajnie, że poleciłeś mi ten zbiór esejów, bo klimat jest naprawdę super, ale nie jestem pewien, czy nie jest za trudny na wieczorny relaks, a cena też nie należy do najniższych",neutral,sadness,positive,positive,neutral,joy,none,none
+jakub_borsuk-5,"O stary, ten polecony przez ciebie tytuł to strzał w dziesiątkę! Nie sądziłem, że tak szybko wciągnie mnie historia o życiu w PRL, już wrzucam do koszyka 🔥",positive,joy,positive,positive,positive,joy,none,none
 jakub_gurgul-1,"Trzeci raz dzwonię na infolinię i trzeci raz bot mnie nie rozumie. Mówię wyraźnie „reklamacja”, a ten mi proponuje zmianę taryfy. Nie, nie chcę nowej taryfy, nie chcę słuchać muzyczki przez dwadzieścia minut i nie zamierzam po raz kolejny podawać numeru klienta! Czy naprawdę nie da się po prostu połączyć z człowiekiem?!",negative,anger,negative,negative,negative,fear,none,anger
 jakub_gurgul-2,"No super, pociąg znowu spóźniony o godzinę. Uwielbiam spędzać wieczory na peronie w deszczu, to moja ulubiona rozrywka 🙃 Brawo, kolej, jak zawsze niezawodna.",negative,irony,positive,positive,neutral,n/a (irony),n/a (irony),n/a (irony)
 jakub_gurgul-3,"Dziś ostatni dzień w starej pracy. Niby się cieszę, że idę dalej, ale jak oddawałem klucze i zobaczyłem puste biurko, to coś mnie ścisnęło w gardle. Będzie mi brakowało tych ludzi i naszych porannych kaw… :(",negative,sadness,neutral,negative,negative,fear,sadness,sadness
@@ -33,6 +35,10 @@ vladyslav_yevkov-2,"Dzięki, naprawdę bardzo pomocne, że podjazd zamknięto ak
 vladyslav_yevkov-3,"Chciałem zgłosić, że podjazd przy bibliotece jest zamknięty. Szkoda, bo to jedyne wejście, z którego mogę skorzystać.",negative,sadness,negative,neutral,negative,anger,joy,none
 vladyslav_yevkov-4,"To ciekawe, że trasa prowadzi przez parking…",neutral,none,neutral,neutral,neutral,joy,joy,none
 vladyslav_yevkov-5,"Nie było tak źle, jak się spodziewałem – wejście bez progów działało!",positive,joy,positive,positive,positive,joy,none,joy
+wiktor_piekarski-2,"Ucieszyłem się, że w końcu znalazłem kombi z automatem w moim budżecie, ale trochę się boję, że wpakuję się w kosztowną naprawę. Sprzedawca nie ma faktur z ostatnich dwóch lat i nie wiem, co w tym czasie było robione przy aucie. Możesz mi powiedzieć, o co zapytać przed jazdą próbną?",negative,fear,neutral,neutral,neutral,fear,fear,fear
+wiktor_piekarski-3,"No cudownie, proszę o kombi do 80 tysięcy, a ty mi pokazujesz SUV-y po 140. Dokładnie o to mi chodziło 🙃",negative,irony,positive,positive,negative,n/a (irony),n/a (irony),n/a (irony)
+wiktor_piekarski-4,"Nie wiem jeszcze, czy potrzebuję większego auta. Możesz porównać pojemność bagażnika Corolli Touring Sports i Octavii Kombi?",neutral,none,positive,neutral,neutral,none,none,none
+wiktor_piekarski-5,"Ale super, wózek wchodzi do bagażnika bez składania! :D",positive,joy,positive,positive,positive,joy,none,joy
 yevhenii_lukianenko-1,"Zgłaszałem uszkodzony krawężnik przy C-3 już trzy tygodnie temu i do dziś nikt nic z tym nie zrobił, to jest po prostu skandal.",negative,anger,negative,negative,negative,anger,sadness,anger
 yevhenii_lukianenko-2,"Nie jestem pewien, czy dam radę sam dojechać do budynku D-20… 😟",negative,fear,neutral,neutral,neutral,anger,none,fear
 yevhenii_lukianenko-5,"Spoko, dzięki za info, lecę na zajęcia 👍",positive,none,positive,positive,positive,joy,joy,none

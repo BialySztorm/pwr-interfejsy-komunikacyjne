@@ -145,34 +145,34 @@ evaluation:
     per_emotion_effectiveness: 0.15  # 2. effectiveness per emotion category
     robustness: 0.15                 # 3. robustness to negation/irony/ambiguity
     reference_agreement: 0.10        # 4. agreement with the reference annotation
-    label_coverage: 0.10             # 5. (manual) range of recognized emotions/categories
+    label_coverage: 0.10             # 5. range of recognized emotions/categories
     single_vs_batch: 0.05            # 6. single-utterance vs. larger-set analysis support
-    interpretability: 0.10           # 7. (manual) readability/interpretability of output
-    integration: 0.05                # 8. (manual) ease of integration into a conversational UI
-    speed: 0.10                      # 9. classification time
-  # Weights must sum to 1.0: 0.20+0.15+0.15+0.10+0.10+0.05+0.10+0.05+0.10 = 1.00
+    interpretability: 0.10           # 7. readability/interpretability of output
+    integration: 0.10                # 8. ease of integration into a conversational UI
+    speed: 0.05                      # 9. classification time
+  # Weights must sum to 1.0: 0.20+0.15+0.15+0.10+0.10+0.05+0.10+0.10+0.05 = 1.00
 
   # Manual 0-1 scores for criteria 5, 7, 8, filled in by hand once models have actually
   # been run (null = not scored yet). One short justification per score.
   manual_scores:
     label_coverage:
-      herbert_sentiment: {score: null, justification: ""}
-      bardsai_sentiment: {score: null, justification: ""}
-      horizon_sentiment: {score: null, justification: ""}
-      emotion_roberta_pl6: {score: null, justification: ""}
-      goemotions_pl_gpt2: {score: null, justification: ""}
-      tabularisai_multilingual: {score: null, justification: ""}
+      herbert_sentiment: {score: 0.3, justification: "Only the 3 standard sentiment classes; no emotion granularity at all"}
+      bardsai_sentiment: {score: 0.3, justification: "Same 3-class sentiment-only output as herbert_sentiment"}
+      horizon_sentiment: {score: 0.3, justification: "Same 3-class sentiment-only output, no emotion categories"}
+      emotion_roberta_pl6: {score: 0.6, justification: "6 raw classes (5 basic emotions + none), single-label only, no mixed-affect detection"}
+      goemotions_pl_gpt2: {score: 0.95, justification: "28 raw multi-label GoEmotions categories, richest raw granularity, supports detecting mixed/simultaneous emotions"}
+      tabularisai_multilingual: {score: 0.8, justification: "11 raw multi-label categories (incl. contempt, frustration, love, gratitude) plus multilingual support beyond Polish"}
     interpretability:
-      herbert_sentiment: {score: null, justification: ""}
-      bardsai_sentiment: {score: null, justification: ""}
-      horizon_sentiment: {score: null, justification: ""}
-      emotion_roberta_pl6: {score: null, justification: ""}
-      goemotions_pl_gpt2: {score: null, justification: ""}
-      tabularisai_multilingual: {score: null, justification: ""}
+      herbert_sentiment: {score: 0.9, justification: "Clean named 3-class softmax output, trivial to read and log"}
+      bardsai_sentiment: {score: 0.9, justification: "Same simple named 3-class output"}
+      horizon_sentiment: {score: 0.9, justification: "Same simple named 3-class output"}
+      emotion_roberta_pl6: {score: 0.5, justification: "Raw output is unlabeled LABEL_0..LABEL_5 with no built-in semantics -- meaningless without our own hand-verified mapping in config.yaml (see comment there)"}
+      goemotions_pl_gpt2: {score: 0.6, justification: "28 named multi-label scores are informative but too many to read at a glance without aggregation"}
+      tabularisai_multilingual: {score: 0.75, justification: "11 named multi-label sigmoid scores, named and independent -- more readable than 28 labels, still more to parse than a single 3-class softmax"}
     integration:
-      herbert_sentiment: {score: null, justification: ""}
-      bardsai_sentiment: {score: null, justification: ""}
-      horizon_sentiment: {score: null, justification: ""}
-      emotion_roberta_pl6: {score: null, justification: ""}
-      goemotions_pl_gpt2: {score: null, justification: ""}
-      tabularisai_multilingual: {score: null, justification: ""}
+      herbert_sentiment: {score: 0.8, justification: "Standard transformers pipeline, ~130M fits CPU real-time use, 3-class output maps directly to simple branching logic"}
+      bardsai_sentiment: {score: 0.8, justification: "Same integration profile as herbert_sentiment"}
+      horizon_sentiment: {score: 0.85, justification: "Smallest sentiment model here, Apache-2.0 (most permissive), ships a quantized ONNX/Transformers.js variant aimed at lightweight deployment"}
+      emotion_roberta_pl6: {score: 0.5, justification: "Largest model of the six (~355M) and requires permanently maintaining our own LABEL_i mapping table to stay meaningful"}
+      goemotions_pl_gpt2: {score: 0.55, justification: "Smallest/fastest emotion model (~124M), but multi-label plus a 28-to-5 label mapping adds integration complexity"}
+      tabularisai_multilingual: {score: 0.7, justification: "Moderate size, MIT license, straightforward sigmoid-threshold API, multilingual if the interface ever needs more than Polish"}
